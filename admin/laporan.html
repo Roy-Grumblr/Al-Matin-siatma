@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="min-w-48 flex-1">
+              <label for="report-type" class="mb-1.5 block text-sm font-medium">Jenis Laporan</label>
+              <select id="report-type" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                <option>Laporan Data Siswa</option><option selected>Rekap Absensi</option><option>Data Guru</option><option>Data Kelas</option>
+              </select>
+            </div>
+            <div class="min-w-44 flex-1">
+              <label for="report-period" class="mb-1.5 block text-sm font-medium">Periode</label>
+              <select id="report-period" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                <option selected>Bulan Ini</option><option>3 Bulan Terakhir</option><option>Semester</option><option>Tahun Ajaran</option>
+              </select>
+            </div>
+            <div class="min-w-44 flex-1">
+              <label for="report-class" class="mb-1.5 block text-sm font-medium">Kelas</label>
+              <select id="report-class" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                <option selected>Semua</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option>
+              </select>
+            </div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
+          </div>
+        </section>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          <section class="overflow-hidden rounded-2xl bg-white shadow-sm lg:col-span-2">
+            <div class="border-b border-slate-100 p-6">
+              <h2 class="text-lg font-semibold">Preview Laporan</h2>
+              <p class="mt-1 text-sm text-text-muted">Rekap Absensi - September 2026</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-left text-sm">
+                <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted">
+                  <tr><th class="px-6 py-4">Nama</th><th class="px-6 py-4 text-center">Hadir</th><th class="px-6 py-4 text-center">Sakit</th><th class="px-6 py-4 text-center">Izin</th><th class="px-6 py-4 text-center">Alpa</th><th class="px-6 py-4 text-right">% Kehadiran</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4 font-medium">Andi Pratama</td><td class="px-6 py-4 text-center">20</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">95%</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Aisyah Putri</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Budi Saputra</td><td class="px-6 py-4 text-center">18</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">2</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">86%</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Citra Dewi</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Dinda Ayu</td><td class="px-6 py-4 text-center">19</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">90%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 class="mb-4 text-lg font-semibold">Aksi</h2>
+            <button type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600"><span aria-hidden="true">↓</span>Export PDF</button>
+            <button type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-green-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600"><span aria-hidden="true">↓</span>Export Excel</button>
+            <button type="button" class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary"><span aria-hidden="true">⎙</span>Print</button>
+          </section>
+        </div>
+
+        <section class="mt-4">
+          <h2 class="mb-3 text-lg font-semibold">Laporan Tersedia</h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+              <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.125-.95M15 19.128v-.003c0-1.054-.252-2.06-.7-2.94M9 19.128a9.38 9.38 0 0 1-2.625.372 9.337 9.337 0 0 1-4.125-.95M9 19.128v-.003c0-1.054.252-2.06.7-2.94M12 12a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></span>
+              <span class="text-sm font-medium">Laporan Data Siswa</span>
+            </button>
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+              <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-secondary/10 text-secondary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A1.75 1.75 0 0 1 19 5.5v13a1.75 1.75 0 0 1-1.75 1.75H6.75A1.75 1.75 0 0 1 5 18.5v-13a1.75 1.75 0 0 1 1.75-1.75ZM8.25 7.5h7.5m-7.5 3.75h7.5m-7.5 3.75h4.5"/></svg></span>
+              <span class="text-sm font-medium">Rekap Absensi</span>
+            </button>
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+              <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></span>
+              <span class="text-sm font-medium">Data Guru</span>
+            </button>
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+              <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-purple-100 text-purple-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></span>
+              <span class="text-sm font-medium">Data Kelas</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'laporan',
+        title: 'Laporan',
+        breadcrumb: 'Home / Laporan'
+      });
+    </script>
+  </body>
+</html>
+

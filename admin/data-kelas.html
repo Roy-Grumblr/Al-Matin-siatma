@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Kelas | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <div class="relative">
+            <label for="class-search" class="sr-only">Cari kelas</label>
+            <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
+            <input id="class-search" type="search" placeholder="Cari kelas..." class="w-64 rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" />
+          </div>
+          <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Kelas</button>
+        </div>
+
+        <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
+            <h2 class="text-xl font-bold">TK A</h2><p class="mt-1 text-sm text-text-muted">Ibu Siti Aminah</p>
+            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">20 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
+            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
+          </article>
+
+          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
+            <h2 class="text-xl font-bold">TK B</h2><p class="mt-1 text-sm text-text-muted">Ibu Rina Wulandari</p>
+            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">18 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
+            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
+          </article>
+
+          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
+            <h2 class="text-xl font-bold">Kelompok Bermain</h2><p class="mt-1 text-sm text-text-muted">Ibu Dewi Lestari</p>
+            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">15 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
+            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
+          </article>
+
+          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
+            <h2 class="text-xl font-bold">TK A</h2><p class="mt-1 text-sm text-text-muted">Ibu Nur Hidayah</p>
+            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">22 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2026/2027</span></div></div>
+            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
+          </article>
+
+          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Draft</span></div>
+            <h2 class="text-xl font-bold">TK B</h2><p class="mt-1 text-sm text-text-muted">Ibu Fitri Handayani</p>
+            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">10 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2026/2027</span></div></div>
+            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-kelas',
+        title: 'Data Kelas',
+        breadcrumb: 'Home / Data Kelas'
+      });
+    </script>
+  </body>
+</html>
+

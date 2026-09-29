@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Guru | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-6">
+            <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">SA</div>
+            <div>
+              <h2 class="text-2xl font-bold">Siti Aminah</h2>
+              <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted">
+                <span>ID: G001</span><span>Kelas: TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Edit</button>
+        </section>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          <section class="rounded-2xl bg-white p-6 shadow-sm lg:col-span-2">
+            <h2 class="mb-5 text-lg font-semibold">Informasi Pribadi</h2>
+            <dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+              <div><dt class="text-sm text-text-muted">ID Guru</dt><dd class="mt-1 font-medium">G001</dd></div>
+              <div><dt class="text-sm text-text-muted">Nama Lengkap</dt><dd class="mt-1 font-medium">Siti Aminah</dd></div>
+              <div><dt class="text-sm text-text-muted">Email</dt><dd class="mt-1 font-medium">siti@almatin.sch.id</dd></div>
+              <div><dt class="text-sm text-text-muted">Nomor HP</dt><dd class="mt-1 font-medium">081234567890</dd></div>
+              <div><dt class="text-sm text-text-muted">Kelas</dt><dd class="mt-1 font-medium">TK A</dd></div>
+              <div><dt class="text-sm text-text-muted">Status</dt><dd class="mt-1"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></dd></div>
+              <div class="md:col-span-2"><dt class="text-sm text-text-muted">Alamat</dt><dd class="mt-1 font-medium">Jl. Pendidikan No. 123, Jakarta</dd></div>
+            </dl>
+          </section>
+
+          <section class="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-semibold">Akun Login</h2>
+            <dl class="space-y-5">
+              <div><dt class="text-sm text-text-muted">Username</dt><dd class="mt-1 font-medium">siti.aminah</dd></div>
+              <div><dt class="text-sm text-text-muted">Terakhir login</dt><dd class="mt-1 font-medium">24 September 2026, 08:30</dd></div>
+            </dl>
+            <button type="button" class="mt-6 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Reset Password</button>
+          </section>
+        </div>
+
+        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-4 text-lg font-semibold">Kelas yang Diampu</h2>
+          <div class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 p-4">
+            <div>
+              <p class="font-semibold">TK A</p>
+              <p class="mt-1 text-sm text-text-muted">20 siswa</p>
+            </div>
+            <span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>
+          </div>
+          <button type="button" class="mt-4 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Kelas</button>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-guru',
+        title: 'Detail Guru',
+        breadcrumb: 'Home / Data Guru / Detail'
+      });
+    </script>
+  </body>
+</html>
+

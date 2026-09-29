@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Guru | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative">
+              <label for="teacher-search" class="sr-only">Cari nama atau ID Guru</label>
+              <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
+              <input id="teacher-search" type="search" placeholder="Cari nama atau ID Guru..." class="w-64 rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" />
+            </div>
+            <select aria-label="Filter Status" class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-text-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Status</option><option>Aktif</option><option>Tidak Aktif</option></select>
+            <select aria-label="Filter Kelas" class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-text-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Kelas</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option></select>
+          </div>
+          <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Guru</button>
+        </div>
+
+        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+          <div class="hidden overflow-x-auto md:block">
+            <table class="min-w-full text-left">
+              <thead class="bg-bg text-sm font-medium uppercase tracking-wide text-text-muted">
+                <tr><th class="px-6 py-4">ID Guru</th><th class="px-6 py-4">Nama Guru</th><th class="px-6 py-4">Email</th><th class="px-6 py-4">Nomor HP</th><th class="px-6 py-4">Kelas</th><th class="px-6 py-4">Status</th><th class="px-6 py-4 text-center">Aksi</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-sm">
+                <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4 text-text-muted">G001</td><td class="whitespace-nowrap px-6 py-4 font-medium">Siti Aminah</td><td class="px-6 py-4">siti@almatin.sch.id</td><td class="px-6 py-4">081234567890</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-3 text-text-muted"><button aria-label="Detail Siti Aminah" class="hover:text-primary">◉</button><button aria-label="Edit Siti Aminah" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Siti Aminah" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">G002</td><td class="px-6 py-4 font-medium">Rina Wulandari</td><td class="px-6 py-4">rina@almatin.sch.id</td><td class="px-6 py-4">081234567891</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-3 text-text-muted"><button aria-label="Detail Rina Wulandari" class="hover:text-primary">◉</button><button aria-label="Edit Rina Wulandari" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Rina Wulandari" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">G003</td><td class="px-6 py-4 font-medium">Dewi Lestari</td><td class="px-6 py-4">dewi@almatin.sch.id</td><td class="px-6 py-4">081234567892</td><td class="px-6 py-4">Kelompok Bermain</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-3 text-text-muted"><button aria-label="Detail Dewi Lestari" class="hover:text-primary">◉</button><button aria-label="Edit Dewi Lestari" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Dewi Lestari" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">G004</td><td class="px-6 py-4 font-medium">Nur Hidayah</td><td class="px-6 py-4">nur@almatin.sch.id</td><td class="px-6 py-4">081234567893</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-3 text-text-muted"><button aria-label="Detail Nur Hidayah" class="hover:text-primary">◉</button><button aria-label="Edit Nur Hidayah" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Nur Hidayah" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">G005</td><td class="px-6 py-4 font-medium">Fitri Handayani</td><td class="px-6 py-4">fitri@almatin.sch.id</td><td class="px-6 py-4">081234567894</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4"><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-3 text-text-muted"><button aria-label="Detail Fitri Handayani" class="hover:text-primary">◉</button><button aria-label="Edit Fitri Handayani" class="hover:text-primary">✎</button><button aria-label="Aktifkan Fitri Handayani" class="hover:text-secondary">⊘</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="space-y-3 p-4 md:hidden">
+            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Siti Aminah</p><p class="text-xs text-text-muted">G001</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Email</dt><dd class="break-all">siti@almatin.sch.id</dd></div><div><dt class="text-xs text-text-muted">Nomor HP</dt><dd>081234567890</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK A</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Siti Aminah" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Siti Aminah" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Siti Aminah" class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Rina Wulandari</p><p class="text-xs text-text-muted">G002</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Email</dt><dd class="break-all">rina@almatin.sch.id</dd></div><div><dt class="text-xs text-text-muted">Nomor HP</dt><dd>081234567891</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK B</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Rina Wulandari" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Rina Wulandari" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Rina Wulandari" class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Dewi Lestari</p><p class="text-xs text-text-muted">G003</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Email</dt><dd class="break-all">dewi@almatin.sch.id</dd></div><div><dt class="text-xs text-text-muted">Nomor HP</dt><dd>081234567892</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>Kelompok Bermain</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Dewi Lestari" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Dewi Lestari" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Dewi Lestari" class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Nur Hidayah</p><p class="text-xs text-text-muted">G004</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Email</dt><dd class="break-all">nur@almatin.sch.id</dd></div><div><dt class="text-xs text-text-muted">Nomor HP</dt><dd>081234567893</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK A</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Nur Hidayah" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Nur Hidayah" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Nur Hidayah" class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Fitri Handayani</p><p class="text-xs text-text-muted">G005</p></div><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Email</dt><dd class="break-all">fitri@almatin.sch.id</dd></div><div><dt class="text-xs text-text-muted">Nomor HP</dt><dd>081234567894</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK B</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Fitri Handayani" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Fitri Handayani" class="hover:text-primary">✎ Edit</button><button aria-label="Aktifkan Fitri Handayani" class="hover:text-secondary">⊘</button></div></article>
+          </div>
+        </section>
+
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-sm text-text-muted">Menampilkan 1-5 dari 8 guru</p>
+          <div class="flex items-center gap-1">
+            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Prev</button>
+            <button type="button" aria-current="page" class="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white">1</button>
+            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-guru',
+        title: 'Data Guru',
+        breadcrumb: 'Home / Data Guru'
+      });
+    </script>
+  </body>
+</html>
+

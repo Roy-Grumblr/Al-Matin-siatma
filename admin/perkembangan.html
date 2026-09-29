@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perkembangan Siswa | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="min-w-44 flex-1">
+              <label for="class-filter" class="mb-1.5 block text-sm font-medium">Kelas</label>
+              <select id="class-filter" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option></select>
+            </div>
+            <div class="min-w-52 flex-1">
+              <label for="student-filter" class="mb-1.5 block text-sm font-medium">Siswa</label>
+              <select id="student-filter" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option selected>Aisyah Putri</option><option>Andi Pratama</option><option>Budi Saputra</option><option>Citra Dewi</option><option>Dinda Ayu</option></select>
+            </div>
+            <div class="min-w-44 flex-1">
+              <label for="month-filter" class="mb-1.5 block text-sm font-medium">Bulan</label>
+              <input id="month-filter" type="month" value="2026-09" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+            </div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
+          </div>
+        </section>
+
+        <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="text-lg font-semibold">Catatan Perkembangan</h2>
+          <p class="mt-1 text-sm text-text-muted">Aisyah Putri — TK A</p>
+
+          <div class="relative mt-6 space-y-6 before:absolute before:bottom-4 before:left-2 before:top-4 before:w-px before:bg-slate-200">
+            <article class="relative pl-8">
+              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-primary shadow-sm"></span>
+              <div class="rounded-lg border-l-4 border-primary bg-bg p-4">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">24 September 2026</span><span class="text-text-muted">|</span><span class="text-text-muted">Kategori: Sosial</span><span class="text-text-muted">|</span><span class="text-text-muted">Guru: Ibu Siti</span></div>
+                <p class="mt-2 text-sm leading-6">Aisyah mampu berinteraksi dengan teman sekelas dengan baik.</p>
+              </div>
+            </article>
+            <article class="relative pl-8">
+              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-secondary shadow-sm"></span>
+              <div class="rounded-lg border-l-4 border-primary bg-bg p-4">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">20 September 2026</span><span class="text-text-muted">|</span><span class="text-text-muted">Kategori: Motorik</span><span class="text-text-muted">|</span><span class="text-text-muted">Guru: Ibu Siti</span></div>
+                <p class="mt-2 text-sm leading-6">Aisyah sudah bisa menggambar bentuk sederhana.</p>
+              </div>
+            </article>
+            <article class="relative pl-8">
+              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-accent shadow-sm"></span>
+              <div class="rounded-lg border-l-4 border-primary bg-bg p-4">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">15 September 2026</span><span class="text-text-muted">|</span><span class="text-text-muted">Kategori: Bahasa</span><span class="text-text-muted">|</span><span class="text-text-muted">Guru: Ibu Siti</span></div>
+                <p class="mt-2 text-sm leading-6">Aisyah aktif bertanya dan menjawab pertanyaan.</p>
+              </div>
+            </article>
+            <article class="relative pl-8">
+              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-purple-500 shadow-sm"></span>
+              <div class="rounded-lg border-l-4 border-primary bg-bg p-4">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">10 September 2026</span><span class="text-text-muted">|</span><span class="text-text-muted">Kategori: Kognitif</span><span class="text-text-muted">|</span><span class="text-text-muted">Guru: Ibu Siti</span></div>
+                <p class="mt-2 text-sm leading-6">Aisyah mampu menyusun puzzle dengan baik.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Tambah Catatan</h2>
+          <div class="space-y-4">
+            <div class="max-w-md">
+              <label for="note-category" class="mb-1.5 block text-sm font-medium">Kategori</label>
+              <select id="note-category" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Bahasa</option><option>Motorik</option><option>Sosial</option><option>Kognitif</option><option>Kemandirian</option></select>
+            </div>
+            <div>
+              <label for="teacher-note" class="mb-1.5 block text-sm font-medium">Catatan Guru</label>
+              <textarea id="teacher-note" rows="4" placeholder="Tulis catatan perkembangan siswa..." class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20"></textarea>
+            </div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Catatan</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'perkembangan-siswa',
+        title: 'Perkembangan Siswa',
+        breadcrumb: 'Home / Perkembangan Siswa'
+      });
+    </script>
+  </body>
+</html>
+

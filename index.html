@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Halaman login SIATMA - Sistem Informasi Akademik TK Al-Matin"
+    />
+    <title>Masuk ke SIATMA | TK Al-Matin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: {
+              Inter: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+
+    <style>
+      .dot-pattern {
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.2) 1px,
+          transparent 1px
+        );
+        background-size: 24px 24px;
+      }
+
+      .blob {
+        filter: blur(1px);
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <main class="flex min-h-screen">
+      <section
+        class="relative hidden w-1/2 overflow-hidden bg-primary px-12 py-12 text-white md:flex md:flex-col md:justify-between lg:px-20"
+        aria-label="Informasi TK Al-Matin"
+      >
+        <div class="dot-pattern absolute inset-0 opacity-60"></div>
+        <div
+          class="blob absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-400/30"
+        ></div>
+        <div
+          class="blob absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-primary-dark/50"
+        ></div>
+
+        <div class="relative z-10">
+          <div
+            class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-xl font-extrabold text-primary shadow-lg"
+            aria-label="Logo TK Al-Matin"
+          >
+            TK
+          </div>
+          <p class="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
+            TK Al-Matin
+          </p>
+        </div>
+
+        <div class="relative z-10 max-w-xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
+            Selamat datang di
+          </p>
+          <h1 class="text-5xl font-extrabold tracking-tight lg:text-7xl">SIATMA</h1>
+          <p class="mt-5 max-w-md text-lg leading-8 text-blue-100">
+            Sistem Informasi Akademik TK Al-Matin untuk pengelolaan pendidikan
+            yang lebih mudah, teratur, dan terintegrasi.
+          </p>
+
+          <div class="mt-10 flex items-end gap-3" aria-hidden="true">
+            <div class="h-20 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-accent/90"></div>
+            <div class="h-32 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-secondary/90"></div>
+            <div class="h-24 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-white/90"></div>
+            <div class="ml-4 h-16 w-16 rounded-full border-8 border-white/30"></div>
+          </div>
+        </div>
+
+        <p class="relative z-10 text-sm text-blue-100">
+          Membentuk generasi cerdas, ceria, dan berakhlak mulia.
+        </p>
+      </section>
+
+      <section
+        class="flex w-full items-center justify-center bg-white px-6 py-10 sm:px-10 md:w-1/2 lg:px-16"
+        aria-label="Form login"
+      >
+        <div class="w-full max-w-md">
+          <div class="mb-8 md:hidden">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-lg font-extrabold text-white shadow-md"
+            >
+              TK
+            </div>
+            <p class="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+              SIATMA · TK Al-Matin
+            </p>
+          </div>
+
+          <div class="mb-8">
+            <h2 class="text-3xl font-bold tracking-tight text-text">Masuk ke SIATMA</h2>
+            <p class="mt-2 text-sm text-text-muted">
+              Silakan masuk menggunakan akun Anda
+            </p>
+          </div>
+
+          <form id="loginForm" class="space-y-5" action="#" method="post">
+            <div>
+              <label for="username" class="mb-2 block text-sm font-semibold text-text">
+                Username/Email
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                placeholder="Masukkan username atau email"
+                class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-text outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="password" class="mb-2 block text-sm font-semibold text-text">
+                Password
+              </label>
+              <div class="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Masukkan password"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pr-12 text-sm text-text outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  required
+                />
+                <button
+                  id="togglePassword"
+                  type="button"
+                  class="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-text-muted transition hover:text-primary"
+                  aria-label="Tampilkan password"
+                  aria-pressed="false"
+                >
+                  <svg
+                    id="eyeIcon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    class="h-5 w-5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <label class="flex cursor-pointer items-center gap-2 text-sm text-text-muted">
+                <input
+                  type="checkbox"
+                  name="remember"
+                  class="h-4 w-4 rounded border-slate-300 text-primary accent-primary focus:ring-primary"
+                />
+                <span>Ingat saya</span>
+              </label>
+              <a
+                href="#"
+                class="text-sm font-semibold text-primary transition hover:text-primary-dark"
+              >
+                Lupa password?
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              Masuk
+            </button>
+          </form>
+
+          <div class="my-7 flex items-center gap-4">
+            <div class="h-px flex-1 bg-slate-200"></div>
+            <span class="text-xs font-medium uppercase tracking-wider text-text-muted">atau</span>
+            <div class="h-px flex-1 bg-slate-200"></div>
+          </div>
+
+          <p class="text-center text-sm text-text-muted">
+            Belum punya akun?
+            <a href="#" class="font-semibold text-primary transition hover:text-primary-dark">
+              Hubungi admin sekolah
+            </a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const passwordInput = document.getElementById("password");
+      const togglePassword = document.getElementById("togglePassword");
+      const eyeIcon = document.getElementById("eyeIcon");
+
+      togglePassword.addEventListener("click", () => {
+        const isPasswordVisible = passwordInput.type === "text";
+        passwordInput.type = isPasswordVisible ? "password" : "text";
+        togglePassword.setAttribute("aria-pressed", String(!isPasswordVisible));
+        togglePassword.setAttribute(
+          "aria-label",
+          isPasswordVisible ? "Tampilkan password" : "Sembunyikan password"
+        );
+        eyeIcon.innerHTML = isPasswordVisible
+          ? `<path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>`
+          : `<path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 2.458 12C3.732 16.057 7.523 19 12 19c1.617 0 3.145-.39 4.49-1.08M6.228 6.228A10.45 10.45 0 0 1 12 5c4.478 0 8.268 2.943 9.542 7a10.477 10.477 0 0 1-4.043 5.093M6.228 6.228 3 3m3.228 3.228 3.06 3.06m7.484 7.484L21 21m-4.228-4.228-3.06-3.06m0 0a3 3 0 1 1-4.243-4.243"/>`;
+      });
+    </script>
+  </body>
+</html>

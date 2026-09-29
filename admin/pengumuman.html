@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengumuman | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <div class="mb-6 flex justify-end"><button id="open-modal" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Buat Pengumuman</button></div>
+
+        <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <article class="rounded-2xl bg-white p-6 shadow-sm"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Kegiatan Maulid Nabi</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted">28 September 2026</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Semua Orang Tua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted">Sekolah akan mengadakan kegiatan Maulid Nabi bersama seluruh siswa dan orang tua.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white p-6 shadow-sm"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Libur Semester</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted">1-7 Oktober 2026</p><span class="mt-3 inline-flex rounded-full bg-secondary/10 px-2.5 py-1 text-xs font-medium text-secondary">Semua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted">Kegiatan belajar mengajar diliburkan dalam rangka libur semester sesuai kalender akademik.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white p-6 shadow-sm"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Outing Class TK A</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted">30 September 2026</p><span class="mt-3 inline-flex rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">TK A</span><p class="mt-4 line-clamp-2 text-sm text-text-muted">Siswa TK A akan mengikuti kegiatan pembelajaran di luar kelas bersama guru pendamping.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white p-6 shadow-sm"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Rapat Orang Tua</h2><span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-text-muted">Draft</span></div><p class="mt-2 text-sm text-text-muted">25 September 2026</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Semua Orang Tua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted">Rapat orang tua akan membahas perkembangan belajar dan agenda kegiatan sekolah.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      const modal = document.getElementById("announcement-modal");
+      const openModal = () => {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      };
+      const closeModal = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      };
+
+      document.getElementById("open-modal").addEventListener("click", openModal);
+      document.getElementById("close-modal").addEventListener("click", closeModal);
+      document.getElementById("cancel-modal").addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.querySelectorAll('input[name="target"]').forEach((radio) => {
+        radio.addEventListener("change", (event) => {
+          document.getElementById("class-field").classList.toggle("hidden", event.target.value !== "kelas");
+        });
+      });
+    </script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'pengumuman',
+        title: 'Pengumuman',
+        breadcrumb: 'Home / Pengumuman'
+      });
+    </script>
+  </body>
+</html>
+

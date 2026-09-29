@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Absensi | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="w-64">
+              <label for="attendance-month" class="mb-1.5 block text-sm font-medium">Bulan</label>
+              <select id="attendance-month" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option selected>September 2026</option><option>Agustus 2026</option><option>Juli 2026</option><option>Juni 2026</option></select>
+            </div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
+          </div>
+        </section>
+
+        <section class="mb-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Ringkasan September 2026</h2>
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div class="rounded-xl bg-green-50 p-4"><p class="text-sm text-green-700">Hadir</p><p class="mt-1 text-2xl font-bold text-green-700">18</p></div>
+            <div class="rounded-xl bg-yellow-50 p-4"><p class="text-sm text-yellow-700">Sakit</p><p class="mt-1 text-2xl font-bold text-yellow-700">1</p></div>
+            <div class="rounded-xl bg-blue-50 p-4"><p class="text-sm text-blue-700">Izin</p><p class="mt-1 text-2xl font-bold text-blue-700">1</p></div>
+            <div class="rounded-xl bg-red-50 p-4"><p class="text-sm text-red-700">Alpa</p><p class="mt-1 text-2xl font-bold text-red-700">0</p></div>
+          </div>
+        </section>
+
+        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+              <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Hari</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4">24 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">23 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">22 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Izin</span></td><td class="px-6 py-4">Acara keluarga</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">21 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">20 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">19 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Sakit</span></td><td class="px-6 py-4">Demam</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">18 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">17 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">16 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4">15 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="mt-4 flex items-center justify-between">
+          <p class="text-sm text-text-muted">Menampilkan 1-10 dari 20 hari</p>
+          <div class="flex items-center gap-1"><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Prev</button><button type="button" aria-current="page" class="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white">1</button><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">2</button><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Next</button></div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'orangtua',
+        activeMenu: 'riwayat-absensi',
+        title: 'Riwayat Absensi',
+        breadcrumb: 'Home / Riwayat Absensi'
+      });
+    </script>
+  </body>
+</html>
+

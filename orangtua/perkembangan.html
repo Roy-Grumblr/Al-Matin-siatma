@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perkembangan Anak | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+          <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">AP</div>
+          <div><h2 class="text-xl font-bold">Aisyah Putri</h2><p class="mt-1 text-sm text-text-muted">Kelas TK A</p></div>
+        </section>
+
+        <section class="mb-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Ringkasan Perkembangan</h2>
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-5">
+            <div class="rounded-xl border border-slate-100 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-600"><span class="text-xl" aria-hidden="true">☁</span></div><p class="mt-3 text-sm font-medium">Bahasa</p><span class="mt-2 inline-flex rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Baik</span></div>
+            <div class="rounded-xl border border-slate-100 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600"><span class="text-xl" aria-hidden="true">✋</span></div><p class="mt-3 text-sm font-medium">Motorik</p><span class="mt-2 inline-flex rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Baik</span></div>
+            <div class="rounded-xl border border-slate-100 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600"><span class="text-xl" aria-hidden="true">♧</span></div><p class="mt-3 text-sm font-medium">Sosial</p><span class="mt-2 inline-flex rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Baik</span></div>
+            <div class="rounded-xl border border-slate-100 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-purple-100 text-purple-600"><span class="text-xl" aria-hidden="true">✦</span></div><p class="mt-3 text-sm font-medium">Kognitif</p><span class="mt-2 inline-flex rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">Baik</span></div>
+            <div class="rounded-xl border border-slate-100 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-600"><span class="text-xl" aria-hidden="true">★</span></div><p class="mt-3 text-sm font-medium">Kemandirian</p><span class="mt-2 inline-flex rounded-full bg-orange-100 px-2 py-1 text-xs text-orange-700">Baik</span></div>
+          </div>
+        </section>
+
+        <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-6 text-lg font-semibold">Catatan Guru</h2>
+          <div class="relative ml-2 border-l border-slate-200">
+            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-primary"></span><div class="rounded-lg border-l-4 border-primary bg-bg p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">24 September 2026</p><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Sosial</span><span class="text-sm text-text-muted">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted">Aisyah mampu berinteraksi dengan teman sekelas dengan baik.</p></div></article>
+            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-secondary"></span><div class="rounded-lg border-l-4 border-primary bg-bg p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">20 September 2026</p><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Motorik</span><span class="text-sm text-text-muted">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted">Aisyah sudah bisa menggambar bentuk sederhana.</p></div></article>
+            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-accent"></span><div class="rounded-lg border-l-4 border-primary bg-bg p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">15 September 2026</p><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Bahasa</span><span class="text-sm text-text-muted">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted">Aisyah aktif bertanya dan menjawab pertanyaan.</p></div></article>
+            <article class="relative pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-purple-500"></span><div class="rounded-lg border-l-4 border-primary bg-bg p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">10 September 2026</p><span class="rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">Kognitif</span><span class="text-sm text-text-muted">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted">Aisyah mampu menyusun puzzle dengan baik.</p></div></article>
+          </div>
+        </section>
+
+        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-4 text-lg font-semibold">Pengumuman Terkait</h2>
+          <div class="divide-y divide-slate-100">
+            <article class="py-3 first:pt-0"><h3 class="text-sm font-semibold">Kegiatan pengembangan kreativitas siswa</h3><p class="mt-1 text-xs text-text-muted">24 September 2026</p><p class="mt-2 text-sm text-text-muted">Orang tua dapat mendukung anak membawa perlengkapan menggambar untuk kegiatan kelas.</p></article>
+            <article class="py-3 last:pb-0"><h3 class="text-sm font-semibold">Pertemuan orang tua dan guru</h3><p class="mt-1 text-xs text-text-muted">20 September 2026</p><p class="mt-2 text-sm text-text-muted">Pertemuan evaluasi perkembangan anak akan dilaksanakan sesuai jadwal sekolah.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'orangtua',
+        activeMenu: 'perkembangan-anak',
+        title: 'Perkembangan Anak',
+        breadcrumb: 'Home / Perkembangan Anak'
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absensi Siswa | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+          <div class="flex flex-wrap items-end gap-3">
+            <div><label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option></select></div>
+            <div><label for="tanggal" class="mb-1 block text-sm font-medium">Tanggal</label><input id="tanggal" type="date" value="2026-09-24" class="rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+          </div>
+        </section>
+
+        <form action="#" method="post">
+          <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+            <div class="overflow-x-auto">
+              <table class="min-w-[900px] w-full text-left">
+                <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-6 py-4">No</th><th class="px-6 py-4">Nama Siswa</th><th class="px-6 py-4">Status Kehadiran</th><th class="px-6 py-4">Catatan</th></tr></thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-5 text-text-muted">1</td><td class="px-6 py-5 font-medium">Andi Pratama</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024001]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-5 text-text-muted">2</td><td class="px-6 py-5 font-medium">Aisyah Putri</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024002]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-5 text-text-muted">3</td><td class="px-6 py-5 font-medium">Budi Saputra</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024003]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-5 text-text-muted">4</td><td class="px-6 py-5 font-medium">Citra Dewi</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024004]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
+                  <tr class="hover:bg-slate-50"><td class="px-6 py-5 text-text-muted">5</td><td class="px-6 py-5 font-medium">Dinda Ayu</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024005]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="mt-4 flex flex-col justify-between gap-3 pb-6 sm:flex-row sm:items-center">
+            <button type="button" id="set-all-present" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Set Semua Hadir</button>
+            <button type="submit" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Absensi</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      document.getElementById("set-all-present").addEventListener("click", () => {
+        document.querySelectorAll('input[type="radio"][value="hadir"]').forEach((radio) => {
+          radio.checked = true;
+        });
+      });
+    </script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'guru',
+        activeMenu: 'absensi',
+        title: 'Absensi Siswa',
+        breadcrumb: 'Home / Absensi'
+      });
+    </script>
+  </body>
+</html>
+

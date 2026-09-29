@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <nav class="mb-6 flex gap-6 border-b border-slate-200" aria-label="Tab pengaturan">
+          <button type="button" data-tab="profil" class="settings-tab border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary" aria-selected="true">Profil</button>
+          <button type="button" data-tab="akun" class="settings-tab px-1 pb-3 text-sm text-text-muted transition hover:text-primary" aria-selected="false">Akun</button>
+          <button type="button" data-tab="password" class="settings-tab px-1 pb-3 text-sm text-text-muted transition hover:text-primary" aria-selected="false">Password</button>
+          <button type="button" data-tab="sistem" class="settings-tab px-1 pb-3 text-sm text-text-muted transition hover:text-primary" aria-selected="false">Sistem</button>
+        </nav>
+
+        <section id="tab-profil" class="settings-panel rounded-2xl bg-white p-6 shadow-sm">
+          <div class="mb-6 flex flex-wrap items-center gap-4">
+            <div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">AD</div>
+            <button type="button" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Ganti Foto</button>
+          </div>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div><label for="profile-name" class="mb-1.5 block text-sm font-medium">Nama Lengkap</label><input id="profile-name" type="text" value="Admin Sekolah" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="profile-email" class="mb-1.5 block text-sm font-medium">Email</label><input id="profile-email" type="email" value="admin@almatin.sch.id" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="profile-phone" class="mb-1.5 block text-sm font-medium">Nomor HP</label><input id="profile-phone" type="tel" value="081234567890" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="profile-role" class="mb-1.5 block text-sm font-medium">Jabatan</label><input id="profile-role" type="text" value="Administrator" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+          </div>
+          <button type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
+        </section>
+
+        <section id="tab-akun" class="settings-panel hidden rounded-2xl bg-white p-6 shadow-sm">
+          <div class="max-w-xl space-y-4">
+            <div><label for="account-username" class="mb-1.5 block text-sm font-medium">Username</label><input id="account-username" type="text" value="admin" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="account-email" class="mb-1.5 block text-sm font-medium">Email</label><input id="account-email" type="email" value="admin@almatin.sch.id" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
+          </div>
+        </section>
+
+        <section id="tab-password" class="settings-panel hidden rounded-2xl bg-white p-6 shadow-sm">
+          <div class="max-w-xl space-y-4">
+            <div><label for="old-password" class="mb-1.5 block text-sm font-medium">Password Lama</label><input id="old-password" type="password" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="new-password" class="mb-1.5 block text-sm font-medium">Password Baru</label><input id="new-password" type="password" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="confirm-password" class="mb-1.5 block text-sm font-medium">Konfirmasi Password Baru</label><input id="confirm-password" type="password" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Ubah Password</button>
+          </div>
+        </section>
+
+        <section id="tab-sistem" class="settings-panel hidden rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Informasi Sekolah</h2>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div><label for="school-name" class="mb-1.5 block text-sm font-medium">Nama Sekolah</label><input id="school-name" type="text" value="TK Al-Matin" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="school-phone" class="mb-1.5 block text-sm font-medium">Telepon</label><input id="school-phone" type="tel" value="021-1234567" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="school-email" class="mb-1.5 block text-sm font-medium">Email</label><input id="school-email" type="email" value="info@almatin.sch.id" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="school-year" class="mb-1.5 block text-sm font-medium">Tahun Ajaran Aktif</label><select id="school-year" class="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>2025/2026</option><option>2026/2027</option></select></div>
+            <div class="md:col-span-2"><label for="school-address" class="mb-1.5 block text-sm font-medium">Alamat</label><textarea id="school-address" rows="3" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">Jl. Pendidikan No. 123, Jakarta</textarea></div>
+          </div>
+          <button type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      const tabs = document.querySelectorAll(".settings-tab");
+      const panels = document.querySelectorAll(".settings-panel");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const selectedTab = tab.dataset.tab;
+
+          tabs.forEach((item) => {
+            const isActive = item === tab;
+            item.classList.toggle("border-b-2", isActive);
+            item.classList.toggle("border-primary", isActive);
+            item.classList.toggle("font-medium", isActive);
+            item.classList.toggle("text-primary", isActive);
+            item.classList.toggle("text-text-muted", !isActive);
+            item.setAttribute("aria-selected", String(isActive));
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle("hidden", panel.id !== `tab-${selectedTab}`);
+          });
+        });
+      });
+    </script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'pengaturan',
+        title: 'Pengaturan',
+        breadcrumb: 'Home / Pengaturan'
+      });
+    </script>
+  </body>
+</html>
+

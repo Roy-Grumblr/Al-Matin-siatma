@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Data Siswa | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: {
+              Inter: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <form action="#" method="post" class="space-y-4">
+          <section class="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-semibold">Data Siswa</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div><label for="nis" class="mb-1 block text-sm font-medium">NIS <span class="text-red-500">*</span></label><input id="nis" name="nis" type="text" required class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="nik" class="mb-1 block text-sm font-medium">NIK <span class="text-red-500">*</span></label><input id="nik" name="nik" type="text" required class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div class="md:col-span-2"><label for="nama-lengkap" class="mb-1 block text-sm font-medium">Nama Lengkap <span class="text-red-500">*</span></label><input id="nama-lengkap" name="nama_lengkap" type="text" required class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="nama-panggilan" class="mb-1 block text-sm font-medium">Nama Panggilan</label><input id="nama-panggilan" name="nama_panggilan" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="tempat-lahir" class="mb-1 block text-sm font-medium">Tempat Lahir</label><input id="tempat-lahir" name="tempat_lahir" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="tanggal-lahir" class="mb-1 block text-sm font-medium">Tanggal Lahir</label><input id="tanggal-lahir" name="tanggal_lahir" type="date" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <fieldset><legend class="mb-2 block text-sm font-medium">Jenis Kelamin</legend><div class="flex gap-5 pt-1"><label class="flex items-center gap-2 text-sm"><input type="radio" name="jenis_kelamin" value="Laki-laki" class="h-4 w-4 accent-primary" />Laki-laki</label><label class="flex items-center gap-2 text-sm"><input type="radio" name="jenis_kelamin" value="Perempuan" class="h-4 w-4 accent-primary" />Perempuan</label></div></fieldset>
+              <div class="md:col-span-2"><label for="alamat-siswa" class="mb-1 block text-sm font-medium">Alamat</label><textarea id="alamat-siswa" name="alamat_siswa" rows="3" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"></textarea></div>
+              <div><label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas" name="kelas" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih kelas</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option></select></div>
+              <div><label for="tahun-ajaran" class="mb-1 block text-sm font-medium">Tahun Ajaran</label><select id="tahun-ajaran" name="tahun_ajaran" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih tahun ajaran</option><option>2025/2026</option><option>2026/2027</option></select></div>
+              <div><label for="status" class="mb-1 block text-sm font-medium">Status</label><select id="status" name="status" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option>Aktif</option><option>Tidak Aktif</option></select></div>
+            </div>
+          </section>
+
+          <section class="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-semibold">Data Orang Tua</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div><label for="nama-ayah" class="mb-1 block text-sm font-medium">Nama Ayah</label><input id="nama-ayah" name="nama_ayah" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="nama-ibu" class="mb-1 block text-sm font-medium">Nama Ibu</label><input id="nama-ibu" name="nama_ibu" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="nomor-hp" class="mb-1 block text-sm font-medium">Nomor HP</label><input id="nomor-hp" name="nomor_hp" type="tel" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div><label for="email" class="mb-1 block text-sm font-medium">Email</label><input id="email" name="email" type="email" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
+              <div class="md:col-span-2"><label for="alamat-orang-tua" class="mb-1 block text-sm font-medium">Alamat</label><textarea id="alamat-orang-tua" name="alamat_orang_tua" rows="3" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"></textarea></div>
+            </div>
+          </section>
+
+          <section class="rounded-2xl bg-white p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-semibold">Foto Siswa</h2>
+            <label for="foto-siswa" class="block cursor-pointer rounded-xl border-2 border-dashed border-primary/30 p-8 text-center transition hover:border-primary hover:bg-primary/5">
+              <svg class="mx-auto h-12 w-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-6L12 6m0 0 4.5 4.5M12 6v10.5" />
+              </svg>
+              <p class="mt-3 text-sm font-medium text-text">Drag &amp; drop foto di sini atau klik untuk pilih</p>
+              <p class="mt-1 text-xs text-text-muted">Format JPG, JPEG, atau PNG. Maksimal 2 MB.</p>
+              <input id="foto-siswa" name="foto_siswa" type="file" accept="image/jpeg,image/png" class="sr-only" />
+            </label>
+            <div class="mt-4 flex items-center gap-4 rounded-xl border border-slate-200 bg-bg p-4">
+              <div class="flex h-20 w-20 items-center justify-center rounded-lg bg-slate-200 text-xs text-text-muted">Preview</div>
+              <div><p class="text-sm font-medium">Preview foto siswa</p><p class="mt-1 text-xs text-text-muted">Foto akan ditampilkan di sini setelah dipilih.</p></div>
+            </div>
+          </section>
+
+          <div class="flex flex-wrap justify-end gap-3 pb-6">
+            <a href="data-siswa.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Batal</a>
+            <button type="submit" name="action" value="save-and-add" class="rounded-lg border border-primary bg-white px-4 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/5">Simpan &amp; Tambah Lagi</button>
+            <button type="submit" name="action" value="save" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-siswa',
+        title: 'Tambah Data Siswa',
+        breadcrumb: 'Home / Data Siswa / Tambah'
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Import Data Siswa | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg p-6">
+        <div class="mb-6 flex flex-wrap items-center gap-2">
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">1</div><span class="text-sm font-medium text-primary">Upload</span>
+          <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">2</div><span class="text-sm text-text-muted">Preview</span>
+          <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">3</div><span class="text-sm text-text-muted">Validasi</span>
+          <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">4</div><span class="text-sm text-text-muted">Import</span>
+        </div>
+
+        <section class="rounded-2xl bg-white p-8 shadow-sm">
+          <label for="excel-file" class="block cursor-pointer rounded-xl border-2 border-dashed border-primary/30 p-12 text-center transition hover:border-primary hover:bg-primary/5">
+            <svg class="mx-auto h-14 w-14 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-6L12 6m0 0 4.5 4.5M12 6v10.5"/></svg>
+            <p class="mt-4 text-lg font-medium">Drag &amp; Drop file Excel di sini</p><p class="my-2 text-sm text-text-muted">atau</p>
+            <span class="inline-flex rounded-lg bg-primary px-6 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark">Pilih File</span>
+            <p class="mt-4 text-xs text-text-muted">Format: .xlsx, .xls (max 5MB)</p>
+            <input id="excel-file" type="file" accept=".xlsx,.xls" class="sr-only" />
+          </label>
+        </section>
+
+        <section class="mt-4 overflow-hidden rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Preview Data</h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+              <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-4 py-3">NIS</th><th class="px-4 py-3">Nama</th><th class="px-4 py-3">Kelas</th><th class="px-4 py-3">Status Validasi</th></tr></thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="px-4 py-3">2024001</td><td class="px-4 py-3 font-medium">Andi Pratama</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">✅ Valid</span></td></tr>
+                <tr><td class="px-4 py-3">2024002</td><td class="px-4 py-3 font-medium">Aisyah Putri</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">✅ Valid</span></td></tr>
+                <tr><td class="px-4 py-3">2024001</td><td class="px-4 py-3 font-medium">Andi Pratama</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">⚠️ Duplikat</span></td></tr>
+                <tr><td class="px-4 py-3">2024003</td><td class="px-4 py-3 font-medium">Budi</td><td class="px-4 py-3">-</td><td class="px-4 py-3"><span class="rounded-full bg-red-100 px-2 py-1 text-xs text-red-700">❌ Tidak Lengkap</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 class="mb-5 text-lg font-semibold">Ringkasan Validasi</h2>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-xl bg-green-50 p-5"><p class="text-sm text-green-700">Valid</p><p class="mt-1 text-3xl font-bold text-green-700">12</p></div>
+            <div class="rounded-xl bg-yellow-50 p-5"><p class="text-sm text-yellow-700">Duplikat</p><p class="mt-1 text-3xl font-bold text-yellow-700">1</p></div>
+            <div class="rounded-xl bg-red-50 p-5"><p class="text-sm text-red-700">Tidak Lengkap</p><p class="mt-1 text-3xl font-bold text-red-700">2</p></div>
+          </div>
+        </section>
+
+        <div class="mt-4 flex justify-end gap-3 pb-6">
+          <a href="data-siswa.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Batal</a>
+          <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Import Data</button>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-siswa',
+        title: 'Import Data Siswa',
+        breadcrumb: 'Home / Data Siswa / Import'
+      });
+    </script>
+  </body>
+</html>
+
