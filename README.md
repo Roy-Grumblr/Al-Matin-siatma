@@ -22,6 +22,22 @@ Proyek Kerja Praktik mahasiswa Informatika ini bertujuan merancang antarmuka sis
 
 > **Status aplikasi:** Versi ini merupakan prototipe front-end dengan data contoh. Autentikasi demo memakai `localStorage`; aplikasi belum menggunakan server autentikasi atau database produksi. Jangan gunakan data pribadi nyata.
 
+## Kolaborasi
+
+Proyek ini merupakan hasil Kerja Praktik mahasiswa Informatika Universitas Pamulang di TK Al-Matin.
+
+<div align="center">
+  <img src="assets/logo-tk.png" alt="RA Al-Matin" height="80" />
+  &nbsp;&nbsp;×&nbsp;&nbsp;
+  <img src="assets/logo-unpam.png" alt="Universitas Pamulang" height="80" />
+</div>
+
+<div align="center">
+  <strong>RA Al-Matin</strong> &nbsp;×&nbsp; <strong>Universitas Pamulang</strong>
+</div>
+
+Proyek ini dikembangkan sebagai bagian dari mata kuliah Kerja Praktik (KP) Program Studi Informatika, Universitas Pamulang, tahun akademik 2026/2027.
+
 ## Fitur Utama
 
 ### 🛠️ Admin
@@ -103,6 +119,10 @@ siatma/
 │   ├── auth.js                   # Login, logout, sesi, dan proteksi halaman demo
 │   ├── data.js                   # Mock data dan helper akses data
 │   └── layout.js                 # Injection sidebar/header sesuai role
+├── assets/
+│   ├── logo-tk.png               # Logo RA Al-Matin
+│   ├── logo-unpam.png            # Logo Universitas Pamulang
+│   └── screenshots/              # Screenshot aplikasi
 ├── .vscode/
 │   └── settings.json             # Pengaturan editor workspace
 └── screenshots/                  # Tambahkan screenshot aplikasi di sini
@@ -118,11 +138,9 @@ siatma/
 
 ### 1. Clone repository
 
-Ganti placeholder URL repository dengan alamat repository GitHub Anda:
-
 ```bash
-git clone https://github.com/[USERNAME-GITHUB]/[NAMA-REPOSITORY].git
-cd [NAMA-REPOSITORY]
+git clone https://github.com/Roy-Grumblr/Al-Matin-siatma.git
+cd Al-Matin-siatma
 ```
 
 ### 2. Jalankan melalui server lokal
@@ -155,27 +173,33 @@ Jika port `8000` sedang digunakan, pilih port lain dan sesuaikan alamat yang dib
 
 ## Screenshot / Preview
 
-Simpan gambar di folder `screenshots/`, lalu sesuaikan nama file pada markdown berikut jika diperlukan.
+Screenshot aplikasi disimpan di `assets/screenshots/`.
 
 ### Login
 
-![Halaman Login SIATMA](screenshots/login.png)
+![Halaman Login SIATMA](assets/screenshots/login.png)
 
 ### Dashboard Admin
 
-![Dashboard Admin SIATMA](screenshots/dashboard-admin.png)
+![Dashboard Admin SIATMA](assets/screenshots/dashboard-admin.png)
 
 ### Data Siswa
 
-![Halaman Data Siswa SIATMA](screenshots/data-siswa.png)
+![Halaman Data Siswa SIATMA](assets/screenshots/data-siswa.png)
 
 ### Absensi
 
-![Halaman Absensi SIATMA](screenshots/absensi.png)
+![Halaman Absensi SIATMA](assets/screenshots/absensi.png)
 
 ### Portal Orang Tua
 
-![Portal Orang Tua SIATMA](screenshots/portal-orangtua.png)
+![Portal Orang Tua SIATMA](assets/screenshots/portal-orangtua.png)
+
+## Aset
+
+- Logo TK Al-Matin: digunakan dengan izin dari pihak TK Al-Matin.
+- Logo Universitas Pamulang: digunakan dengan izin dari Universitas Pamulang.
+- Screenshot: diambil dari aplikasi versi terkini.
 
 ## Arsitektur & Cara Kerja
 
@@ -232,16 +256,16 @@ Kontribusi, ide, dan laporan bug sangat dipersilakan. Untuk perubahan yang cukup
 
 ## Lisensi
 
-Project ini ditujukan untuk menggunakan **MIT License**. Lihat berkas `LICENSE` pada repository jika tersedia; tambahkan berkas tersebut agar ketentuan lisensi MIT tercantum secara lengkap.
+Project ini menggunakan **MIT License**. Lihat berkas `LICENSE` untuk ketentuan lisensi lengkap.
 
 ## Kontak / Author
 
 | Informasi | Detail |
 |---|---|
-| Nama | [Royan Alfa Rezza] |
-| NIM | [231011450102] |
+| Nama | Royan Alfa Rezza |
+| NIM | 231011450102 |
 | Program Studi | Informatika |
-| Kampus | [Universitas Pamulang] |
-| Email | [royanalfarezza41@gmail.com] |
-| LinkedIn | [www.linkedin.com/in/royanalfarezza] |
-| GitHub | [https://github.com/Roy-Grumblr/Al-Matin-siatma.git] |
+| Kampus | Universitas Pamulang |
+| Email | royanalfarezza41@gmail.com |
+| LinkedIn | www.linkedin.com/in/royanalfarezza |
+| GitHub | https://github.com/Roy-Grumblr/Al-Matin-siatma |

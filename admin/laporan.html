@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laporan | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,32 +40,65 @@
         },
       };
     </script>
+    <style>
+      @media print {
+        @page { size: A4 landscape; margin: 1.5cm; }
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .rounded-2xl { border-radius: 0 !important; box-shadow: none !important; }
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; page-break-after: auto; }
+        thead { display: table-header-group; }
+        .bg-bg, .bg-white, .dark\:bg-slate-800 { background: white !important; }
+        #print-header { display: flex !important; }
+      }
+    </style>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
-        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div id="print-header" class="mb-6 hidden items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-16 w-auto" />
+          <div><h1 class="text-2xl font-bold">TK Al-Matin</h1><p id="print-period" class="mt-1 text-sm">Laporan Absensi</p></div>
+        </div>
+        <section class="no-print mb-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
           <div class="flex flex-wrap items-end gap-3">
             <div class="min-w-48 flex-1">
               <label for="report-type" class="mb-1.5 block text-sm font-medium">Jenis Laporan</label>
-              <select id="report-type" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+              <select id="report-type" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option>Laporan Data Siswa</option><option selected>Rekap Absensi</option><option>Data Guru</option><option>Data Kelas</option>
               </select>
             </div>
             <div class="min-w-44 flex-1">
               <label for="report-period" class="mb-1.5 block text-sm font-medium">Periode</label>
-              <select id="report-period" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+              <select id="report-period" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option selected>Bulan Ini</option><option>3 Bulan Terakhir</option><option>Semester</option><option>Tahun Ajaran</option>
               </select>
             </div>
             <div class="min-w-44 flex-1">
               <label for="report-class" class="mb-1.5 block text-sm font-medium">Kelas</label>
-              <select id="report-class" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+              <select id="report-class" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option selected>Semua</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option>
               </select>
             </div>
@@ -61,51 +107,51 @@
         </section>
 
         <div class="grid gap-4 lg:grid-cols-3">
-          <section class="overflow-hidden rounded-2xl bg-white shadow-sm lg:col-span-2">
-            <div class="border-b border-slate-100 p-6">
+          <section class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm lg:col-span-2">
+            <div class="border-b border-slate-100 dark:border-slate-700 p-6">
               <h2 class="text-lg font-semibold">Preview Laporan</h2>
-              <p class="mt-1 text-sm text-text-muted">Rekap Absensi - September 2026</p>
+              <p class="mt-1 text-sm text-text-muted dark:text-slate-400">Rekap Absensi - September 2026</p>
             </div>
             <div class="overflow-x-auto">
               <table class="min-w-full text-left text-sm">
-                <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted">
+                <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400">
                   <tr><th class="px-6 py-4">Nama</th><th class="px-6 py-4 text-center">Hadir</th><th class="px-6 py-4 text-center">Sakit</th><th class="px-6 py-4 text-center">Izin</th><th class="px-6 py-4 text-center">Alpa</th><th class="px-6 py-4 text-right">% Kehadiran</th></tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                  <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4 font-medium">Andi Pratama</td><td class="px-6 py-4 text-center">20</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">95%</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Aisyah Putri</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Budi Saputra</td><td class="px-6 py-4 text-center">18</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">2</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">86%</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Citra Dewi</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
-                  <tr class="hover:bg-slate-50"><td class="px-6 py-4 font-medium">Dinda Ayu</td><td class="px-6 py-4 text-center">19</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">90%</td></tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="whitespace-nowrap px-6 py-4 font-medium">Andi Pratama</td><td class="px-6 py-4 text-center">20</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">95%</td></tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 font-medium">Aisyah Putri</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 font-medium">Budi Saputra</td><td class="px-6 py-4 text-center">18</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">2</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">86%</td></tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 font-medium">Citra Dewi</td><td class="px-6 py-4 text-center">21</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">100%</td></tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 font-medium">Dinda Ayu</td><td class="px-6 py-4 text-center">19</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">1</td><td class="px-6 py-4 text-center">0</td><td class="px-6 py-4 text-right font-medium text-secondary">90%</td></tr>
                 </tbody>
               </table>
             </div>
           </section>
 
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="no-print rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-4 text-lg font-semibold">Aksi</h2>
-            <button type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600"><span aria-hidden="true">↓</span>Export PDF</button>
-            <button type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-green-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600"><span aria-hidden="true">↓</span>Export Excel</button>
-            <button type="button" class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary"><span aria-hidden="true">⎙</span>Print</button>
+            <button id="export-pdf" type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600"><span aria-hidden="true">↓</span>Export PDF</button>
+            <button id="export-excel" type="button" class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-green-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600"><span aria-hidden="true">↓</span>Export Excel</button>
+            <button id="print-report" type="button" class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary"><span aria-hidden="true">⎙</span>Print</button>
           </section>
         </div>
 
-        <section class="mt-4">
+        <section class="no-print mt-4">
           <h2 class="mb-3 text-lg font-semibold">Laporan Tersedia</h2>
           <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.125-.95M15 19.128v-.003c0-1.054-.252-2.06-.7-2.94M9 19.128a9.38 9.38 0 0 1-2.625.372 9.337 9.337 0 0 1-4.125-.95M9 19.128v-.003c0-1.054.252-2.06.7-2.94M12 12a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></span>
               <span class="text-sm font-medium">Laporan Data Siswa</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-secondary/10 text-secondary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A1.75 1.75 0 0 1 19 5.5v13a1.75 1.75 0 0 1-1.75 1.75H6.75A1.75 1.75 0 0 1 5 18.5v-13a1.75 1.75 0 0 1 1.75-1.75ZM8.25 7.5h7.5m-7.5 3.75h7.5m-7.5 3.75h4.5"/></svg></span>
               <span class="text-sm font-medium">Rekap Absensi</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></span>
               <span class="text-sm font-medium">Data Guru</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-purple-100 text-purple-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></span>
               <span class="text-sm font-medium">Data Kelas</span>
             </button>
@@ -116,6 +162,9 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -125,6 +174,112 @@
         breadcrumb: 'Home / Laporan'
       });
     </script>
+    <script>
+    (function() {
+      var classSelect = document.getElementById('report-class');
+      var showButton = document.querySelector('main > section button');
+      var periodSelect = document.getElementById('report-period');
+      var tbody = document.querySelector('table tbody');
+      var printPeriod = document.getElementById('print-period');
+
+      function renderReport(students) {
+        if (!students.length) {
+          tbody.innerHTML = '<tr><td colspan="6" class="p-0">' + SIATMA_UI.emptyState({
+            title: 'Data siswa tidak ditemukan',
+            description: 'Tidak ada data untuk kelas yang dipilih.'
+          }) + '</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = students.map(function(student) {
+          var studentAttendance = SIATMA_DATA.attendance.filter(function(record) {
+            return record.studentId === student.id;
+          });
+          var counts = { Hadir: 0, Sakit: 0, Izin: 0, Alpa: 0 };
+          studentAttendance.forEach(function(record) {
+            var status = record.status.charAt(0).toUpperCase() + record.status.slice(1).toLowerCase();
+            if (Object.prototype.hasOwnProperty.call(counts, status)) counts[status] += 1;
+          });
+          var attendanceRate = studentAttendance.length
+            ? Math.round(counts.Hadir / studentAttendance.length * 100)
+            : 0;
+
+          return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">' +
+            '<td class="whitespace-nowrap px-6 py-4 font-medium">' + student.nama + '</td>' +
+            '<td class="px-6 py-4 text-center">' + counts.Hadir + '</td>' +
+            '<td class="px-6 py-4 text-center">' + counts.Sakit + '</td>' +
+            '<td class="px-6 py-4 text-center">' + counts.Izin + '</td>' +
+            '<td class="px-6 py-4 text-center">' + counts.Alpa + '</td>' +
+            '<td class="px-6 py-4 text-right font-medium text-secondary">' + attendanceRate + '%</td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      showButton.addEventListener('click', function() {
+        renderCurrentReport();
+      });
+
+      function renderCurrentReport() {
+        var selectedClass = classSelect.value;
+        var filteredStudents = SIATMA_DATA.students.filter(function(student) {
+          return selectedClass === 'Semua' || student.kelas === selectedClass;
+        });
+        renderReport(filteredStudents);
+        printPeriod.textContent = 'Laporan Absensi - ' + periodSelect.value + ' - Kelas ' + selectedClass;
+      }
+
+      window.addEventListener('beforeprint', renderCurrentReport);
+      document.getElementById('print-report').addEventListener('click', function () {
+        renderCurrentReport();
+        window.print();
+      });
+      renderCurrentReport();
+    })();
+    </script>
+    <script>
+    (function() {
+      var reportTable = document.querySelector('table');
+      var exportExcel = document.getElementById('export-excel');
+      var exportPdf = document.getElementById('export-pdf');
+
+      exportExcel.addEventListener('click', function() {
+        function escapeCSV(value) {
+          var str = String(value == null ? '' : value);
+          if (/^[=+\-@]/.test(str)) str = "'" + str;
+          return '"' + str.replace(/"/g, '""') + '"';
+        }
+        var rows = Array.from(reportTable.querySelectorAll('tr')).map(function(row) {
+          return Array.from(row.querySelectorAll('th, td')).map(function(cell) {
+            return escapeCSV(cell.textContent.trim());
+          }).join(',');
+        });
+        var csv = '\uFEFF' + rows.join('\r\n');
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'laporan-absensi-' + new Date().toISOString().split('T')[0] + '.csv';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(link.href);
+        SIATMA_TOAST.success('Laporan berhasil diexport');
+      });
+
+      exportPdf.addEventListener('click', function() {
+        var printWindow = window.open('', '_blank');
+        if (!printWindow) {
+          SIATMA_TOAST.error('Jendela export PDF diblokir browser');
+          return;
+        }
+        printWindow.document.open();
+        printWindow.document.write('<!DOCTYPE html><html><head><title>Laporan Absensi</title><style>body{font-family:Arial,sans-serif;padding:24px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{text-transform:uppercase;background:#f1f5f9}</style></head><body><h1>Laporan Absensi</h1>' + reportTable.outerHTML + '</body></html>');
+        printWindow.document.close();
+        window.setTimeout(function() {
+          printWindow.print();
+        }, 250);
+      });
+    })();
+    </script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

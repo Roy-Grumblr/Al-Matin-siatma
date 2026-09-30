@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profil Anak | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,66 +40,91 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
-        <section class="mb-4 flex flex-wrap items-center gap-6 rounded-2xl bg-white p-6 shadow-sm">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <section class="mb-4 flex flex-wrap items-center gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">AP</div>
           <div>
             <h2 class="text-2xl font-bold">Aisyah Putri</h2>
-            <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted">
+            <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400">
               <span>NIS 2024002</span><span>Kelas TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>
             </div>
           </div>
         </section>
 
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Data Anak</h2>
             <dl class="space-y-4">
-              <div><dt class="text-sm text-text-muted">NIS</dt><dd class="mt-1 font-medium">2024002</dd></div>
-              <div><dt class="text-sm text-text-muted">NIK</dt><dd class="mt-1 font-medium">3273011202210002</dd></div>
-              <div><dt class="text-sm text-text-muted">Nama Lengkap</dt><dd class="mt-1 font-medium">Aisyah Putri</dd></div>
-              <div><dt class="text-sm text-text-muted">Nama Panggilan</dt><dd class="mt-1 font-medium">Aisyah</dd></div>
-              <div><dt class="text-sm text-text-muted">Tempat Lahir</dt><dd class="mt-1 font-medium">Jakarta</dd></div>
-              <div><dt class="text-sm text-text-muted">Tanggal Lahir</dt><dd class="mt-1 font-medium">22 Februari 2021</dd></div>
-              <div><dt class="text-sm text-text-muted">Jenis Kelamin</dt><dd class="mt-1 font-medium">Perempuan</dd></div>
-              <div><dt class="text-sm text-text-muted">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Jakarta</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">NIS</dt><dd class="mt-1 font-medium">2024002</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">NIK</dt><dd class="mt-1 font-medium">3273011202210002</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">Aisyah Putri</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Panggilan</dt><dd class="mt-1 font-medium">Aisyah</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Tempat Lahir</dt><dd class="mt-1 font-medium">Jakarta</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Tanggal Lahir</dt><dd class="mt-1 font-medium">22 Februari 2021</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd class="mt-1 font-medium">Perempuan</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Jakarta</dd></div>
             </dl>
           </section>
 
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Data Orang Tua</h2>
             <dl class="space-y-4">
-              <div><dt class="text-sm text-text-muted">Nama Ayah</dt><dd class="mt-1 font-medium">Budi Putra</dd></div>
-              <div><dt class="text-sm text-text-muted">Nama Ibu</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div>
-              <div><dt class="text-sm text-text-muted">Nomor HP</dt><dd class="mt-1 font-medium">081234567890</dd></div>
-              <div><dt class="text-sm text-text-muted">Email</dt><dd class="mt-1 font-medium">orangtua@almatin.sch.id</dd></div>
-              <div><dt class="text-sm text-text-muted">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Jakarta</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Ayah</dt><dd class="mt-1 font-medium">Budi Putra</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Ibu</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP</dt><dd class="mt-1 font-medium">081234567890</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Email</dt><dd class="mt-1 font-medium">orangtua@almatin.sch.id</dd></div>
+              <div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Jakarta</dd></div>
             </dl>
           </section>
         </div>
 
-        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+        <section class="mt-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h2 class="mb-5 text-lg font-semibold">Info Sekolah</h2>
           <dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
-            <div><dt class="text-sm text-text-muted">Nama Sekolah</dt><dd class="mt-1 font-medium">TK Al-Matin</dd></div>
-            <div><dt class="text-sm text-text-muted">Tahun Ajaran</dt><dd class="mt-1 font-medium">2025/2026</dd></div>
-            <div><dt class="text-sm text-text-muted">Wali Kelas</dt><dd class="mt-1 font-medium">Ibu Siti Aminah</dd></div>
-            <div><dt class="text-sm text-text-muted">Nomor HP Wali Kelas</dt><dd class="mt-1 font-medium">081234567890</dd></div>
+            <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Sekolah</dt><dd class="mt-1 font-medium">TK Al-Matin</dd></div>
+            <div><dt class="text-sm text-text-muted dark:text-slate-400">Tahun Ajaran</dt><dd class="mt-1 font-medium">2025/2026</dd></div>
+            <div><dt class="text-sm text-text-muted dark:text-slate-400">Wali Kelas</dt><dd class="mt-1 font-medium">Ibu Siti Aminah</dd></div>
+            <div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP Wali Kelas</dt><dd class="mt-1 font-medium">081234567890</dd></div>
           </dl>
         </section>
+              <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
+            <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
+            <span>×</span>
+            <img src="../assets/logo-unpam.png" alt="Universitas Pamulang" class="h-6 w-auto" />
+            <span class="text-text-muted dark:text-slate-500">|</span>
+            <span>© 2026 SIATMA - Kerja Praktik Universitas Pamulang</span>
+          </div>
+        </footer>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -96,6 +134,49 @@
         breadcrumb: 'Home / Profil Anak'
       });
     </script>
+    <script>
+      (function () {
+        var user = SIATMA_AUTH.getCurrentUser();
+        var studentId = user && user.studentId ? user.studentId : 2;
+        var student = SIATMA.getStudentById(studentId);
+        var main = document.querySelector('main');
+        if (!student) {
+          main.innerHTML = SIATMA_UI.emptyState({ title: 'Data anak tidak ditemukan' });
+          return;
+        }
+
+        var header = main.querySelector('section');
+        header.querySelector('.rounded-full').textContent = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0); }).join('').toUpperCase();
+        header.querySelector('h2').textContent = student.nama;
+        header.querySelectorAll('span')[0].textContent = 'NIS ' + student.nis;
+        header.querySelectorAll('span')[1].textContent = 'Kelas ' + student.kelas;
+        header.querySelectorAll('span')[2].textContent = student.status;
+
+        var values = {
+          'NIS': student.nis, 'NIK': student.nik, 'Nama Lengkap': student.nama,
+          'Nama Panggilan': student.namaPanggilan, 'Tempat Lahir': student.tempatLahir,
+          'Tanggal Lahir': SIATMA_UI.formatDate(student.tanggalLahir, 'long'),
+          'Jenis Kelamin': student.jenisKelamin, 'Alamat': student.alamat,
+          'Nama Ayah': student.namaAyah, 'Nama Ibu': student.namaIbu,
+          'Nomor HP': student.nomorHP, 'Email': student.email,
+          'Tahun Ajaran': student.tahunAjaran
+        };
+        main.querySelectorAll('dt').forEach(function (label) {
+          var value = values[label.textContent.trim()];
+          if (value === undefined) return;
+          var output = label.parentElement.querySelector('dd');
+          if (output) output.textContent = value || '-';
+        });
+        var classTeacher = SIATMA_DATA.classes.find(function (item) { return item.nama === student.kelas; });
+        var schoolValues = main.querySelectorAll('section:last-child dd');
+        if (schoolValues[2] && classTeacher) schoolValues[2].textContent = 'Ibu ' + classTeacher.guru;
+        if (schoolValues[3] && classTeacher) {
+          var teacher = SIATMA_DATA.teachers.find(function (item) { return item.nama === classTeacher.guru; });
+          schoolValues[3].textContent = teacher ? teacher.nomorHP : '-';
+        }
+      })();
+    </script>
+          <script src="../js/network-status.js"></script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

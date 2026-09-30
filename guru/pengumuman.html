@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengumuman | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
+  </head>
+
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
+    <div id="sidebar"></div>
+
+    <div class="ml-64">
+      <div id="header"></div>
+
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+
+        <section id="announcement-list" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Kegiatan Maulid Nabi</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">28 September 2026</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Semua Orang Tua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">Sekolah akan mengadakan kegiatan Maulid Nabi bersama seluruh siswa dan orang tua.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Libur Semester</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">1-7 Oktober 2026</p><span class="mt-3 inline-flex rounded-full bg-secondary/10 px-2.5 py-1 text-xs font-medium text-secondary">Semua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">Kegiatan belajar mengajar diliburkan dalam rangka libur semester sesuai kalender akademik.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Outing Class TK A</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Aktif</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">30 September 2026</p><span class="mt-3 inline-flex rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">TK A</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">Siswa TK A akan mengikuti kegiatan pembelajaran di luar kelas bersama guru pendamping.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">Rapat Orang Tua</h2><span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-text-muted dark:text-slate-400">Draft</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">25 September 2026</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Semua Orang Tua</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">Rapat orang tua akan membahas perkembangan belajar dan agenda kegiatan sekolah.</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      (function () {
+        const list = document.getElementById('announcement-list');
+        const escapeHtml = function (value) {
+          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        };
+        let announcements = SIATMA_DATA.announcements.filter(function (item) { return item.status === 'Aktif'; });
+        try {
+          const saved = JSON.parse(localStorage.getItem('siatma_announcements_extra') || '[]');
+          saved.forEach(function (item) {
+            if (!SIATMA_DATA.announcements.some(function (existing) { return existing.id === item.id; }) && item.status === 'Aktif') announcements.push(item);
+          });
+        } catch (error) {
+          SIATMA_TOAST.error('Gagal memuat pengumuman tersimpan');
+        }
+        if (!announcements.length) {
+          list.innerHTML = '<div class="col-span-full">' + SIATMA_UI.emptyState({ title: 'Belum ada pengumuman', description: 'Pengumuman akan tampil di sini setelah diterbitkan.' }) + '</div>';
+          return;
+        }
+        list.innerHTML = announcements.map(function (item) {
+          return '<article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">' + escapeHtml(item.judul) + '</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">' + escapeHtml(item.status) + '</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">' + SIATMA_UI.formatDate(item.tanggal, 'short') + '</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">' + escapeHtml(item.kelas || item.target) + '</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">' + escapeHtml(item.isi) + '</p></article>';
+        }).join('');
+      })();
+    </script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'guru',
+        activeMenu: 'pengumuman',
+        title: 'Pengumuman',
+        breadcrumb: 'Home / Pengumuman'
+      });
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+  </body>
+</html>

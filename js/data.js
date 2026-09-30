@@ -255,6 +255,63 @@
     ],
   };
 
+  function readStoredArray(key) {
+    try {
+      var value = JSON.parse(window.localStorage.getItem(key) || '[]');
+      if (!Array.isArray(value)) throw new TypeError('Expected an array in ' + key);
+      return value;
+    } catch (error) {
+      console.error('Gagal memuat data tersimpan: ' + key, error);
+      return [];
+    }
+  }
+
+  function mergeStoredRecords(target, records, match) {
+    records.forEach(function (record) {
+      var index = target.findIndex(function (item) { return match(item, record); });
+      if (index >= 0) target[index] = Object.assign({}, target[index], record);
+      else target.push(record);
+    });
+  }
+
+  mergeStoredRecords(SIATMA_DATA.students, readStoredArray('siatma_students_extra'), function (item, record) {
+    return item.id === record.id || item.nis === record.nis;
+  });
+  readStoredArray('siatma_students_override').forEach(function (override) {
+    var student = SIATMA_DATA.students.find(function (item) { return item.id === Number(override.id); });
+    if (student) student.status = override.status;
+  });
+  mergeStoredRecords(SIATMA_DATA.teachers, readStoredArray('siatma_teachers_extra'), function (item, record) {
+    return item.id === record.id || item.nip === record.nip;
+  });
+  readStoredArray('siatma_teachers_override').forEach(function (override) {
+    var teacher = SIATMA_DATA.teachers.find(function (item) { return item.id === Number(override.id); });
+    if (teacher) teacher.status = override.status;
+  });
+  mergeStoredRecords(SIATMA_DATA.announcements, readStoredArray('siatma_announcements_extra'), function (item, record) {
+    return item.id === record.id;
+  });
+  mergeStoredRecords(SIATMA_DATA.developments, readStoredArray('siatma_developments_extra'), function (item, record) {
+    return item.id === record.id;
+  });
+
+  readStoredArray('siatma_attendance').forEach(function (record) {
+    var student = SIATMA_DATA.students.find(function (item) { return item.nis === record.nis; });
+    if (!student) return;
+    var attendance = {
+      id: record.id,
+      studentId: student.id,
+      tanggal: record.tanggal,
+      status: record.status,
+      catatan: record.catatan || ''
+    };
+    var index = SIATMA_DATA.attendance.findIndex(function (item) {
+      return item.studentId === student.id && item.tanggal === record.tanggal;
+    });
+    if (index >= 0) SIATMA_DATA.attendance[index] = Object.assign({}, SIATMA_DATA.attendance[index], attendance);
+    else SIATMA_DATA.attendance.push(attendance);
+  });
+
   var SIATMA = {
     getStudentById: function (id) {
       return SIATMA_DATA.students.find(function (student) {
@@ -274,8 +331,14 @@
       });
     },
 
-    getAttendanceSummary: function (studentId) {
-      return this.getAttendanceByStudent(studentId).reduce(
+    getAttendanceSummary: function (studentId, month) {
+      var attendance = this.getAttendanceByStudent(studentId);
+      if (month) {
+        attendance = attendance.filter(function (record) {
+          return record.tanggal.slice(0, 7) === month;
+        });
+      }
+      return attendance.reduce(
         function (summary, record) {
           var status = record.status.toLowerCase();
           if (Object.prototype.hasOwnProperty.call(summary, status)) {

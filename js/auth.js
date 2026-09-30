@@ -35,7 +35,14 @@
 
     var storedUser = Object.assign({}, user);
     delete storedUser.password;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+    } catch (error) {
+      var message = error.name === 'QuotaExceededError'
+        ? 'Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.'
+        : 'Gagal menyimpan data: ' + error.message;
+      return { success: false, message: message };
+    }
 
     return { success: true, role: user.role };
   }
@@ -67,7 +74,11 @@
     var user = getCurrentUser();
 
     if (!user) {
-      redirectTo('index.html');
+      var currentPath = window.location.pathname;
+      var isLoginPage = /\/index\.html$/.test(currentPath) || /\/$/.test(currentPath);
+      if (!isLoginPage) {
+        redirectTo('index.html');
+      }
       return null;
     }
 
@@ -81,18 +92,17 @@
 
   function showLoginError(message) {
     var errorElement = document.getElementById('loginError');
-    var form = document.getElementById('loginForm');
-
-    if (!errorElement && form) {
-      errorElement = document.createElement('p');
-      errorElement.id = 'loginError';
-      errorElement.className = 'text-sm text-red-600';
-      errorElement.setAttribute('role', 'alert');
-      form.insertBefore(errorElement, form.firstElementChild);
-    }
 
     if (errorElement) {
-      errorElement.textContent = message;
+      errorElement.textContent = message || '';
+      errorElement.classList.toggle('hidden', !message);
+      if (message) {
+        var passwordInput = document.getElementById('password');
+        if (passwordInput) passwordInput.focus();
+      }
+      if (window.SIATMA_TOAST) {
+        if (message) window.SIATMA_TOAST.error(message);
+      }
     }
   }
 
@@ -100,8 +110,21 @@
     event.preventDefault();
 
     var form = event.currentTarget;
+    var errorElement = document.getElementById('loginError');
+    if (errorElement) {
+      errorElement.textContent = '';
+      errorElement.classList.add('hidden');
+    }
     var username = form.elements.username.value.trim();
     var password = form.elements.password.value;
+    if (!username || username.length < 3) {
+      showLoginError('Username minimal 3 karakter');
+      return;
+    }
+    if (!password || password.length < 6) {
+      showLoginError('Password minimal 6 karakter');
+      return;
+    }
     var result = login(username, password);
 
     if (!result.success) {
@@ -110,6 +133,9 @@
     }
 
     window.location.href = getRedirectPath(result.role);
+    if (window.SIATMA_TOAST) {
+      window.SIATMA_TOAST.success('Login berhasil. Selamat datang!');
+    }
     return result;
   }
 

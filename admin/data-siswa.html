@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Siswa | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,72 +40,86 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap items-center gap-3">
             <div class="relative">
               <label for="student-search" class="sr-only">Cari nama atau NIS</label>
-              <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
-              <input id="student-search" type="search" placeholder="Cari nama atau NIS..." class="w-64 rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" />
+              <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
+              <input id="student-search" type="search" placeholder="Cari nama atau NIS..." class="w-64 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" />
             </div>
-            <select aria-label="Filter Kelas" class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-text-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Kelas</option><option>TK A</option><option>TK B</option></select>
-            <select aria-label="Filter Status" class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-text-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Status</option><option>Aktif</option><option>Tidak Aktif</option></select>
-            <select aria-label="Filter Tahun Ajaran" class="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-text-muted outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Tahun Ajaran</option><option>2026/2027</option><option>2025/2026</option></select>
+            <select aria-label="Filter Kelas" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-text-muted dark:text-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Kelas</option><option>TK A</option><option>TK B</option></select>
+            <select aria-label="Filter Status" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-text-muted dark:text-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Status</option><option>Aktif</option><option>Tidak Aktif</option></select>
+            <select aria-label="Filter Tahun Ajaran" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-text-muted dark:text-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Tahun Ajaran</option><option>2026/2027</option><option>2025/2026</option></select>
           </div>
           <div class="flex flex-wrap gap-2">
             <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Siswa</button>
-            <button type="button" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Import Excel</button>
-            <button type="button" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Export</button>
+            <button id="import-excel-button" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Import Excel</button>
+            <button id="export-students-button" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Export</button>
           </div>
         </div>
 
-        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <section class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm">
           <div class="hidden overflow-x-auto md:block">
             <table class="min-w-full text-left">
-              <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted">
+              <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400">
                 <tr>
                   <th class="px-6 py-4">NIS</th><th class="px-6 py-4">Nama Siswa</th><th class="px-6 py-4">Jenis Kelamin</th><th class="px-6 py-4">Kelas</th><th class="px-6 py-4">Orang Tua</th><th class="px-6 py-4">Status</th><th class="px-6 py-4 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 text-sm">
-                <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4 text-text-muted">2024001</td><td class="whitespace-nowrap px-6 py-4 font-medium">Andi Pratama</td><td class="px-6 py-4">Laki-laki</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Budi Pratama</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2"><button class="text-text-muted hover:text-primary" aria-label="Detail Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></button><button class="text-text-muted hover:text-primary" aria-label="Edit Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L9.832 16.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.895.895-2.685a4.5 4.5 0 0 1 1.13-1.897L16.862 4.487Z"/></svg></button><button class="text-text-muted hover:text-red-500" aria-label="Nonaktifkan Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5m9.75-2.25a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg></button></div></td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">2024002</td><td class="px-6 py-4 font-medium">Aisyah Putri</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Siti Rahma</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted"><button aria-label="Detail Aisyah" class="hover:text-primary">◉</button><button aria-label="Edit Aisyah" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Aisyah" class="hover:text-red-500">⊘</button></div></td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">2024003</td><td class="px-6 py-4 font-medium">Budi Saputra</td><td class="px-6 py-4">Laki-laki</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4">Rina Saputra</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted"><button aria-label="Detail Budi" class="hover:text-primary">◉</button><button aria-label="Edit Budi" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Budi" class="hover:text-red-500">⊘</button></div></td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">2024004</td><td class="px-6 py-4 font-medium">Citra Dewi</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4">Ahmad Dewi</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted"><button aria-label="Detail Citra" class="hover:text-primary">◉</button><button aria-label="Edit Citra" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Citra" class="hover:text-red-500">⊘</button></div></td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-text-muted">2024005</td><td class="px-6 py-4 font-medium">Dinda Ayu</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Sari Ayu</td><td class="px-6 py-4"><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted"><button aria-label="Detail Dinda" class="hover:text-primary">◉</button><button aria-label="Edit Dinda" class="hover:text-primary">✎</button><button aria-label="Aktifkan Dinda" class="hover:text-secondary">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="whitespace-nowrap px-6 py-4 text-text-muted dark:text-slate-400">2024001</td><td class="whitespace-nowrap px-6 py-4 font-medium">Andi Pratama</td><td class="px-6 py-4">Laki-laki</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Budi Pratama</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2"><button class="text-text-muted dark:text-slate-400 hover:text-primary" aria-label="Detail Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></button><button class="text-text-muted dark:text-slate-400 hover:text-primary" aria-label="Edit Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L9.832 16.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.895.895-2.685a4.5 4.5 0 0 1 1.13-1.897L16.862 4.487Z"/></svg></button><button class="text-text-muted dark:text-slate-400 hover:text-red-500" aria-label="Nonaktifkan Andi"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5m9.75-2.25a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg></button></div></td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 text-text-muted dark:text-slate-400">2024002</td><td class="px-6 py-4 font-medium">Aisyah Putri</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Siti Rahma</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted dark:text-slate-400"><button aria-label="Detail Aisyah" class="hover:text-primary">◉</button><button aria-label="Edit Aisyah" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Aisyah" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 text-text-muted dark:text-slate-400">2024003</td><td class="px-6 py-4 font-medium">Budi Saputra</td><td class="px-6 py-4">Laki-laki</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4">Rina Saputra</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted dark:text-slate-400"><button aria-label="Detail Budi" class="hover:text-primary">◉</button><button aria-label="Edit Budi" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Budi" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 text-text-muted dark:text-slate-400">2024004</td><td class="px-6 py-4 font-medium">Citra Dewi</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK B</td><td class="px-6 py-4">Ahmad Dewi</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted dark:text-slate-400"><button aria-label="Detail Citra" class="hover:text-primary">◉</button><button aria-label="Edit Citra" class="hover:text-primary">✎</button><button aria-label="Nonaktifkan Citra" class="hover:text-red-500">⊘</button></div></td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4 text-text-muted dark:text-slate-400">2024005</td><td class="px-6 py-4 font-medium">Dinda Ayu</td><td class="px-6 py-4">Perempuan</td><td class="px-6 py-4">TK A</td><td class="px-6 py-4">Sari Ayu</td><td class="px-6 py-4"><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></td><td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted dark:text-slate-400"><button aria-label="Detail Dinda" class="hover:text-primary">◉</button><button aria-label="Edit Dinda" class="hover:text-primary">✎</button><button aria-label="Aktifkan Dinda" class="hover:text-secondary">⊘</button></div></td></tr>
               </tbody>
             </table>
           </div>
 
           <div class="space-y-3 p-4 md:hidden">
-            <article class="rounded-xl border border-slate-200 p-4">
-              <div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Andi Pratama</p><p class="text-xs text-text-muted">NIS 2024001</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
-              <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Jenis Kelamin</dt><dd>Laki-laki</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted">Orang Tua</dt><dd>Budi Pratama</dd></div></dl>
-              <div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button aria-label="Detail Andi" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Andi" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Andi" class="hover:text-red-500">⊘</button></div>
+            <article class="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+              <div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Andi Pratama</p><p class="text-xs text-text-muted dark:text-slate-400">NIS 2024001</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
+              <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd>Laki-laki</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Orang Tua</dt><dd>Budi Pratama</dd></div></dl>
+              <div class="mt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700 pt-3 text-text-muted dark:text-slate-400"><button aria-label="Detail Andi" class="hover:text-primary">◉ Detail</button><button aria-label="Edit Andi" class="hover:text-primary">✎ Edit</button><button aria-label="Nonaktifkan Andi" class="hover:text-red-500">⊘</button></div>
             </article>
-            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Aisyah Putri</p><p class="text-xs text-text-muted">NIS 2024002</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted">Orang Tua</dt><dd>Siti Rahma</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
-            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Budi Saputra</p><p class="text-xs text-text-muted">NIS 2024003</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Jenis Kelamin</dt><dd>Laki-laki</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK B</dd></div><div><dt class="text-xs text-text-muted">Orang Tua</dt><dd>Rina Saputra</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
-            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Citra Dewi</p><p class="text-xs text-text-muted">NIS 2024004</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK B</dd></div><div><dt class="text-xs text-text-muted">Orang Tua</dt><dd>Ahmad Dewi</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
-            <article class="rounded-xl border border-slate-200 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Dinda Ayu</p><p class="text-xs text-text-muted">NIS 2024005</p></div><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted">Orang Tua</dt><dd>Sari Ayu</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 pt-3 text-text-muted"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-secondary">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 dark:border-slate-700 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Aisyah Putri</p><p class="text-xs text-text-muted dark:text-slate-400">NIS 2024002</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Orang Tua</dt><dd>Siti Rahma</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700 pt-3 text-text-muted dark:text-slate-400"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 dark:border-slate-700 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Budi Saputra</p><p class="text-xs text-text-muted dark:text-slate-400">NIS 2024003</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd>Laki-laki</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Kelas</dt><dd>TK B</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Orang Tua</dt><dd>Rina Saputra</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700 pt-3 text-text-muted dark:text-slate-400"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 dark:border-slate-700 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Citra Dewi</p><p class="text-xs text-text-muted dark:text-slate-400">NIS 2024004</p></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Kelas</dt><dd>TK B</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Orang Tua</dt><dd>Ahmad Dewi</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700 pt-3 text-text-muted dark:text-slate-400"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-red-500">⊘</button></div></article>
+            <article class="rounded-xl border border-slate-200 dark:border-slate-700 p-4"><div class="mb-3 flex items-start justify-between"><div><p class="font-semibold">Dinda Ayu</p><p class="text-xs text-text-muted dark:text-slate-400">NIS 2024005</p></div><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span></div><dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><dt class="text-xs text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd>Perempuan</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Kelas</dt><dd>TK A</dd></div><div><dt class="text-xs text-text-muted dark:text-slate-400">Orang Tua</dt><dd>Sari Ayu</dd></div></dl><div class="mt-4 flex gap-3 border-t border-slate-100 dark:border-slate-700 pt-3 text-text-muted dark:text-slate-400"><button class="hover:text-primary">◉ Detail</button><button class="hover:text-primary">✎ Edit</button><button class="hover:text-secondary">⊘</button></div></article>
           </div>
         </section>
 
-        <div class="mt-4 flex flex-col items-center justify-between gap-3 text-sm text-text-muted sm:flex-row">
+        <div class="mt-4 flex flex-col items-center justify-between gap-3 text-sm text-text-muted dark:text-slate-400 sm:flex-row">
           <p>Menampilkan 1-5 dari 85 siswa</p>
           <div class="flex items-center gap-1">
-            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-text-muted transition hover:border-primary hover:text-primary">Prev</button>
+            <button type="button" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-text-muted dark:text-slate-400 transition hover:border-primary hover:text-primary">Prev</button>
             <button type="button" class="rounded-lg bg-primary px-3 py-2 font-medium text-white">1</button>
-            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 transition hover:border-primary hover:text-primary">2</button>
-            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 transition hover:border-primary hover:text-primary">3</button>
-            <button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-text-muted transition hover:border-primary hover:text-primary">Next</button>
+            <button type="button" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 transition hover:border-primary hover:text-primary">2</button>
+            <button type="button" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 transition hover:border-primary hover:text-primary">3</button>
+            <button type="button" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-text-muted dark:text-slate-400 transition hover:border-primary hover:text-primary">Next</button>
           </div>
         </div>
       </main>
@@ -100,6 +127,9 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -109,6 +139,212 @@
         breadcrumb: 'Home / Data Siswa'
       });
     </script>
+    <script>
+    (function() {
+      var students = SIATMA_DATA.students;
+      var tbody = document.querySelector('tbody');
+      var searchInput = document.getElementById('student-search');
+      var filterKelas = document.querySelector('select[aria-label="Filter Kelas"]');
+      var filterStatus = document.querySelector('select[aria-label="Filter Status"]');
+      var filterTahun = document.querySelector('select[aria-label="Filter Tahun Ajaran"]');
+      var paginationInfo = document.querySelector('main > div.mt-4 p');
+      var paginationControls = paginationInfo.nextElementSibling;
+      var currentPage = 1;
+      var perPage = 5;
+      var filteredStudents = students;
+      var importButton = document.getElementById('import-excel-button');
+      var exportButton = document.getElementById('export-students-button');
+      var searchQuery = new URLSearchParams(window.location.search).get('q');
+      var statusOverrides = [];
+
+      try {
+        var extraStudents = JSON.parse(localStorage.getItem('siatma_students_extra') || '[]');
+        extraStudents.forEach(function(extraStudent) {
+          var existingIndex = students.findIndex(function(student) {
+            return student.id === extraStudent.id || student.nis === extraStudent.nis;
+          });
+          if (existingIndex >= 0) students[existingIndex] = extraStudent;
+          else students.push(extraStudent);
+        });
+      } catch (err) {
+        SIATMA_TOAST.error('Gagal memuat data siswa tersimpan');
+      }
+
+      try {
+        statusOverrides = JSON.parse(localStorage.getItem('siatma_students_override') || '[]');
+        statusOverrides.forEach(function(override) {
+          var student = students.find(function(item) { return item.id === override.id; });
+          if (student) student.status = override.status;
+        });
+      } catch (err) {
+        SIATMA_TOAST.error('Gagal memuat status siswa tersimpan');
+      }
+
+      if (searchQuery) searchInput.value = searchQuery;
+
+      importButton.addEventListener('click', function () {
+        window.location.href = 'import-excel.html';
+      });
+
+      exportButton.addEventListener('click', function () {
+        var headers = ['NIS', 'Nama Siswa', 'Jenis Kelamin', 'Kelas', 'Orang Tua', 'Status'];
+        var rows = filteredStudents.map(function (student) {
+          return [student.nis, student.nama, student.jenisKelamin, student.kelas, student.namaAyah, student.status];
+        });
+        function escapeCSV(value) {
+          var str = String(value == null ? '' : value);
+          if (/^[=+\-@]/.test(str)) str = "'" + str;
+          return '"' + str.replace(/"/g, '""') + '"';
+        }
+        var csv = '\uFEFF' + [headers].concat(rows).map(function (row) {
+          return row.map(escapeCSV).join(',');
+        }).join('\r\n');
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'data-siswa-' + new Date().toISOString().split('T')[0] + '.csv';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
+        SIATMA_TOAST.success('Data siswa berhasil diexport');
+      });
+
+      function renderPagination(totalData) {
+        var totalPages = Math.ceil(totalData / perPage);
+        var startItem = totalData ? (currentPage - 1) * perPage + 1 : 0;
+        var endItem = Math.min(currentPage * perPage, totalData);
+        paginationInfo.textContent = 'Menampilkan ' + startItem + '-' + endItem + ' dari ' + totalData + ' siswa';
+
+        var previousDisabled = currentPage === 1 || totalPages === 0;
+        var nextDisabled = currentPage === totalPages || totalPages === 0;
+        var buttonBase = 'rounded-lg border px-3 py-2 transition ';
+        var disabledClasses = 'cursor-not-allowed border-slate-200 dark:border-slate-700 text-text-muted dark:text-slate-400 opacity-50';
+        var enabledClasses = 'border-slate-200 dark:border-slate-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary';
+        var html = '<button type="button" data-page="' + (currentPage - 1) + '" ' +
+          (previousDisabled ? 'disabled ' : '') +
+          'class="' + buttonBase + (previousDisabled ? disabledClasses : enabledClasses) + '">Prev</button>';
+
+        for (var page = 1; page <= totalPages; page += 1) {
+          var active = page === currentPage;
+          html += '<button type="button" data-page="' + page + '"' +
+            (active ? ' aria-current="page"' : '') +
+            ' class="rounded-lg px-3 py-2 transition ' +
+            (active ? 'bg-primary font-medium text-white' : 'border border-slate-200 dark:border-slate-700 hover:border-primary hover:text-primary') +
+            '">' + page + '</button>';
+        }
+
+        html += '<button type="button" data-page="' + (currentPage + 1) + '" ' +
+          (nextDisabled ? 'disabled ' : '') +
+          'class="' + buttonBase + (nextDisabled ? disabledClasses : enabledClasses) + '">Next</button>';
+        paginationControls.innerHTML = html;
+      }
+
+      function renderTable(data, page) {
+        var totalPages = Math.ceil(data.length / perPage);
+        currentPage = Math.min(Math.max(page, 1), Math.max(totalPages, 1));
+        renderPagination(data.length);
+
+        if (!data.length) {
+          tbody.innerHTML = '<tr><td colspan="7" class="p-0">' + SIATMA_UI.emptyState({
+            title: 'Data siswa tidak ditemukan',
+            description: 'Coba ubah kata kunci pencarian atau filter.'
+          }) + '</td></tr>';
+          return;
+        }
+
+        var startIndex = (currentPage - 1) * perPage;
+        var pageData = data.slice(startIndex, startIndex + perPage);
+        tbody.innerHTML = pageData.map(function(s) {
+          var statusBadge = s.status === 'Aktif'
+            ? '<span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>'
+            : '<span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Tidak Aktif</span>';
+
+          return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">' +
+            '<td class="whitespace-nowrap px-6 py-4 text-text-muted dark:text-slate-400">' + s.nis + '</td>' +
+            '<td class="whitespace-nowrap px-6 py-4 font-medium">' + s.nama + '</td>' +
+            '<td class="px-6 py-4">' + s.jenisKelamin + '</td>' +
+            '<td class="px-6 py-4">' + s.kelas + '</td>' +
+            '<td class="px-6 py-4">' + s.namaAyah + '</td>' +
+            '<td class="px-6 py-4">' + statusBadge + '</td>' +
+            '<td class="px-6 py-4"><div class="flex justify-center gap-2 text-text-muted dark:text-slate-400">' +
+            '<a href="detail-siswa.html?id=' + s.id + '" class="hover:text-primary" aria-label="Detail">◉</a>' +
+            '<a href="tambah-siswa.html?id=' + s.id + '" class="hover:text-primary" aria-label="Edit">✎</a>' +
+            '<button class="hover:text-red-500" aria-label="' + (s.status === 'Aktif' ? 'Nonaktifkan' : 'Aktifkan') + '" data-id="' + s.id + '">⊘</button>' +
+            '</div></td></tr>';
+        }).join('');
+      }
+
+      function applyFilter() {
+        var q = (searchInput.value || '').toLowerCase();
+        var kelas = filterKelas.value;
+        var status = filterStatus.value;
+        var tahun = filterTahun.value;
+
+        var filtered = students.filter(function(s) {
+          var matchQ = !q || s.nama.toLowerCase().includes(q) || s.nis.includes(q);
+          var matchKelas = !kelas || kelas === 'Kelas' || s.kelas === kelas;
+          var matchStatus = !status || status === 'Status' || s.status === status;
+          var matchTahun = !tahun || tahun === 'Tahun Ajaran' || s.tahunAjaran === tahun;
+          return matchQ && matchKelas && matchStatus && matchTahun;
+        });
+
+        filteredStudents = filtered;
+        currentPage = 1;
+        renderTable(filteredStudents, currentPage);
+      }
+
+      searchInput.addEventListener('input', applyFilter);
+      filterKelas.addEventListener('change', applyFilter);
+      filterStatus.addEventListener('change', applyFilter);
+      filterTahun.addEventListener('change', applyFilter);
+      paginationControls.addEventListener('click', function(event) {
+        var button = event.target.closest('button[data-page]');
+        if (!button || button.disabled) return;
+        currentPage = Number(button.dataset.page);
+        renderTable(filteredStudents, currentPage);
+      });
+
+      // Handle nonaktifkan
+      tbody.addEventListener('click', function(e) {
+        var btn = e.target.closest('button[data-id]');
+        if (!btn) return;
+        var id = Number(btn.dataset.id);
+        SIATMA_UI.confirm('Yakin ingin menonaktifkan siswa ini?', function() {
+          var student = students.find(function(item) { return item.id === id; });
+          if (!student) return;
+
+          var oldStatus = student.status;
+          student.status = oldStatus === 'Aktif' ? 'Tidak Aktif' : 'Aktif';
+          var nextOverrides = statusOverrides.map(function(override) {
+            return { id: override.id, status: override.status };
+          });
+          var overrideIndex = nextOverrides.findIndex(function(override) { return override.id === id; });
+          if (overrideIndex >= 0) nextOverrides[overrideIndex].status = student.status;
+          else nextOverrides.push({ id: id, status: student.status });
+
+          try {
+            localStorage.setItem('siatma_students_override', JSON.stringify(nextOverrides));
+          } catch (err) {
+            student.status = oldStatus;
+            if (err.name === 'QuotaExceededError') {
+              SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+            } else {
+              SIATMA_TOAST.error('Gagal menyimpan data: ' + err.message);
+            }
+            return;
+          }
+
+          statusOverrides = nextOverrides;
+          applyFilter();
+          SIATMA_TOAST.success('Status siswa berhasil diubah');
+        });
+      });
+
+      tbody.innerHTML = '<tr><td colspan="7" class="p-0">' + SIATMA_UI.skeletonTable(5, 7) + '</td></tr>';
+      window.setTimeout(applyFilter, 300);
+    })();
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

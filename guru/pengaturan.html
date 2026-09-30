@@ -67,7 +67,6 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <button type="button" data-tab="profil" class="settings-tab border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary" aria-selected="true">Profil</button>
           <button type="button" data-tab="akun" class="settings-tab px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary" aria-selected="false">Akun</button>
           <button type="button" data-tab="password" class="settings-tab px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary" aria-selected="false">Password</button>
-          <button type="button" data-tab="sistem" class="settings-tab px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary" aria-selected="false">Sistem</button>
         </nav>
 
         <section id="tab-profil" class="settings-panel rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
@@ -100,18 +99,6 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Ubah Password</button>
           </div>
         </section>
-
-        <section id="tab-sistem" class="settings-panel hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-5 text-lg font-semibold">Informasi Sekolah</h2>
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div><label for="school-name" class="mb-1.5 block text-sm font-medium">Nama Sekolah</label><input id="school-name" type="text" value="TK Al-Matin" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-            <div><label for="school-phone" class="mb-1.5 block text-sm font-medium">Telepon</label><input id="school-phone" type="tel" value="021-1234567" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-            <div><label for="school-email" class="mb-1.5 block text-sm font-medium">Email</label><input id="school-email" type="email" value="info@almatin.sch.id" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-            <div><label for="school-year" class="mb-1.5 block text-sm font-medium">Tahun Ajaran Aktif</label><select id="school-year" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>2025/2026</option><option>2026/2027</option></select></div>
-            <div class="md:col-span-2"><label for="school-address" class="mb-1.5 block text-sm font-medium">Alamat</label><textarea id="school-address" rows="3" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">Jl. Pendidikan No. 123, Jakarta</textarea></div>
-          </div>
-          <button type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
-        </section>
       </main>
     </div>
 
@@ -124,10 +111,6 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script>
       const tabs = document.querySelectorAll(".settings-tab");
       const panels = document.querySelectorAll(".settings-panel");
-      const saveProfileButton = document.querySelector("#tab-profil button:last-child");
-      const saveAccountButton = document.querySelector("#tab-akun button");
-      const changePasswordButton = document.querySelector("#tab-password button");
-      const saveSystemButton = document.querySelector("#tab-sistem button");
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -148,10 +131,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           });
         });
 
-        function saveSettings(key, values, successMessage) {
+        function saveTeacherSettings(key, values, message) {
           try {
             localStorage.setItem(key, JSON.stringify(values));
-            SIATMA_TOAST.success(successMessage);
+            SIATMA_TOAST.success(message);
           } catch (error) {
             if (error.name === 'QuotaExceededError') {
               SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
@@ -160,20 +143,17 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             }
           }
         }
-
-        saveProfileButton.addEventListener('click', () => saveSettings('siatma_profile', {
+        document.querySelector('#tab-profil button:last-child').addEventListener('click', () => saveTeacherSettings('siatma_profile', {
           nama: document.getElementById('profile-name').value.trim(),
           email: document.getElementById('profile-email').value.trim(),
           nomorHP: document.getElementById('profile-phone').value.trim(),
           jabatan: document.getElementById('profile-role').value.trim()
         }, 'Profil berhasil diperbarui'));
-
-        saveAccountButton.addEventListener('click', () => saveSettings('siatma_account', {
+        document.querySelector('#tab-akun button').addEventListener('click', () => saveTeacherSettings('siatma_account', {
           username: document.getElementById('account-username').value.trim(),
           email: document.getElementById('account-email').value.trim()
         }, 'Akun berhasil diperbarui'));
-
-        changePasswordButton.addEventListener('click', () => {
+        document.querySelector('#tab-password button').addEventListener('click', () => {
           const oldPassword = document.getElementById('old-password').value;
           const newPassword = document.getElementById('new-password').value;
           const confirmation = document.getElementById('confirm-password').value;
@@ -193,23 +173,12 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           }
           account.password = newPassword;
           SIATMA_TOAST.success('Password berhasil diubah');
-          document.getElementById('old-password').value = '';
-          document.getElementById('new-password').value = '';
-          document.getElementById('confirm-password').value = '';
         });
-
-        saveSystemButton.addEventListener('click', () => saveSettings('siatma_school_settings', {
-          nama: document.getElementById('school-name').value.trim(),
-          telepon: document.getElementById('school-phone').value.trim(),
-          email: document.getElementById('school-email').value.trim(),
-          tahunAjaran: document.getElementById('school-year').value,
-          alamat: document.getElementById('school-address').value.trim()
-        }, 'Informasi sekolah berhasil disimpan'));
       });
     </script>
     <script>
       SIATMA_LAYOUT.initLayout({
-        role: 'admin',
+        role: 'guru',
         activeMenu: 'pengaturan',
         title: 'Pengaturan',
         breadcrumb: 'Home / Pengaturan'

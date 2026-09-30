@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Halaman login SIATMA - Sistem Informasi Akademik TK Al-Matin"
-    />
+    <meta name="description" content="SIATMA - Sistem Informasi Akademik TK Al-Matin. Platform digital untuk pengelolaan data siswa, absensi, dan komunikasi sekolah dengan orang tua." />
+    <meta property="og:title" content="SIATMA - Sistem Informasi Akademik TK Al-Matin" />
+    <meta property="og:description" content="Platform digital untuk pengelolaan data siswa, absensi, dan komunikasi sekolah dengan orang tua." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://siatma.vercel.app/" />
+    <meta property="og:image" content="https://siatma.vercel.app/screenshots/siatma-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>Masuk ke SIATMA | TK Al-Matin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,9 +30,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -54,9 +70,23 @@
         filter: blur(1px);
       }
     </style>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <main class="flex min-h-screen">
       <section
         class="relative hidden w-1/2 overflow-hidden bg-primary px-12 py-12 text-white md:flex md:flex-col md:justify-between lg:px-20"
@@ -72,7 +102,7 @@
 
         <div class="relative z-10">
           <div
-            class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-xl font-extrabold text-primary shadow-lg"
+            class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white dark:bg-slate-800 text-xl font-extrabold text-primary shadow-lg"
             aria-label="Logo TK Al-Matin"
           >
             TK
@@ -95,7 +125,7 @@
           <div class="mt-10 flex items-end gap-3" aria-hidden="true">
             <div class="h-20 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-accent/90"></div>
             <div class="h-32 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-secondary/90"></div>
-            <div class="h-24 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-white/90"></div>
+            <div class="h-24 w-20 rounded-t-[2.5rem] rounded-b-2xl bg-white/90 dark:bg-slate-800/90"></div>
             <div class="ml-4 h-16 w-16 rounded-full border-8 border-white/30"></div>
           </div>
         </div>
@@ -103,10 +133,21 @@
         <p class="relative z-10 text-sm text-blue-100">
           Membentuk generasi cerdas, ceria, dan berakhlak mulia.
         </p>
+        <div class="relative z-10 mt-6 flex items-center gap-4 border-t border-white/20 pt-6">
+          <img src="assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-16 w-auto rounded-lg bg-white/95 p-1.5 shadow-sm" />
+          <span class="text-white/70 text-sm font-light">×</span>
+          <div class="flex items-center gap-2">
+            <img src="assets/logo-unpam.png" alt="Logo Universitas Pamulang" class="h-10 w-auto rounded-full bg-white/95 p-0.5 shadow-sm" />
+            <div class="text-left">
+              <p class="text-[10px] uppercase tracking-wider text-blue-100/80">Didukung oleh</p>
+              <p class="text-xs font-semibold text-white">Universitas Pamulang</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section
-        class="flex w-full items-center justify-center bg-white px-6 py-10 sm:px-10 md:w-1/2 lg:px-16"
+        class="flex w-full items-center justify-center bg-white dark:bg-slate-800 px-6 py-10 sm:px-10 md:w-1/2 lg:px-16"
         aria-label="Form login"
       >
         <div class="w-full max-w-md">
@@ -122,30 +163,31 @@
           </div>
 
           <div class="mb-8">
-            <h2 class="text-3xl font-bold tracking-tight text-text">Masuk ke SIATMA</h2>
-            <p class="mt-2 text-sm text-text-muted">
+            <h2 class="text-3xl font-bold tracking-tight text-text dark:text-slate-100">Masuk ke SIATMA</h2>
+            <p class="mt-2 text-sm text-text-muted dark:text-slate-400">
               Silakan masuk menggunakan akun Anda
             </p>
           </div>
 
           <form id="loginForm" class="space-y-5" action="#" method="post">
             <div>
-              <label for="username" class="mb-2 block text-sm font-semibold text-text">
+              <label for="username" class="mb-2 block text-sm font-semibold text-text dark:text-slate-100">
                 Username/Email
               </label>
               <input
                 id="username"
                 name="username"
                 type="text"
+                minlength="3"
                 autocomplete="username"
                 placeholder="Masukkan username atau email"
-                class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-text outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-text dark:text-slate-100 outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
 
             <div>
-              <label for="password" class="mb-2 block text-sm font-semibold text-text">
+              <label for="password" class="mb-2 block text-sm font-semibold text-text dark:text-slate-100">
                 Password
               </label>
               <div class="relative">
@@ -153,15 +195,16 @@
                   id="password"
                   name="password"
                   type="password"
+                  minlength="6"
                   autocomplete="current-password"
                   placeholder="Masukkan password"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 pr-12 text-sm text-text outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 pr-12 text-sm text-text dark:text-slate-100 outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
                   required
                 />
                 <button
                   id="togglePassword"
                   type="button"
-                  class="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-text-muted transition hover:text-primary"
+                  class="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-text-muted dark:text-slate-400 transition hover:text-primary"
                   aria-label="Tampilkan password"
                   aria-pressed="false"
                 >
@@ -188,14 +231,15 @@
                   </svg>
                 </button>
               </div>
+              <div id="loginError" class="hidden text-sm text-red-600 dark:text-red-400 font-medium" role="alert"></div>
             </div>
 
             <div class="flex items-center justify-between gap-4">
-              <label class="flex cursor-pointer items-center gap-2 text-sm text-text-muted">
+              <label class="flex cursor-pointer items-center gap-2 text-sm text-text-muted dark:text-slate-400">
                 <input
                   type="checkbox"
                   name="remember"
-                  class="h-4 w-4 rounded border-slate-300 text-primary accent-primary focus:ring-primary"
+                  class="h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-primary accent-primary focus:ring-primary"
                 />
                 <span>Ingat saya</span>
               </label>
@@ -209,7 +253,7 @@
 
             <button
               type="submit"
-              class="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              class="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition hover:shadow-md"
             >
               Masuk
             </button>
@@ -217,11 +261,11 @@
 
           <div class="my-7 flex items-center gap-4">
             <div class="h-px flex-1 bg-slate-200"></div>
-            <span class="text-xs font-medium uppercase tracking-wider text-text-muted">atau</span>
+            <span class="text-xs font-medium uppercase tracking-wider text-text-muted dark:text-slate-400">atau</span>
             <div class="h-px flex-1 bg-slate-200"></div>
           </div>
 
-          <p class="text-center text-sm text-text-muted">
+          <p class="text-center text-sm text-text-muted dark:text-slate-400">
             Belum punya akun?
             <a href="#" class="font-semibold text-primary transition hover:text-primary-dark">
               Hubungi admin sekolah
@@ -249,5 +293,8 @@
           : `<path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 2.458 12C3.732 16.057 7.523 19 12 19c1.617 0 3.145-.39 4.49-1.08M6.228 6.228A10.45 10.45 0 0 1 12 5c4.478 0 8.268 2.943 9.542 7a10.477 10.477 0 0 1-4.043 5.093M6.228 6.228 3 3m3.228 3.228 3.06 3.06m7.484 7.484L21 21m-4.228-4.228-3.06-3.06m0 0a3 3 0 1 1-4.243-4.243"/>`;
       });
     </script>
+          <script src="js/toast.js"></script>
+          <script src="js/network-status.js"></script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

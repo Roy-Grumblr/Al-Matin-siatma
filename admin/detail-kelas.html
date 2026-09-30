@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Kelas | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: {
+          primary: '#2563EB', 'primary-dark': '#1E40AF', secondary: '#10B981',
+          accent: '#F59E0B', bg: '#F8FAFC', text: '#1E293B', 'text-muted': '#64748B'
+        }, fontFamily: { Inter: ['Inter', 'sans-serif'] } } }
+      };
+    </script>
+    <style>
+      main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+      html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+      html.dark .bg-bg{background-color:#0f172a!important}
+      html.dark .bg-white{background-color:#1e293b!important}
+      html.dark .text-text-muted{color:#94a3b8!important}
+      html.dark .border-slate-200,html.dark .border-slate-300{border-color:#334155!important}
+    </style>
+  </head>
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased dark:bg-slate-900 dark:text-slate-100">
+    <div id="sidebar"></div>
+    <div class="ml-64">
+      <div id="header"></div>
+      <main class="min-h-screen bg-bg p-6 dark:bg-slate-900">
+        <div id="class-details"></div>
+      </main>
+    </div>
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({ role: 'admin', activeMenu: 'data-kelas', title: 'Detail Kelas', breadcrumb: 'Home / Data Kelas / Detail' });
+    </script>
+    <script>
+      (function () {
+        function escapeHtml(value) {
+          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+        try {
+          var extras = JSON.parse(localStorage.getItem('siatma_classes_extra') || '[]');
+          extras.forEach(function (extraClass) {
+            var index = SIATMA_DATA.classes.findIndex(function (item) {
+              return String(item.id) === String(extraClass.id) || item.nama.toLowerCase() === extraClass.nama.toLowerCase();
+            });
+            if (index >= 0) SIATMA_DATA.classes[index] = extraClass;
+            else SIATMA_DATA.classes.push(extraClass);
+          });
+        } catch (error) {
+          SIATMA_TOAST.error('Gagal memuat data kelas tersimpan');
+        }
+
+        var classId = new URLSearchParams(window.location.search).get('id');
+        var kelas = SIATMA_DATA.classes.find(function (item) { return String(item.id) === String(classId); });
+        var container = document.getElementById('class-details');
+        if (!kelas) {
+          container.innerHTML = SIATMA_UI.emptyState({ title: 'Data kelas tidak ditemukan', description: 'Pilih kelas dari halaman Data Kelas.' });
+          return;
+        }
+
+        var students = SIATMA_DATA.students.filter(function (student) { return student.kelas === kelas.nama; });
+        var statusClass = kelas.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700';
+        container.innerHTML =
+          '<section class="mb-4 flex flex-wrap items-start justify-between gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800">' +
+            '<div><p class="text-sm text-text-muted dark:text-slate-400">Informasi Kelas</p><h2 class="mt-1 text-2xl font-bold">' + escapeHtml(kelas.nama) + '</h2>' +
+            '<p class="mt-2 text-sm text-text-muted dark:text-slate-400">Guru pengampu: ' + (kelas.guru ? 'Ibu ' + escapeHtml(kelas.guru) : 'Belum ditentukan') + '</p></div>' +
+            '<a href="tambah-kelas.html?id=' + encodeURIComponent(kelas.id) + '" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Edit Kelas</a>' +
+            '<dl class="grid w-full grid-cols-2 gap-4 border-t border-slate-200 pt-4 text-sm dark:border-slate-700 md:grid-cols-4">' +
+              '<div><dt class="text-text-muted dark:text-slate-400">Jumlah siswa</dt><dd class="mt-1 font-semibold">' + (Number(kelas.jumlahSiswa) || students.length) + '</dd></div>' +
+              '<div><dt class="text-text-muted dark:text-slate-400">Tahun ajaran</dt><dd class="mt-1 font-semibold">' + escapeHtml(kelas.tahunAjaran) + '</dd></div>' +
+              '<div><dt class="text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(kelas.status) + '</span></dd></div>' +
+              '<div><dt class="text-text-muted dark:text-slate-400">Terdaftar di kelas</dt><dd class="mt-1 font-semibold">' + students.length + '</dd></div>' +
+            '</dl>' +
+          '</section>' +
+          '<section class="overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-slate-800">' +
+            '<div class="border-b border-slate-200 px-6 py-4 dark:border-slate-700"><h3 class="font-semibold">Daftar Siswa</h3></div>' +
+            (students.length ? '<div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-bg text-xs uppercase tracking-wide text-text-muted dark:bg-slate-900 dark:text-slate-400"><tr><th class="px-6 py-4">NIS</th><th class="px-6 py-4">Nama Siswa</th><th class="px-6 py-4">Status</th></tr></thead><tbody class="divide-y divide-slate-100">' +
+              students.map(function (student) {
+                return '<tr><td class="px-6 py-4">' + escapeHtml(student.nis) + '</td><td class="px-6 py-4 font-medium">' + escapeHtml(student.nama) + '</td><td class="px-6 py-4">' + escapeHtml(student.status) + '</td></tr>';
+              }).join('') + '</tbody></table></div>' :
+              '<div class="p-6">' + SIATMA_UI.emptyState({ title: 'Belum ada siswa di kelas ini' }) + '</div>') +
+          '</section>';
+      })();
+    </script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+  </body>
+</html>

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tambah Data Siswa | SIATMA</title>
@@ -13,9 +21,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -32,17 +45,31 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
         <form action="#" method="post" class="space-y-4">
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Data Siswa</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div><label for="nis" class="mb-1 block text-sm font-medium">NIS <span class="text-red-500">*</span></label><input id="nis" name="nis" type="text" required class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
@@ -53,13 +80,13 @@
               <div><label for="tanggal-lahir" class="mb-1 block text-sm font-medium">Tanggal Lahir</label><input id="tanggal-lahir" name="tanggal_lahir" type="date" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
               <fieldset><legend class="mb-2 block text-sm font-medium">Jenis Kelamin</legend><div class="flex gap-5 pt-1"><label class="flex items-center gap-2 text-sm"><input type="radio" name="jenis_kelamin" value="Laki-laki" class="h-4 w-4 accent-primary" />Laki-laki</label><label class="flex items-center gap-2 text-sm"><input type="radio" name="jenis_kelamin" value="Perempuan" class="h-4 w-4 accent-primary" />Perempuan</label></div></fieldset>
               <div class="md:col-span-2"><label for="alamat-siswa" class="mb-1 block text-sm font-medium">Alamat</label><textarea id="alamat-siswa" name="alamat_siswa" rows="3" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"></textarea></div>
-              <div><label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas" name="kelas" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih kelas</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option></select></div>
-              <div><label for="tahun-ajaran" class="mb-1 block text-sm font-medium">Tahun Ajaran</label><select id="tahun-ajaran" name="tahun_ajaran" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih tahun ajaran</option><option>2025/2026</option><option>2026/2027</option></select></div>
-              <div><label for="status" class="mb-1 block text-sm font-medium">Status</label><select id="status" name="status" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option>Aktif</option><option>Tidak Aktif</option></select></div>
+              <div><label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas" name="kelas" class="w-full rounded-lg border border-gray-300 bg-white dark:bg-slate-800 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih kelas</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option></select></div>
+              <div><label for="tahun-ajaran" class="mb-1 block text-sm font-medium">Tahun Ajaran</label><select id="tahun-ajaran" name="tahun_ajaran" class="w-full rounded-lg border border-gray-300 bg-white dark:bg-slate-800 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option value="">Pilih tahun ajaran</option><option>2025/2026</option><option>2026/2027</option></select></div>
+              <div><label for="status" class="mb-1 block text-sm font-medium">Status</label><select id="status" name="status" class="w-full rounded-lg border border-gray-300 bg-white dark:bg-slate-800 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary"><option>Aktif</option><option>Tidak Aktif</option></select></div>
             </div>
           </section>
 
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Data Orang Tua</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div><label for="nama-ayah" class="mb-1 block text-sm font-medium">Nama Ayah</label><input id="nama-ayah" name="nama_ayah" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-primary" /></div>
@@ -70,25 +97,25 @@
             </div>
           </section>
 
-          <section class="rounded-2xl bg-white p-6 shadow-sm">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Foto Siswa</h2>
             <label for="foto-siswa" class="block cursor-pointer rounded-xl border-2 border-dashed border-primary/30 p-8 text-center transition hover:border-primary hover:bg-primary/5">
               <svg class="mx-auto h-12 w-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-6L12 6m0 0 4.5 4.5M12 6v10.5" />
               </svg>
-              <p class="mt-3 text-sm font-medium text-text">Drag &amp; drop foto di sini atau klik untuk pilih</p>
-              <p class="mt-1 text-xs text-text-muted">Format JPG, JPEG, atau PNG. Maksimal 2 MB.</p>
+              <p class="mt-3 text-sm font-medium text-text dark:text-slate-100">Drag &amp; drop foto di sini atau klik untuk pilih</p>
+              <p class="mt-1 text-xs text-text-muted dark:text-slate-400">Format JPG, JPEG, atau PNG. Maksimal 2 MB.</p>
               <input id="foto-siswa" name="foto_siswa" type="file" accept="image/jpeg,image/png" class="sr-only" />
             </label>
-            <div class="mt-4 flex items-center gap-4 rounded-xl border border-slate-200 bg-bg p-4">
-              <div class="flex h-20 w-20 items-center justify-center rounded-lg bg-slate-200 text-xs text-text-muted">Preview</div>
-              <div><p class="text-sm font-medium">Preview foto siswa</p><p class="mt-1 text-xs text-text-muted">Foto akan ditampilkan di sini setelah dipilih.</p></div>
+            <div class="mt-4 flex items-center gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-bg dark:bg-slate-900 p-4">
+              <div id="foto-preview" class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-lg bg-slate-200 text-xs text-text-muted dark:text-slate-400">Preview</div>
+              <div><p class="text-sm font-medium">Preview foto siswa</p><p class="mt-1 text-xs text-text-muted dark:text-slate-400">Foto akan ditampilkan di sini setelah dipilih.</p></div>
             </div>
           </section>
 
           <div class="flex flex-wrap justify-end gap-3 pb-6">
-            <a href="data-siswa.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Batal</a>
-            <button type="submit" name="action" value="save-and-add" class="rounded-lg border border-primary bg-white px-4 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/5">Simpan &amp; Tambah Lagi</button>
+            <a href="data-siswa.html" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Batal</a>
+            <button type="submit" name="action" value="save-and-add" class="rounded-lg border border-primary bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/5">Simpan &amp; Tambah Lagi</button>
             <button type="submit" name="action" value="save" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
           </div>
         </form>
@@ -97,6 +124,9 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -106,6 +136,249 @@
         breadcrumb: 'Home / Data Siswa / Tambah'
       });
     </script>
+    <script>
+    (function() {
+      var form = document.querySelector('form[action="#"]');
+      if (!form) return;
+      var editId = new URLSearchParams(window.location.search).get('id');
+      var photoDataUrl = '';
+      var photoReadPending = false;
+      var photoInput = form.querySelector('#foto-siswa');
+      var photoPreview = form.querySelector('#foto-preview');
+
+      function setPhotoPreview(source) {
+        photoPreview.innerHTML = '';
+        if (!source) {
+          photoPreview.textContent = 'Preview';
+          return;
+        }
+        var image = document.createElement('img');
+        image.src = source;
+        image.alt = 'Preview foto siswa';
+        image.className = 'h-20 w-20 rounded-lg object-cover';
+        photoPreview.appendChild(image);
+      }
+
+      try {
+        var extraStudents = JSON.parse(localStorage.getItem('siatma_students_extra') || '[]');
+        extraStudents.forEach(function(extraStudent) {
+          var extraIndex = SIATMA_DATA.students.findIndex(function(student) {
+            return student.id === extraStudent.id || student.nis === extraStudent.nis;
+          });
+          if (extraIndex >= 0) SIATMA_DATA.students[extraIndex] = extraStudent;
+          else SIATMA_DATA.students.push(extraStudent);
+        });
+        var statusOverrides = JSON.parse(localStorage.getItem('siatma_students_override') || '[]');
+        statusOverrides.forEach(function(override) {
+          var student = SIATMA_DATA.students.find(function(item) { return item.id === override.id; });
+          if (student) student.status = override.status;
+        });
+      } catch (err) {
+        SIATMA_TOAST.error('Gagal memuat data siswa tersimpan');
+      }
+
+      var editingStudent = editId
+        ? SIATMA_DATA.students.find(function(student) { return student.id === Number(editId); })
+        : null;
+      var submitButtons = form.querySelectorAll('button[type="submit"]');
+
+      if (editId && !editingStudent) {
+        SIATMA_TOAST.error('Data siswa tidak ditemukan');
+        return;
+      }
+
+      if (editingStudent) {
+        document.title = 'Edit Data Siswa | SIATMA';
+        document.querySelector('#header h1').textContent = 'Edit Data Siswa';
+        document.querySelector('#header p').textContent = 'Home / Data Siswa / Edit';
+        document.querySelector('main section h2').textContent = 'Edit Data Siswa';
+        form.querySelector('#nis').value = editingStudent.nis || '';
+        form.querySelector('#nik').value = editingStudent.nik || '';
+        form.querySelector('#nama-lengkap').value = editingStudent.nama || '';
+        form.querySelector('#nama-panggilan').value = editingStudent.namaPanggilan || '';
+        form.querySelector('#tempat-lahir').value = editingStudent.tempatLahir || '';
+        form.querySelector('#tanggal-lahir').value = editingStudent.tanggalLahir || '';
+        form.querySelectorAll('input[name="jenis_kelamin"]').forEach(function(radio) {
+          radio.checked = radio.value === editingStudent.jenisKelamin;
+        });
+        form.querySelector('#alamat-siswa').value = editingStudent.alamat || '';
+        form.querySelector('#kelas').value = editingStudent.kelas || '';
+        form.querySelector('#tahun-ajaran').value = editingStudent.tahunAjaran || '';
+        form.querySelector('#status').value = editingStudent.status || 'Aktif';
+        form.querySelector('#nama-ayah').value = editingStudent.namaAyah || '';
+        form.querySelector('#nama-ibu').value = editingStudent.namaIbu || '';
+        form.querySelector('#nomor-hp').value = editingStudent.nomorHP || '';
+        form.querySelector('#email').value = editingStudent.email || '';
+        photoDataUrl = editingStudent.foto || '';
+        setPhotoPreview(photoDataUrl);
+        submitButtons[0].hidden = true;
+        submitButtons[1].textContent = 'Update';
+      }
+
+      photoInput.addEventListener('change', function (event) {
+        var file = event.target.files && event.target.files[0];
+        if (!file) return;
+        if (!/\.(jpe?g|png)$/i.test(file.name) || (file.type && !/^image\/(jpeg|png)$/.test(file.type))) {
+          photoInput.value = '';
+          SIATMA_TOAST.error('Foto harus berformat JPG atau PNG');
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          photoInput.value = '';
+          SIATMA_TOAST.error('Ukuran foto maksimal 2 MB');
+          return;
+        }
+
+        photoReadPending = true;
+        var reader = new FileReader();
+        reader.onerror = function () {
+          photoReadPending = false;
+          SIATMA_TOAST.error('Gagal membaca file foto');
+        };
+        reader.onload = function () {
+          var source = reader.result;
+          var image = new Image();
+          image.onerror = function () {
+            photoReadPending = false;
+            SIATMA_TOAST.error('File foto tidak dapat dibuka');
+          };
+          image.onload = function () {
+            var scale = Math.min(1, 600 / Math.max(image.width, image.height));
+            var canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+            var context = canvas.getContext('2d');
+            if (!context) {
+              photoReadPending = false;
+              SIATMA_TOAST.error('Browser tidak mendukung pemrosesan foto');
+              return;
+            }
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            try {
+              photoDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+            } catch (error) {
+              photoReadPending = false;
+              SIATMA_TOAST.error('Gagal memproses foto siswa');
+              return;
+            }
+            photoReadPending = false;
+            setPhotoPreview(photoDataUrl);
+          };
+          image.src = source;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      form.addEventListener('reset', function () {
+        photoDataUrl = '';
+        setPhotoPreview('');
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (photoReadPending) {
+          SIATMA_TOAST.error('Tunggu sampai foto selesai diproses');
+          return;
+        }
+
+        var nis = form.querySelector('#nis').value.trim();
+        var nik = form.querySelector('#nik').value.trim();
+        var nama = form.querySelector('#nama-lengkap').value.trim();
+
+        if (!nis || !nik || !nama) {
+          SIATMA_TOAST.error('NIS, NIK, dan Nama Lengkap wajib diisi');
+          return;
+        }
+
+        if (!/^\d{7,}$/.test(nis)) {
+          SIATMA_TOAST.error('NIS harus berupa angka minimal 7 digit');
+          return;
+        }
+
+        if (!/^\d{16}$/.test(nik)) {
+          SIATMA_TOAST.error('NIK harus 16 digit angka');
+          return;
+        }
+
+        var existing = SIATMA_DATA.students.find(function(s) {
+          return String(s.nis || '').trim().toLowerCase() === nis.trim().toLowerCase() &&
+            (!editingStudent || s.id !== editingStudent.id);
+        });
+        if (existing) {
+          SIATMA_TOAST.error('Siswa dengan NIS ' + nis + ' sudah terdaftar');
+          return;
+        }
+
+        var newStudent = {
+          id: editingStudent ? editingStudent.id : SIATMA_DATA.students.reduce(function(maxId, student) {
+            return Math.max(maxId, student.id);
+          }, 0) + 1,
+          nis: nis,
+          nik: nik,
+          nama: nama,
+          namaPanggilan: form.querySelector('#nama-panggilan').value,
+          tempatLahir: form.querySelector('#tempat-lahir').value,
+          tanggalLahir: form.querySelector('#tanggal-lahir').value,
+          jenisKelamin: form.querySelector('input[name="jenis_kelamin"]:checked')?.value || '-',
+          alamat: form.querySelector('#alamat-siswa').value,
+          kelas: form.querySelector('#kelas').value,
+          tahunAjaran: form.querySelector('#tahun-ajaran').value,
+          status: form.querySelector('#status').value,
+          namaAyah: form.querySelector('#nama-ayah').value,
+          namaIbu: form.querySelector('#nama-ibu').value,
+          nomorHP: form.querySelector('#nomor-hp').value,
+          email: form.querySelector('#email').value,
+          foto: photoDataUrl || (editingStudent && editingStudent.foto) || ''
+        };
+
+        try {
+          var extraStudents = JSON.parse(localStorage.getItem('siatma_students_extra') || '[]');
+          var extraIndex = extraStudents.findIndex(function(student) { return student.id === newStudent.id; });
+          if (extraIndex >= 0) extraStudents[extraIndex] = newStudent;
+          else extraStudents.push(newStudent);
+          localStorage.setItem('siatma_students_extra', JSON.stringify(extraStudents));
+          if (editingStudent) {
+            var overrides = JSON.parse(localStorage.getItem('siatma_students_override') || '[]');
+            var overrideIndex = overrides.findIndex(function(override) { return override.id === newStudent.id; });
+            if (overrideIndex >= 0) {
+              overrides[overrideIndex].status = newStudent.status;
+              localStorage.setItem('siatma_students_override', JSON.stringify(overrides));
+            }
+          }
+        } catch (err) {
+          if (err.name === 'QuotaExceededError') {
+            SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+          } else {
+            SIATMA_TOAST.error('Gagal menyimpan data: ' + err.message);
+          }
+          return;
+        }
+
+        if (editingStudent) {
+          var studentIndex = SIATMA_DATA.students.findIndex(function(student) { return student.id === editingStudent.id; });
+          if (studentIndex < 0) {
+            SIATMA_TOAST.error('Data siswa tidak ditemukan');
+            return;
+          }
+          SIATMA_DATA.students[studentIndex] = newStudent;
+          SIATMA_TOAST.success('Data siswa berhasil diperbarui');
+          return;
+        }
+
+        SIATMA_DATA.students.push(newStudent);
+        SIATMA_TOAST.success('Data siswa berhasil disimpan');
+
+        var action = e.submitter ? e.submitter.value : 'save';
+        if (action === 'save-and-add') {
+          form.reset();
+        } else {
+          setTimeout(function() {
+            window.location.href = 'data-siswa.html';
+          }, 1000);
+        }
+      });
+    })();
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

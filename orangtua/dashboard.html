@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <meta name="description" content="SIATMA - Sistem Informasi Akademik TK Al-Matin. Platform digital untuk pengelolaan data siswa, absensi, dan komunikasi sekolah dengan orang tua." />
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | SIATMA</title>
@@ -10,9 +19,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,51 +41,76 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
-        <section class="mb-6"><h2 class="text-2xl font-bold">Selamat datang, Bapak/Ibu</h2><p class="mt-1 text-text-muted">Pantau perkembangan buah hati Anda.</p></section>
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <section class="mb-6"><h2 class="text-2xl font-bold">Selamat datang, Bapak/Ibu</h2><p class="mt-1 text-text-muted dark:text-slate-400">Pantau perkembangan buah hati Anda.</p></section>
 
-        <section class="mb-4 flex flex-col items-start gap-6 rounded-2xl bg-white p-6 shadow-sm sm:flex-row sm:items-center">
+        <section class="mb-4 flex flex-col items-start gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center">
           <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xl font-bold text-primary">AP</div>
-          <div><h2 class="text-xl font-bold">Aisyah Putri</h2><div class="mt-2 flex flex-wrap gap-4 text-sm text-text-muted"><span>Kelas TK A</span><span>NIS 2024002</span></div></div>
+          <div><h2 class="text-xl font-bold">Aisyah Putri</h2><div class="mt-2 flex flex-wrap gap-4 text-sm text-text-muted dark:text-slate-400"><span>Kelas TK A</span><span>NIS 2024002</span></div></div>
         </section>
 
         <section class="mb-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow-sm">
           <p class="text-sm opacity-90">Kehadiran Hari Ini</p><p class="mt-2 text-4xl font-bold">HADIR</p><p class="mt-2 text-sm opacity-90">Senin, 24 September 2026</p>
         </section>
 
-        <section class="mb-4 rounded-2xl bg-white p-6 shadow-sm">
+        <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h3 class="mb-5 text-lg font-semibold">Ringkasan Bulan Ini</h3>
           <div class="grid grid-cols-2 gap-3 sm:grid-cols-4"><div class="rounded-xl bg-green-50 p-4"><p class="text-sm text-green-700">Hadir</p><p class="mt-1 text-2xl font-bold text-green-700">18</p></div><div class="rounded-xl bg-yellow-50 p-4"><p class="text-sm text-yellow-700">Sakit</p><p class="mt-1 text-2xl font-bold text-yellow-700">1</p></div><div class="rounded-xl bg-blue-50 p-4"><p class="text-sm text-blue-700">Izin</p><p class="mt-1 text-2xl font-bold text-blue-700">1</p></div><div class="rounded-xl bg-red-50 p-4"><p class="text-sm text-red-700">Alpa</p><p class="mt-1 text-2xl font-bold text-red-700">0</p></div></div>
         </section>
 
         <section class="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-          <a href="#profil-anak" class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div><p class="mt-4 text-sm font-semibold">Profil Anak</p></a>
-          <a href="#riwayat-absensi" class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/10 text-secondary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v14.25H4.5V6a2.25 2.25 0 0 1 2.25-2.25Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 8.25h7.5m-7.5 3.75h5.25m-5.25 3.75h3"/></svg></div><p class="mt-4 text-sm font-semibold">Riwayat Absensi</p></a>
-          <a href="#pengumuman" class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 3.94a1.5 1.5 0 0 1 3.32 0l.36.86a1.5 1.5 0 0 0 1.12.88l.92.16a1.5 1.5 0 0 1 .8 2.55l-.67.66a1.5 1.5 0 0 0-.42 1.32l.16.92a1.5 1.5 0 0 1-2.18 1.58l-.83-.44a1.5 1.5 0 0 0-1.4 0l-.83.44a1.5 1.5 0 0 1-2.18-1.58l.16-.92a1.5 1.5 0 0 0-.42-1.32l-.67-.66a1.5 1.5 0 0 1 .8-2.55l.92-.16a1.5 1.5 0 0 0 1.12-.88l.36-.86Z"/></svg></div><p class="mt-4 text-sm font-semibold">Pengumuman</p></a>
-          <a href="#perkembangan-anak" class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v18m0 0h18M6.75 16.5l3.75-4.5 3 2.25 4.5-6"/></svg></div><p class="mt-4 text-sm font-semibold">Perkembangan Anak</p></a>
+          <a href="profil-anak.html" class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></div><p class="mt-4 text-sm font-semibold">Profil Anak</p></a>
+          <a href="riwayat-absensi.html" class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/10 text-secondary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v14.25H4.5V6a2.25 2.25 0 0 1 2.25-2.25Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 8.25h7.5m-7.5 3.75h5.25m-5.25 3.75h3"/></svg></div><p class="mt-4 text-sm font-semibold">Riwayat Absensi</p></a>
+          <a href="pengumuman.html" class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 3.94a1.5 1.5 0 0 1 3.32 0l.36.86a1.5 1.5 0 0 0 1.12.88l.92.16a1.5 1.5 0 0 1 .8 2.55l-.67.66a1.5 1.5 0 0 0-.42 1.32l.16.92a1.5 1.5 0 0 1-2.18 1.58l-.83-.44a1.5 1.5 0 0 0-1.4 0l-.83.44a1.5 1.5 0 0 1-2.18-1.58l.16-.92a1.5 1.5 0 0 0-.42-1.32l-.67-.66a1.5 1.5 0 0 1 .8-2.55l.92-.16a1.5 1.5 0 0 0 1.12-.88l.36-.86Z"/></svg></div><p class="mt-4 text-sm font-semibold">Pengumuman</p></a>
+          <a href="perkembangan.html" class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm transition hover:shadow-md"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v18m0 0h18M6.75 16.5l3.75-4.5 3 2.25 4.5-6"/></svg></div><p class="mt-4 text-sm font-semibold">Perkembangan Anak</p></a>
         </section>
 
-        <section class="rounded-2xl bg-white p-6 shadow-sm">
+        <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h3 class="mb-5 text-lg font-semibold">Pengumuman Terbaru</h3>
           <div class="divide-y divide-slate-100">
-            <article class="py-4 first:pt-0"><h4 class="text-sm font-semibold">Jadwal kegiatan akhir semester</h4><p class="mt-1 text-xs text-text-muted">24 September 2026</p><p class="mt-2 text-sm text-text-muted">Kegiatan akhir semester akan dilaksanakan sesuai jadwal yang telah dibagikan oleh sekolah.</p></article>
-            <article class="py-4"><h4 class="text-sm font-semibold">Pemberitahuan pemeriksaan kesehatan</h4><p class="mt-1 text-xs text-text-muted">23 September 2026</p><p class="mt-2 text-sm text-text-muted">Mohon memastikan anak hadir untuk mengikuti pemeriksaan kesehatan bersama.</p></article>
-            <article class="py-4 last:pb-0"><h4 class="text-sm font-semibold">Libur nasional bulan Oktober</h4><p class="mt-1 text-xs text-text-muted">22 September 2026</p><p class="mt-2 text-sm text-text-muted">Sekolah akan libur mengikuti kalender nasional pada tanggal yang telah ditentukan.</p></article>
+            <article class="py-4 first:pt-0"><h4 class="text-sm font-semibold">Jadwal kegiatan akhir semester</h4><p class="mt-1 text-xs text-text-muted dark:text-slate-400">24 September 2026</p><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Kegiatan akhir semester akan dilaksanakan sesuai jadwal yang telah dibagikan oleh sekolah.</p></article>
+            <article class="py-4"><h4 class="text-sm font-semibold">Pemberitahuan pemeriksaan kesehatan</h4><p class="mt-1 text-xs text-text-muted dark:text-slate-400">23 September 2026</p><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Mohon memastikan anak hadir untuk mengikuti pemeriksaan kesehatan bersama.</p></article>
+            <article class="py-4 last:pb-0"><h4 class="text-sm font-semibold">Libur nasional bulan Oktober</h4><p class="mt-1 text-xs text-text-muted dark:text-slate-400">22 September 2026</p><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Sekolah akan libur mengikuti kalender nasional pada tanggal yang telah ditentukan.</p></article>
           </div>
         </section>
+              <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
+            <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
+            <span>×</span>
+            <img src="../assets/logo-unpam.png" alt="Universitas Pamulang" class="h-6 w-auto" />
+            <span class="text-text-muted dark:text-slate-500">|</span>
+            <span>© 2026 SIATMA - Kerja Praktik Universitas Pamulang</span>
+          </div>
+        </footer>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -81,6 +120,40 @@
         breadcrumb: 'Home / Dashboard'
       });
     </script>
+    <script>
+      (function () {
+        var user = SIATMA_AUTH.getCurrentUser();
+        var studentId = user && user.studentId ? user.studentId : 2;
+        var student = SIATMA.getStudentById(studentId);
+        if (!student) {
+          document.querySelector('main').innerHTML = SIATMA_UI.emptyState({ title: 'Data anak tidak ditemukan' });
+          return;
+        }
+
+        var main = document.querySelector('main');
+        var headerCard = main.querySelector('section.mb-4.flex.flex-col');
+        headerCard.querySelector('.rounded-full').textContent = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0); }).join('').toUpperCase();
+        headerCard.querySelector('h2').textContent = student.nama;
+        var identity = headerCard.querySelectorAll('span');
+        identity[0].textContent = 'Kelas ' + student.kelas;
+        identity[1].textContent = 'NIS ' + student.nis;
+
+        var records = SIATMA.getAttendanceByStudent(student.id).slice().sort(function (a, b) { return b.tanggal.localeCompare(a.tanggal); });
+        var latest = records[0];
+        var statusCard = main.querySelector('.bg-gradient-to-br');
+        statusCard.querySelector('.text-4xl').textContent = latest ? latest.status.toUpperCase() : '-';
+        statusCard.querySelectorAll('p')[2].textContent = latest ? SIATMA_UI.formatDate(latest.tanggal, 'long') : 'Belum ada data kehadiran';
+
+        var today = new Date();
+        var currentMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
+        var summary = SIATMA.getAttendanceSummary(student.id, currentMonth);
+        var summaryCards = main.querySelectorAll('section.mb-4.rounded-2xl.bg-white .grid > div');
+        ['hadir', 'sakit', 'izin', 'alpa'].forEach(function (key, index) {
+          summaryCards[index].querySelector('.text-2xl').textContent = summary[key];
+        });
+      })();
+    </script>
+          <script src="../js/network-status.js"></script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

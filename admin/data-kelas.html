@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Kelas | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,65 +40,47 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
         <div class="mb-4 flex items-center justify-between gap-3">
           <div class="relative">
             <label for="class-search" class="sr-only">Cari kelas</label>
-            <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
-            <input id="class-search" type="search" placeholder="Cari kelas..." class="w-64 rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" />
+            <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg>
+            <input id="class-search" type="search" placeholder="Cari kelas..." class="w-64 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" />
           </div>
-          <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Kelas</button>
+          <a href="tambah-kelas.html" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Kelas</a>
         </div>
 
-        <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
-            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
-            <h2 class="text-xl font-bold">TK A</h2><p class="mt-1 text-sm text-text-muted">Ibu Siti Aminah</p>
-            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">20 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
-            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
-          </article>
-
-          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
-            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
-            <h2 class="text-xl font-bold">TK B</h2><p class="mt-1 text-sm text-text-muted">Ibu Rina Wulandari</p>
-            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">18 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
-            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
-          </article>
-
-          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
-            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
-            <h2 class="text-xl font-bold">Kelompok Bermain</h2><p class="mt-1 text-sm text-text-muted">Ibu Dewi Lestari</p>
-            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">15 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2025/2026</span></div></div>
-            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
-          </article>
-
-          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
-            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div>
-            <h2 class="text-xl font-bold">TK A</h2><p class="mt-1 text-sm text-text-muted">Ibu Nur Hidayah</p>
-            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">22 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2026/2027</span></div></div>
-            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
-          </article>
-
-          <article class="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md">
-            <div class="mb-5 flex items-start justify-between"><div><svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></div><span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">Draft</span></div>
-            <h2 class="text-xl font-bold">TK B</h2><p class="mt-1 text-sm text-text-muted">Ibu Fitri Handayani</p>
-            <div class="mt-5 space-y-3 text-sm"><div class="flex items-center justify-between"><span class="text-text-muted">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">10 siswa</span></div><div class="flex items-center justify-between"><span class="text-text-muted">Tahun ajaran</span><span>2026/2027</span></div></div>
-            <button type="button" class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Lihat Detail</button>
-          </article>
-        </section>
+        <section id="class-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></section>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -95,6 +90,64 @@
         breadcrumb: 'Home / Data Kelas'
       });
     </script>
+    <script>
+      (function () {
+        var grid = document.getElementById('class-grid');
+        var search = document.getElementById('class-search');
+        function escapeHtml(value) {
+          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        try {
+          var extras = JSON.parse(localStorage.getItem('siatma_classes_extra') || '[]');
+          extras.forEach(function (extraClass) {
+            var existingIndex = SIATMA_DATA.classes.findIndex(function (item) {
+              return String(item.id) === String(extraClass.id) ||
+                item.nama.trim().toLowerCase() === extraClass.nama.trim().toLowerCase();
+            });
+            if (existingIndex >= 0) SIATMA_DATA.classes[existingIndex] = extraClass;
+            else SIATMA_DATA.classes.push(extraClass);
+          });
+        } catch (error) {
+          SIATMA_TOAST.error('Gagal memuat data kelas tersimpan');
+        }
+
+        function renderClasses() {
+          var query = search.value.trim().toLowerCase();
+          var classes = SIATMA_DATA.classes.filter(function (item) {
+            return !query || item.nama.toLowerCase().includes(query) || (item.guru || '').toLowerCase().includes(query);
+          });
+          if (!classes.length) {
+            grid.innerHTML = SIATMA_UI.emptyState({
+              title: 'Kelas tidak ditemukan',
+              description: query ? 'Coba kata kunci pencarian lain.' : 'Belum ada data kelas.'
+            });
+            return;
+          }
+
+          grid.innerHTML = classes.map(function (kelas) {
+            var statusClasses = kelas.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700';
+            return '<article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md">' +
+              '<div class="mb-5 flex items-start justify-between">' +
+                '<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg>' +
+                '<span class="rounded-full ' + statusClasses + ' px-2 py-1 text-xs">' + escapeHtml(kelas.status) + '</span>' +
+              '</div>' +
+              '<h2 class="text-xl font-bold">' + escapeHtml(kelas.nama) + '</h2>' +
+              '<p class="mt-1 text-sm text-text-muted dark:text-slate-400">' + (kelas.guru ? 'Ibu ' + escapeHtml(kelas.guru) : 'Belum ada guru pengampu') + '</p>' +
+              '<div class="mt-5 space-y-3 text-sm">' +
+                '<div class="flex items-center justify-between"><span class="text-text-muted dark:text-slate-400">Jumlah siswa</span><span class="rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary">' + (Number(kelas.jumlahSiswa) || 0) + ' siswa</span></div>' +
+                '<div class="flex items-center justify-between"><span class="text-text-muted dark:text-slate-400">Tahun ajaran</span><span>' + escapeHtml(kelas.tahunAjaran) + '</span></div>' +
+              '</div>' +
+              '<a href="detail-kelas.html?id=' + encodeURIComponent(kelas.id) + '" class="mt-3 block w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-center text-sm font-medium transition hover:border-primary hover:text-primary">Lihat Detail</a>' +
+            '</article>';
+          }).join('');
+        }
+
+        search.addEventListener('input', renderClasses);
+        renderClasses();
+      })();
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

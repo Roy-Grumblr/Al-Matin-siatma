@@ -89,10 +89,10 @@
     var initial = displayName.charAt(0).toUpperCase();
 
     return (
-      '<aside id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-screen w-64 flex-col border-r border-slate-200 bg-white" aria-label="Navigasi ' +
+      '<aside id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-screen w-64 -translate-x-full transform flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out md:translate-x-0 dark:bg-slate-800 dark:border-slate-700" aria-label="Navigasi ' +
       escapeHtml(roleLabel) +
       '">' +
-      '<div class="flex items-center gap-3 border-b border-slate-200 px-6 py-5"><div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white">S</div><div><p class="text-lg font-bold tracking-tight">SIATMA</p><p class="text-[10px] font-medium uppercase tracking-wider text-text-muted">TK Al-Matin</p></div></div>' +
+      '<div class="flex items-center gap-3 border-b border-slate-200 px-6 py-5"><img src="' + prefix + '../assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-9 w-9 rounded-lg object-contain" /><div><p class="text-lg font-bold tracking-tight">SIATMA</p><p class="text-[10px] font-medium uppercase tracking-wider text-text-muted">TK Al-Matin</p></div></div>' +
       '<nav class="flex-1 overflow-y-auto py-4" aria-label="Menu ' +
       escapeHtml(roleLabel) +
       '">' +
@@ -125,7 +125,7 @@
       escapeHtml(roleLabel) +
       '</p></div><button id="logoutButton" type="button" class="text-text-muted transition hover:text-primary" aria-label="Keluar">' +
       LOGOUT_ICON +
-      '</button></div></div></aside>'
+      '</button></div></div></aside><div id="sidebarOverlay" class="fixed inset-0 z-20 hidden bg-slate-900/50 opacity-0 transition-opacity duration-300 md:hidden"></div>'
     );
   }
 
@@ -135,21 +135,72 @@
       : null;
     var displayName = user && user.nama ? user.nama : 'Pengguna';
     var initial = displayName.charAt(0).toUpperCase();
+    var announcements = window.SIATMA_DATA && window.SIATMA_DATA.announcements;
+    var notificationCount = Array.isArray(announcements)
+      ? announcements.filter(function (announcement) { return announcement.status === 'Aktif'; }).length
+      : 0;
 
     return (
       '<header id="header" class="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">' +
-      '<div class="min-w-0"><h1 class="truncate text-xl font-semibold">' +
+      '<div class="flex min-w-0 items-center gap-3"><button id="sidebarToggle" type="button" class="shrink-0 rounded-lg p-2 text-text-muted transition hover:bg-bg hover:text-primary md:hidden" aria-label="Buka menu" aria-controls="sidebar" aria-expanded="false"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button><div class="min-w-0"><h1 class="truncate text-xl font-semibold">' +
       escapeHtml(title) +
       '</h1><p class="mt-0.5 truncate text-sm text-text-muted">' +
       escapeHtml(breadcrumb) +
-      '</p></div><div class="flex items-center gap-5"><div class="relative hidden md:block"><label for="header-search" class="sr-only">Cari</label><svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg><input id="header-search" type="search" placeholder="Cari..." class="w-56 rounded-lg border border-slate-200 bg-bg py-2 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></div><button type="button" class="relative text-text-muted transition hover:text-primary" aria-label="Notifikasi">' +
+      '</p></div></div><div class="flex items-center gap-3 md:gap-5"><div class="relative hidden md:block"><label for="header-search" class="sr-only">Cari</label><svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg><input id="header-search" type="search" placeholder="Cari..." class="w-56 rounded-lg border border-slate-200 bg-bg py-2 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></div><button id="themeToggle" type="button" class="rounded-lg p-2 text-text-muted transition hover:bg-bg hover:text-primary" aria-label="Aktifkan mode gelap"><svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364 6.364-1.591-1.591M7.227 7.227 5.636 5.636m12.728 0-1.591 1.591M7.227 16.773l-1.591 1.591M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"/></svg><svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button><button type="button" class="relative text-text-muted transition hover:text-primary" aria-label="Notifikasi">' +
       MENU_ICONS.notification +
-      '<span class="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white">3</span></button><button type="button" aria-label="Profil ' +
+      '<span class="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white' +
+      (notificationCount === 0 ? ' hidden' : '') +
+      '">' + notificationCount + '</span></button><button type="button" aria-label="Profil ' +
       escapeHtml(displayName) +
       '"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">' +
       escapeHtml(initial) +
       '</span></button></div></header>'
     );
+  }
+
+  function formatDisplayedDates() {
+    if (!window.SIATMA_UI || !window.SIATMA_UI.formatDate) return;
+
+    var monthNumbers = {
+      januari: 1, jan: 1, februari: 2, feb: 2, maret: 3, mar: 3,
+      april: 4, apr: 4, mei: 5, juni: 6, jun: 6, juli: 7, jul: 7,
+      agustus: 8, agu: 8, september: 9, sep: 9, oktober: 10, okt: 10,
+      november: 11, nov: 11, desember: 12, des: 12
+    };
+    var monthPattern = 'Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember|Jan|Feb|Mar|Apr|Jun|Jul|Agu|Sep|Okt|Nov|Des';
+    var walker = document.createTreeWalker(document.body, window.NodeFilter.SHOW_TEXT);
+    var textNode;
+
+    function toIso(day, month, year) {
+      return year + '-' + String(monthNumbers[month.toLowerCase()]).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+    }
+
+    while ((textNode = walker.nextNode())) {
+      var parent = textNode.parentElement;
+      if (!parent || /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA|CODE|PRE)$/i.test(parent.tagName)) continue;
+      if (parent.dataset && parent.dataset.noFormatDate === 'true') continue;
+      if (parent.closest('[data-no-format-date]')) continue;
+      var rawText = textNode.nodeValue.trim();
+      if (/^\d{7,}$/.test(rawText)) continue;
+      if (new RegExp(monthPattern, 'i').test(textNode.nodeValue)) continue;
+      var format = parent.closest('td, th') ? 'short' : 'long';
+      var text = textNode.nodeValue;
+
+      text = text.replace(new RegExp('\\b(\\d{1,2})\\s*[-–]\\s*(\\d{1,2})\\s+(' + monthPattern + ')\\s+(20\\d{2})\\b', 'gi'),
+        function (match, startDay, endDay, month, year) {
+          return window.SIATMA_UI.formatDate(toIso(startDay, month, year), 'short') +
+            ' - ' + window.SIATMA_UI.formatDate(toIso(endDay, month, year), 'short');
+        });
+      text = text.replace(new RegExp('\\b(\\d{1,2})\\s+(' + monthPattern + ')\\s+(20\\d{2})\\b', 'gi'),
+        function (match, day, month, year) {
+          return window.SIATMA_UI.formatDate(toIso(day, month, year), format);
+        });
+      text = text.replace(/\b(20\d{2})-(\d{2})-(\d{2})\b/g, function (match) {
+        return window.SIATMA_UI.formatDate(match, format);
+      });
+
+      if (text !== textNode.nodeValue) textNode.nodeValue = text;
+    }
   }
 
   function initLayout(options) {
@@ -165,10 +216,99 @@
       header.outerHTML = renderHeader(config.title || '', config.breadcrumb || '');
     }
 
+    var content = document.querySelector('.ml-64');
+    if (content) {
+      content.classList.remove('ml-64');
+      content.classList.add('ml-0', 'md:ml-64');
+    }
+    var attendanceDate = document.getElementById('tanggal');
+    if (attendanceDate && attendanceDate.type === 'date' && !attendanceDate.value) {
+      var today = new Date();
+      attendanceDate.value = today.getFullYear() + '-' +
+        String(today.getMonth() + 1).padStart(2, '0') + '-' +
+        String(today.getDate()).padStart(2, '0');
+    }
+
+    var sidebarElement = document.getElementById('sidebar');
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var sidebarOverlay = document.getElementById('sidebarOverlay');
+    function closeSidebar() {
+      if (sidebarElement) {
+        sidebarElement.classList.remove('translate-x-0');
+        sidebarElement.classList.add('-translate-x-full');
+      }
+      if (sidebarOverlay) {
+        sidebarOverlay.classList.remove('opacity-100');
+        sidebarOverlay.classList.add('opacity-0');
+        window.setTimeout(function () {
+          if (sidebarOverlay.classList.contains('opacity-0')) sidebarOverlay.classList.add('hidden');
+        }, 300);
+      }
+      if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'false');
+    }
+    if (sidebarToggle && sidebarElement) {
+      sidebarToggle.addEventListener('click', function () {
+        var isOpen = sidebarElement.classList.contains('translate-x-0');
+        if (isOpen) {
+          closeSidebar();
+        } else {
+          sidebarElement.classList.remove('-translate-x-full');
+          sidebarElement.classList.add('translate-x-0');
+          if (sidebarOverlay) {
+            sidebarOverlay.classList.remove('hidden');
+            window.requestAnimationFrame(function () {
+              sidebarOverlay.classList.remove('opacity-0');
+              sidebarOverlay.classList.add('opacity-100');
+            });
+          }
+          sidebarToggle.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+    var themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(document.documentElement.classList.contains('dark')));
+      themeToggle.addEventListener('click', function () {
+        var isDark = document.documentElement.classList.toggle('dark');
+        themeToggle.setAttribute('aria-pressed', String(isDark));
+        themeToggle.setAttribute('aria-label', isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+        try {
+          window.localStorage.setItem('siatma_theme', isDark ? 'dark' : 'light');
+        } catch (error) {
+          if (window.console && window.console.error) window.console.error('Gagal menyimpan preferensi tema', error);
+        }
+      });
+    }
+
+    var headerSearch = document.getElementById('header-search');
+    if (headerSearch) {
+      headerSearch.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter') return;
+        var query = headerSearch.value.trim();
+        if (!query) return;
+        event.preventDefault();
+        window.location.href = role === 'admin'
+          ? 'data-siswa.html?q=' + encodeURIComponent(query)
+          : 'dashboard.html';
+      });
+    }
+
     var logoutButton = document.getElementById('logoutButton');
     if (logoutButton && window.SIATMA_AUTH && window.SIATMA_AUTH.logout) {
-      logoutButton.addEventListener('click', window.SIATMA_AUTH.logout);
+      logoutButton.addEventListener('click', function () {
+        if (window.SIATMA_UI && window.SIATMA_UI.confirm) {
+          window.SIATMA_UI.confirm('Yakin ingin keluar dari SIATMA?', function () {
+            window.SIATMA_AUTH.logout();
+          });
+        } else if (window.confirm('Yakin ingin keluar dari SIATMA?')) {
+          window.SIATMA_AUTH.logout();
+        }
+      });
     }
+
+    formatDisplayedDates();
 
     var user = window.SIATMA_AUTH && window.SIATMA_AUTH.requireAuth
       ? window.SIATMA_AUTH.requireAuth(role)

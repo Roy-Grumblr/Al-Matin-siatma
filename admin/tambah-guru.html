@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Data Guru | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
+  </head>
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
+    <div id="sidebar"></div>
+    <div class="ml-64">
+      <div id="header"></div>
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <form action="#" method="post" class="mx-auto max-w-3xl space-y-4">
+          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-semibold">Data Guru</h2>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div><label for="nip" class="mb-1 block text-sm font-medium">NIP</label><input id="nip" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="nama-guru" class="mb-1 block text-sm font-medium">Nama Guru</label><input id="nama-guru" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="email-guru" class="mb-1 block text-sm font-medium">Email</label><input id="email-guru" type="email" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="nomor-hp-guru" class="mb-1 block text-sm font-medium">Nomor HP</label><input id="nomor-hp-guru" type="tel" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="kelas-guru" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas-guru" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option><option>TK A Sore</option><option>TK B Sore</option></select></div>
+              <div><label for="status-guru" class="mb-1 block text-sm font-medium">Status</label><select id="status-guru" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Aktif</option><option>Tidak Aktif</option></select></div>
+            </div>
+          </section>
+          <div class="flex justify-end gap-3 pb-6">
+            <a href="data-guru.html" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary">Batal</a>
+            <button type="submit" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({
+        role: 'admin',
+        activeMenu: 'data-guru',
+        title: 'Tambah Data Guru',
+        breadcrumb: 'Home / Data Guru / Tambah'
+      });
+    </script>
+    <script>
+    (function() {
+      var form = document.querySelector('form[action="#"]');
+      var editId = new URLSearchParams(window.location.search).get('id');
+
+      try {
+        var extraTeachers = JSON.parse(localStorage.getItem('siatma_teachers_extra') || '[]');
+        extraTeachers.forEach(function(extraTeacher) {
+          var extraIndex = SIATMA_DATA.teachers.findIndex(function(teacher) {
+            return teacher.id === extraTeacher.id || teacher.nip === extraTeacher.nip;
+          });
+          if (extraIndex >= 0) SIATMA_DATA.teachers[extraIndex] = extraTeacher;
+          else SIATMA_DATA.teachers.push(extraTeacher);
+        });
+        var statusOverrides = JSON.parse(localStorage.getItem('siatma_teachers_override') || '[]');
+        statusOverrides.forEach(function(override) {
+          var teacher = SIATMA_DATA.teachers.find(function(item) { return item.id === override.id; });
+          if (teacher) teacher.status = override.status;
+        });
+      } catch (error) {
+        SIATMA_TOAST.error('Gagal memuat data guru tersimpan');
+      }
+
+      var editingTeacher = editId
+        ? SIATMA_DATA.teachers.find(function(teacher) { return teacher.id === Number(editId); })
+        : null;
+
+      if (editId && !editingTeacher) {
+        SIATMA_TOAST.error('Data guru tidak ditemukan');
+        return;
+      }
+
+      if (editingTeacher) {
+        document.title = 'Edit Data Guru | SIATMA';
+        document.querySelector('#header h1').textContent = 'Edit Data Guru';
+        document.querySelector('#header p').textContent = 'Home / Data Guru / Edit';
+        document.querySelector('main section h2').textContent = 'Edit Data Guru';
+        form.querySelector('#nip').value = editingTeacher.nip || '';
+        form.querySelector('#nama-guru').value = editingTeacher.nama || '';
+        form.querySelector('#email-guru').value = editingTeacher.email || '';
+        form.querySelector('#nomor-hp-guru').value = editingTeacher.nomorHP || '';
+        form.querySelector('#kelas-guru').value = editingTeacher.kelas || '';
+        form.querySelector('#status-guru').value = editingTeacher.status || 'Aktif';
+        form.querySelector('button[type="submit"]').textContent = 'Update';
+      }
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var nip = form.querySelector('#nip').value.trim();
+        var nama = form.querySelector('#nama-guru').value.trim();
+        if (!nip || !nama) {
+          SIATMA_TOAST.error('NIP dan Nama Guru wajib diisi');
+          return;
+        }
+
+        var duplicate = SIATMA_DATA.teachers.find(function(teacher) {
+          return String(teacher.nip || '').trim().toLowerCase() === nip.trim().toLowerCase() &&
+            (!editingTeacher || teacher.id !== editingTeacher.id);
+        });
+        if (duplicate) {
+          SIATMA_TOAST.error('Guru dengan NIP ' + nip + ' sudah terdaftar');
+          return;
+        }
+
+        var teacherData = {
+          id: editingTeacher ? editingTeacher.id : SIATMA_DATA.teachers.reduce(function(maxId, teacher) {
+            return Math.max(maxId, teacher.id);
+          }, 0) + 1,
+          nip: nip,
+          nama: nama,
+          email: form.querySelector('#email-guru').value.trim(),
+          nomorHP: form.querySelector('#nomor-hp-guru').value.trim(),
+          kelas: form.querySelector('#kelas-guru').value,
+          status: form.querySelector('#status-guru').value
+        };
+
+        try {
+          var extras = JSON.parse(localStorage.getItem('siatma_teachers_extra') || '[]');
+          var extraIndex = extras.findIndex(function(teacher) { return teacher.id === teacherData.id; });
+          if (extraIndex >= 0) extras[extraIndex] = teacherData;
+          else extras.push(teacherData);
+          localStorage.setItem('siatma_teachers_extra', JSON.stringify(extras));
+          var overrides = JSON.parse(localStorage.getItem('siatma_teachers_override') || '[]');
+          var overrideIndex = overrides.findIndex(function(override) { return override.id === teacherData.id; });
+          if (overrideIndex >= 0) {
+            overrides[overrideIndex].status = teacherData.status;
+            localStorage.setItem('siatma_teachers_override', JSON.stringify(overrides));
+          }
+        } catch (error) {
+          if (error.name === 'QuotaExceededError') {
+            SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+          } else {
+            SIATMA_TOAST.error('Gagal menyimpan data: ' + error.message);
+          }
+          return;
+        }
+
+        if (editingTeacher) {
+          var teacherIndex = SIATMA_DATA.teachers.findIndex(function(teacher) { return teacher.id === editingTeacher.id; });
+          if (teacherIndex < 0) {
+            SIATMA_TOAST.error('Data guru tidak ditemukan');
+            return;
+          }
+          SIATMA_DATA.teachers[teacherIndex] = teacherData;
+          SIATMA_TOAST.success('Data guru berhasil diperbarui');
+          return;
+        }
+
+        SIATMA_DATA.teachers.push(teacherData);
+        SIATMA_TOAST.success('Data guru berhasil disimpan');
+        window.setTimeout(function() {
+          window.location.href = 'data-guru.html';
+        }, 1000);
+      });
+    })();
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Data Kelas | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { colors: {
+          primary: '#2563EB', 'primary-dark': '#1E40AF', secondary: '#10B981',
+          accent: '#F59E0B', bg: '#F8FAFC', text: '#1E293B', 'text-muted': '#64748B'
+        }, fontFamily: { Inter: ['Inter', 'sans-serif'] } } }
+      };
+    </script>
+    <style>
+      main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+      html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+      html.dark .bg-bg{background-color:#0f172a!important}
+      html.dark .bg-white{background-color:#1e293b!important}
+      html.dark .text-text-muted{color:#94a3b8!important}
+      html.dark .border-slate-200,html.dark .border-slate-300{border-color:#334155!important}
+      html.dark input,html.dark select{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+    </style>
+  </head>
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased dark:bg-slate-900 dark:text-slate-100">
+    <div id="sidebar"></div>
+    <div class="ml-64">
+      <div id="header"></div>
+      <main class="min-h-screen bg-bg p-6 dark:bg-slate-900">
+        <form id="class-form" class="mx-auto max-w-3xl space-y-4">
+          <section class="rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800">
+            <h2 class="mb-5 text-lg font-semibold">Data Kelas</h2>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="md:col-span-2">
+                <label for="class-name" class="mb-1 block text-sm font-medium">Nama Kelas</label>
+                <input id="class-name" type="text" required placeholder="Contoh: TK A" class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+              </div>
+              <div>
+                <label for="class-teacher" class="mb-1 block text-sm font-medium">Guru Pengampu</label>
+                <select id="class-teacher" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                  <option value="">Pilih guru pengampu</option>
+                </select>
+              </div>
+              <div>
+                <label for="class-size" class="mb-1 block text-sm font-medium">Jumlah Siswa</label>
+                <input id="class-size" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+              </div>
+              <div>
+                <label for="school-year" class="mb-1 block text-sm font-medium">Tahun Ajaran</label>
+                <select id="school-year" required class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                  <option>2025/2026</option><option>2026/2027</option>
+                </select>
+              </div>
+              <div>
+                <label for="class-status" class="mb-1 block text-sm font-medium">Status</label>
+                <select id="class-status" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                  <option>Aktif</option><option>Draft</option>
+                </select>
+              </div>
+            </div>
+          </section>
+          <div class="flex justify-end gap-3 pb-6">
+            <a href="data-kelas.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary dark:border-slate-600 dark:bg-slate-800">Batal</a>
+            <button type="submit" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      SIATMA_LAYOUT.initLayout({ role: 'admin', activeMenu: 'data-kelas', title: 'Tambah Data Kelas', breadcrumb: 'Home / Data Kelas / Tambah' });
+    </script>
+    <script>
+      (function () {
+        var form = document.getElementById('class-form');
+        var editId = new URLSearchParams(window.location.search).get('id');
+        try {
+          var extras = JSON.parse(localStorage.getItem('siatma_classes_extra') || '[]');
+          extras.forEach(function (extraClass) {
+            var index = SIATMA_DATA.classes.findIndex(function (item) {
+              return String(item.id) === String(extraClass.id) || item.nama.toLowerCase() === extraClass.nama.toLowerCase();
+            });
+            if (index >= 0) SIATMA_DATA.classes[index] = extraClass;
+            else SIATMA_DATA.classes.push(extraClass);
+          });
+          var extraTeachers = JSON.parse(localStorage.getItem('siatma_teachers_extra') || '[]');
+          extraTeachers.forEach(function (extraTeacher) {
+            var teacherIndex = SIATMA_DATA.teachers.findIndex(function (teacher) {
+              return String(teacher.id) === String(extraTeacher.id) || teacher.nip === extraTeacher.nip;
+            });
+            if (teacherIndex >= 0) SIATMA_DATA.teachers[teacherIndex] = extraTeacher;
+            else SIATMA_DATA.teachers.push(extraTeacher);
+          });
+          var teacherOverrides = JSON.parse(localStorage.getItem('siatma_teachers_override') || '[]');
+          teacherOverrides.forEach(function (override) {
+            var teacher = SIATMA_DATA.teachers.find(function (item) { return String(item.id) === String(override.id); });
+            if (teacher) teacher.status = override.status;
+          });
+        } catch (error) {
+          SIATMA_TOAST.error('Gagal memuat data kelas atau guru tersimpan');
+        }
+
+        var editingClass = editId
+          ? SIATMA_DATA.classes.find(function (item) { return String(item.id) === String(editId); })
+          : null;
+        var teacherSelect = document.getElementById('class-teacher');
+        SIATMA_DATA.teachers.filter(function (teacher) { return teacher.status === 'Aktif'; })
+          .forEach(function (teacher) {
+            var option = document.createElement('option');
+            option.value = teacher.nama;
+            option.textContent = teacher.nama;
+            teacherSelect.appendChild(option);
+          });
+
+        if (editId && !editingClass) {
+          SIATMA_TOAST.error('Data kelas tidak ditemukan');
+          window.setTimeout(function () { window.location.href = 'data-kelas.html'; }, 800);
+          return;
+        }
+        if (editingClass) {
+          document.title = 'Edit Data Kelas | SIATMA';
+          document.querySelector('#header h1').textContent = 'Edit Data Kelas';
+          document.querySelector('#header p').textContent = 'Home / Data Kelas / Edit';
+          document.querySelector('main h2').textContent = 'Edit Data Kelas';
+          document.getElementById('class-name').value = editingClass.nama || '';
+          document.getElementById('class-teacher').value = editingClass.guru || '';
+          document.getElementById('class-size').value = Number(editingClass.jumlahSiswa) || 0;
+          document.getElementById('school-year').value = editingClass.tahunAjaran || '2025/2026';
+          document.getElementById('class-status').value = editingClass.status || 'Aktif';
+          form.querySelector('button[type="submit"]').textContent = 'Update';
+        }
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var nama = document.getElementById('class-name').value.trim();
+          var duplicate = SIATMA_DATA.classes.find(function (item) {
+            return item.nama.trim().toLowerCase() === nama.toLowerCase() &&
+              (!editingClass || String(item.id) !== String(editingClass.id));
+          });
+          if (duplicate) {
+            SIATMA_TOAST.error('Nama kelas sudah digunakan');
+            return;
+          }
+
+          var classData = {
+            id: editingClass ? editingClass.id : SIATMA_DATA.classes.reduce(function (maxId, item) {
+              return Math.max(maxId, Number(item.id) || 0);
+            }, 0) + 1,
+            nama: nama,
+            guru: teacherSelect.value,
+            jumlahSiswa: Math.max(0, Number(document.getElementById('class-size').value) || 0),
+            tahunAjaran: document.getElementById('school-year').value,
+            status: document.getElementById('class-status').value
+          };
+          try {
+            var saved = JSON.parse(localStorage.getItem('siatma_classes_extra') || '[]');
+            var savedIndex = saved.findIndex(function (item) { return String(item.id) === String(classData.id); });
+            if (savedIndex >= 0) saved[savedIndex] = classData;
+            else saved.push(classData);
+            localStorage.setItem('siatma_classes_extra', JSON.stringify(saved));
+          } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+              SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+            } else {
+              SIATMA_TOAST.error('Gagal menyimpan data: ' + error.message);
+            }
+            return;
+          }
+
+          var classIndex = SIATMA_DATA.classes.findIndex(function (item) { return String(item.id) === String(classData.id); });
+          if (classIndex >= 0) SIATMA_DATA.classes[classIndex] = classData;
+          else SIATMA_DATA.classes.push(classData);
+          SIATMA_TOAST.success(editingClass ? 'Data kelas berhasil diperbarui' : 'Data kelas berhasil disimpan');
+          window.setTimeout(function () { window.location.href = 'data-kelas.html'; }, 700);
+        });
+      })();
+    </script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+  </body>
+</html>

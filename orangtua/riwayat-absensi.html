@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Riwayat Absensi | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,26 +40,40 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
-        <section class="mb-4 rounded-2xl bg-white p-4 shadow-sm">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
           <div class="flex flex-wrap items-end gap-3">
             <div class="w-64">
               <label for="attendance-month" class="mb-1.5 block text-sm font-medium">Bulan</label>
-              <select id="attendance-month" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option selected>September 2026</option><option>Agustus 2026</option><option>Juli 2026</option><option>Juni 2026</option></select>
+              <select id="attendance-month" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option selected>September 2026</option><option>Agustus 2026</option><option>Juli 2026</option><option>Juni 2026</option></select>
             </div>
             <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
           </div>
         </section>
 
-        <section class="mb-4 rounded-2xl bg-white p-6 shadow-sm">
+        <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h2 class="mb-5 text-lg font-semibold">Ringkasan September 2026</h2>
           <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
             <div class="rounded-xl bg-green-50 p-4"><p class="text-sm text-green-700">Hadir</p><p class="mt-1 text-2xl font-bold text-green-700">18</p></div>
@@ -56,35 +83,46 @@
           </div>
         </section>
 
-        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <section class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm">
           <div class="overflow-x-auto">
             <table class="min-w-full text-left text-sm">
-              <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Hari</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead>
+              <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Hari</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead>
               <tbody class="divide-y divide-slate-100">
-                <tr class="hover:bg-slate-50"><td class="whitespace-nowrap px-6 py-4">24 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">23 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">22 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Izin</span></td><td class="px-6 py-4">Acara keluarga</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">21 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">20 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">19 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Sakit</span></td><td class="px-6 py-4">Demam</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">18 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">17 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">16 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
-                <tr class="hover:bg-slate-50"><td class="px-6 py-4">15 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="whitespace-nowrap px-6 py-4">24 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">23 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">22 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Izin</span></td><td class="px-6 py-4">Acara keluarga</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">21 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">20 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">19 Sep 2026</td><td class="px-6 py-4">Senin</td><td class="px-6 py-4"><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Sakit</span></td><td class="px-6 py-4">Demam</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">18 Sep 2026</td><td class="px-6 py-4">Jumat</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">17 Sep 2026</td><td class="px-6 py-4">Kamis</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">16 Sep 2026</td><td class="px-6 py-4">Rabu</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-4">15 Sep 2026</td><td class="px-6 py-4">Selasa</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">-</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <div class="mt-4 flex items-center justify-between">
-          <p class="text-sm text-text-muted">Menampilkan 1-10 dari 20 hari</p>
-          <div class="flex items-center gap-1"><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Prev</button><button type="button" aria-current="page" class="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white">1</button><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">2</button><button type="button" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary">Next</button></div>
+          <p class="text-sm text-text-muted dark:text-slate-400">Menampilkan 1-10 dari 20 hari</p>
+          <div id="pagination-actions" class="flex items-center gap-1"></div>
         </div>
+              <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
+            <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
+            <span>×</span>
+            <img src="../assets/logo-unpam.png" alt="Universitas Pamulang" class="h-6 w-auto" />
+            <span class="text-text-muted dark:text-slate-500">|</span>
+            <span>© 2026 SIATMA - Kerja Praktik Universitas Pamulang</span>
+          </div>
+        </footer>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -94,6 +132,100 @@
         breadcrumb: 'Home / Riwayat Absensi'
       });
     </script>
+    <script>
+      (function () {
+        var user = SIATMA_AUTH.getCurrentUser();
+        var studentId = user && user.studentId ? user.studentId : 2;
+        var student = SIATMA.getStudentById(studentId);
+        var main = document.querySelector('main');
+        if (!student) {
+          main.innerHTML = SIATMA_UI.emptyState({ title: 'Data anak tidak ditemukan' });
+          return;
+        }
+
+        var identity = document.createElement('section');
+        identity.className = 'mb-4 flex items-center gap-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm';
+        var initials = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0); }).join('').toUpperCase();
+        identity.innerHTML = '<div class="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">' + escapeHtml(initials) + '</div><div><h2 class="font-semibold">' + escapeHtml(student.nama) + '</h2><p class="text-sm text-text-muted dark:text-slate-400">NIS ' + escapeHtml(student.nis) + ' · Kelas ' + escapeHtml(student.kelas) + '</p></div>';
+        main.insertBefore(identity, main.firstElementChild);
+
+        var allRecords = SIATMA.getAttendanceByStudent(student.id).slice().sort(function (a, b) { return b.tanggal.localeCompare(a.tanggal); });
+        var monthSelect = document.getElementById('attendance-month');
+        var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        var months = Array.from(new Set(allRecords.map(function (record) { return record.tanggal.slice(0, 7); }))).sort().reverse();
+        monthSelect.innerHTML = months.map(function (month) {
+          var parts = month.split('-');
+          return '<option value="' + month + '">' + monthNames[Number(parts[1]) - 1] + ' ' + parts[0] + '</option>';
+        }).join('');
+        if (months.length) monthSelect.value = months[0];
+
+        var summaryCards = main.querySelectorAll('section.mb-4.rounded-2xl.bg-white .grid > div');
+        var tableBody = main.querySelector('tbody');
+        var summaryTitle = main.querySelector('section.mb-4.rounded-2xl.bg-white h2');
+        var paginationLabel = main.querySelector('.mt-4.flex.items-center.justify-between p');
+        var paginationActions = document.getElementById('pagination-actions');
+        var currentPage = 1;
+        var perPage = 10;
+        function escapeHtml(value) {
+          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        function renderHistory() {
+          var filtered = allRecords.filter(function (record) { return !monthSelect.value || record.tanggal.slice(0, 7) === monthSelect.value; });
+          var pageCount = Math.ceil(filtered.length / perPage);
+          currentPage = Math.min(currentPage, Math.max(1, pageCount));
+          var summary = SIATMA.getAttendanceSummary(student.id, monthSelect.value);
+          ['hadir', 'sakit', 'izin', 'alpa'].forEach(function (key, index) {
+            summaryCards[index].querySelector('.text-2xl').textContent = summary[key];
+          });
+          summaryTitle.textContent = 'Ringkasan ' + (monthSelect.selectedOptions[0] ? monthSelect.selectedOptions[0].textContent : 'Absensi');
+          if (!filtered.length) {
+            tableBody.innerHTML = '<tr><td colspan="4" class="p-0">' + SIATMA_UI.emptyState({ title: 'Belum ada riwayat absensi', description: 'Tidak ada data kehadiran pada bulan ini.' }) + '</td></tr>';
+            paginationLabel.textContent = 'Menampilkan 0 hari';
+            paginationActions.innerHTML = '';
+            return;
+          }
+          var startIndex = (currentPage - 1) * perPage;
+          var visibleRecords = filtered.slice(startIndex, startIndex + perPage);
+          tableBody.innerHTML = visibleRecords.map(function (record) {
+            var statusClasses = { Hadir: 'bg-green-100 text-green-700', Sakit: 'bg-yellow-100 text-yellow-700', Izin: 'bg-blue-100 text-blue-700', Alpa: 'bg-red-100 text-red-700' };
+            return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="whitespace-nowrap px-6 py-4">' + SIATMA_UI.formatDate(record.tanggal, 'short') +
+              '</td><td class="px-6 py-4">' + SIATMA_UI.formatDate(record.tanggal, 'day') +
+              '</td><td class="px-6 py-4"><span class="rounded-full px-2 py-1 text-xs ' + (statusClasses[record.status] || 'bg-slate-100 text-slate-700') + '">' + record.status +
+              '</span></td><td class="px-6 py-4">' + escapeHtml(record.catatan || '-') + '</td></tr>';
+          }).join('');
+          var endIndex = Math.min(startIndex + perPage, filtered.length);
+          paginationLabel.textContent = 'Menampilkan ' + (startIndex + 1) + '-' + endIndex + ' dari ' + filtered.length + ' hari';
+          var buttons = '';
+          if (pageCount > 1) {
+            buttons += '<button type="button" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">Prev</button>';
+            for (var page = 1; page <= pageCount; page++) {
+              buttons += '<button type="button" data-page="' + page + '" aria-label="Halaman ' + page + '" ' + (page === currentPage ? 'aria-current="page" class="rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white"' : 'class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"') + '>' + page + '</button>';
+            }
+            buttons += '<button type="button" data-page="' + (currentPage + 1) + '" ' + (currentPage === pageCount ? 'disabled' : '') + ' class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">Next</button>';
+          }
+          paginationActions.innerHTML = buttons;
+        }
+
+        main.querySelector('button').addEventListener('click', function () {
+          currentPage = 1;
+          renderHistory();
+        });
+        monthSelect.addEventListener('change', function () {
+          currentPage = 1;
+          renderHistory();
+        });
+        paginationActions.addEventListener('click', function (event) {
+          var button = event.target.closest('button[data-page]');
+          if (!button || button.disabled) return;
+          currentPage = Number(button.dataset.page);
+          renderHistory();
+        });
+        renderHistory();
+      })();
+    </script>
+          <script src="../js/network-status.js"></script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

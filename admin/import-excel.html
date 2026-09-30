@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Import Data Siswa | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,68 +40,82 @@
         },
       };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
         <div class="mb-6 flex flex-wrap items-center gap-2">
-          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">1</div><span class="text-sm font-medium text-primary">Upload</span>
+          <div id="step-upload" class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">1</div><span id="step-upload-label" class="text-sm font-medium text-primary">Upload</span>
           <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
-          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">2</div><span class="text-sm text-text-muted">Preview</span>
+          <div id="step-preview" class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted dark:text-slate-400">2</div><span id="step-preview-label" class="text-sm text-text-muted dark:text-slate-400">Preview</span>
           <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
-          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">3</div><span class="text-sm text-text-muted">Validasi</span>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted dark:text-slate-400">3</div><span class="text-sm text-text-muted dark:text-slate-400">Validasi</span>
           <div class="h-px w-8 bg-slate-300 sm:w-16"></div>
-          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted">4</div><span class="text-sm text-text-muted">Import</span>
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-text-muted dark:text-slate-400">4</div><span class="text-sm text-text-muted dark:text-slate-400">Import</span>
         </div>
 
-        <section class="rounded-2xl bg-white p-8 shadow-sm">
+        <section class="rounded-2xl bg-white dark:bg-slate-800 p-8 shadow-sm">
           <label for="excel-file" class="block cursor-pointer rounded-xl border-2 border-dashed border-primary/30 p-12 text-center transition hover:border-primary hover:bg-primary/5">
             <svg class="mx-auto h-14 w-14 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-6L12 6m0 0 4.5 4.5M12 6v10.5"/></svg>
-            <p class="mt-4 text-lg font-medium">Drag &amp; Drop file Excel di sini</p><p class="my-2 text-sm text-text-muted">atau</p>
+            <p class="mt-4 text-lg font-medium">Drag &amp; Drop file Excel di sini</p><p class="my-2 text-sm text-text-muted dark:text-slate-400">atau</p>
             <span class="inline-flex rounded-lg bg-primary px-6 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark">Pilih File</span>
-            <p class="mt-4 text-xs text-text-muted">Format: .xlsx, .xls (max 5MB)</p>
+            <p class="mt-4 text-xs text-text-muted dark:text-slate-400">Format: .xlsx, .xls (max 5MB)</p>
             <input id="excel-file" type="file" accept=".xlsx,.xls" class="sr-only" />
+            <p id="selected-file" class="mt-2 hidden text-sm font-medium text-primary"></p>
           </label>
         </section>
 
-        <section class="mt-4 overflow-hidden rounded-2xl bg-white p-6 shadow-sm">
+        <section id="import-preview" class="mt-4 hidden overflow-hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h2 class="mb-5 text-lg font-semibold">Preview Data</h2>
           <div class="overflow-x-auto">
             <table class="min-w-full text-left text-sm">
-              <thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-4 py-3">NIS</th><th class="px-4 py-3">Nama</th><th class="px-4 py-3">Kelas</th><th class="px-4 py-3">Status Validasi</th></tr></thead>
-              <tbody class="divide-y divide-slate-100">
-                <tr><td class="px-4 py-3">2024001</td><td class="px-4 py-3 font-medium">Andi Pratama</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">✅ Valid</span></td></tr>
-                <tr><td class="px-4 py-3">2024002</td><td class="px-4 py-3 font-medium">Aisyah Putri</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">✅ Valid</span></td></tr>
-                <tr><td class="px-4 py-3">2024001</td><td class="px-4 py-3 font-medium">Andi Pratama</td><td class="px-4 py-3">TK A</td><td class="px-4 py-3"><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">⚠️ Duplikat</span></td></tr>
-                <tr><td class="px-4 py-3">2024003</td><td class="px-4 py-3 font-medium">Budi</td><td class="px-4 py-3">-</td><td class="px-4 py-3"><span class="rounded-full bg-red-100 px-2 py-1 text-xs text-red-700">❌ Tidak Lengkap</span></td></tr>
-              </tbody>
+              <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400"><tr><th class="px-4 py-3">NIS</th><th class="px-4 py-3">Nama</th><th class="px-4 py-3">Kelas</th><th class="px-4 py-3">Status Validasi</th></tr></thead>
+              <tbody id="import-preview-body" class="divide-y divide-slate-100"></tbody>
             </table>
           </div>
         </section>
 
-        <section class="mt-4 rounded-2xl bg-white p-6 shadow-sm">
+        <section id="validation-summary" class="mt-4 hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h2 class="mb-5 text-lg font-semibold">Ringkasan Validasi</h2>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div class="rounded-xl bg-green-50 p-5"><p class="text-sm text-green-700">Valid</p><p class="mt-1 text-3xl font-bold text-green-700">12</p></div>
-            <div class="rounded-xl bg-yellow-50 p-5"><p class="text-sm text-yellow-700">Duplikat</p><p class="mt-1 text-3xl font-bold text-yellow-700">1</p></div>
-            <div class="rounded-xl bg-red-50 p-5"><p class="text-sm text-red-700">Tidak Lengkap</p><p class="mt-1 text-3xl font-bold text-red-700">2</p></div>
+            <div class="rounded-xl bg-green-50 p-5"><p class="text-sm text-green-700">Valid</p><p id="valid-count" class="mt-1 text-3xl font-bold text-green-700">0</p></div>
+            <div class="rounded-xl bg-yellow-50 p-5"><p class="text-sm text-yellow-700">Duplikat</p><p id="duplicate-count" class="mt-1 text-3xl font-bold text-yellow-700">0</p></div>
+            <div class="rounded-xl bg-red-50 p-5"><p class="text-sm text-red-700">Tidak Lengkap</p><p id="incomplete-count" class="mt-1 text-3xl font-bold text-red-700">0</p></div>
           </div>
         </section>
 
         <div class="mt-4 flex justify-end gap-3 pb-6">
-          <a href="data-siswa.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-text transition hover:border-primary hover:text-primary">Batal</a>
-          <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Import Data</button>
+          <a href="data-siswa.html" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Batal</a>
+          <button id="import-button" type="button" disabled class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50">Import Data</button>
         </div>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -98,6 +125,206 @@
         breadcrumb: 'Home / Data Siswa / Import'
       });
     </script>
+    <script>
+    (function() {
+      var fileInput = document.getElementById('excel-file');
+      var selectedFile = document.getElementById('selected-file');
+      var preview = document.getElementById('import-preview');
+      var previewBody = document.getElementById('import-preview-body');
+      var summary = document.getElementById('validation-summary');
+      var importButton = document.getElementById('import-button');
+      var rows = [];
+      var validRows = [];
+      var counts = { valid: 0, duplicate: 0, incomplete: 0 };
+
+      try {
+        var savedStudents = JSON.parse(localStorage.getItem('siatma_students_extra') || '[]');
+        savedStudents.forEach(function(savedStudent) {
+          if (!SIATMA_DATA.students.some(function(student) { return student.id === savedStudent.id || student.nis === savedStudent.nis; })) {
+            SIATMA_DATA.students.push(savedStudent);
+          }
+        });
+      } catch (error) {
+        SIATMA_TOAST.error('Gagal memuat data siswa tersimpan');
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function updateSteps() {
+        document.getElementById('step-upload').className = 'flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-sm font-semibold text-white';
+        document.getElementById('step-upload-label').className = 'text-sm font-medium text-secondary';
+        document.getElementById('step-preview').className = 'flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white';
+        document.getElementById('step-preview-label').className = 'text-sm font-medium text-primary';
+      }
+
+      function normalizeRow(row) {
+        var normalized = {};
+        Object.keys(row).forEach(function(key) {
+          normalized[key.toLowerCase().replace(/[^a-z0-9]/g, '')] = row[key];
+        });
+        return {
+          nis: String(normalized.nis || '').trim(),
+          nik: String(normalized.nik || '').trim(),
+          nama: String(normalized.nama || normalized.namalengkap || normalized.namasiswa || '').trim(),
+          kelas: String(normalized.kelas || '').trim(),
+          jenisKelamin: String(normalized.jeniskelamin || '').trim(),
+          tahunAjaran: String(normalized.tahunajaran || '').trim(),
+          namaAyah: String(normalized.namaayah || '').trim(),
+          namaIbu: String(normalized.namaibu || '').trim(),
+          nomorHP: String(normalized.nomorhp || normalized.telepon || '').trim(),
+          email: String(normalized.email || '').trim()
+        };
+      }
+
+      function validateRows(importRows) {
+        counts = { valid: 0, duplicate: 0, incomplete: 0 };
+        validRows = [];
+        var seenNis = new Set();
+        var existingNis = new Set(SIATMA_DATA.students.map(function(student) { return String(student.nis); }));
+        rows = importRows.map(normalizeRow).map(function(student) {
+          var status;
+          if (!student.nis || !student.nama || !/^\d{16}$/.test(student.nik)) {
+            status = 'incomplete';
+          } else if (existingNis.has(student.nis) || seenNis.has(student.nis)) {
+            status = 'duplicate';
+          } else {
+            status = 'valid';
+            validRows.push(student);
+          }
+          if (student.nis) seenNis.add(student.nis);
+          counts[status] += 1;
+          return { student: student, status: status };
+        });
+
+        var badgeInfo = {
+          valid: ['Valid', 'bg-green-100 text-green-700'],
+          duplicate: ['Duplikat', 'bg-yellow-100 text-yellow-700'],
+          incomplete: ['Tidak Lengkap', 'bg-red-100 text-red-700']
+        };
+        previewBody.innerHTML = rows.map(function(row) {
+          var badge = badgeInfo[row.status];
+          return '<tr><td class="px-4 py-3">' + escapeHtml(row.student.nis || '-') +
+            '</td><td class="px-4 py-3 font-medium">' + escapeHtml(row.student.nama || '-') +
+            '</td><td class="px-4 py-3">' + escapeHtml(row.student.kelas || '-') +
+            '</td><td class="px-4 py-3"><span class="rounded-full px-2 py-1 text-xs ' + badge[1] + '">' + badge[0] + '</span></td></tr>';
+        }).join('');
+        document.getElementById('valid-count').textContent = counts.valid;
+        document.getElementById('duplicate-count').textContent = counts.duplicate;
+        document.getElementById('incomplete-count').textContent = counts.incomplete;
+        preview.classList.remove('hidden');
+        summary.classList.remove('hidden');
+        importButton.disabled = false;
+      }
+
+      function resetPreview() {
+        rows = [];
+        validRows = [];
+        counts = { valid: 0, duplicate: 0, incomplete: 0 };
+        previewBody.innerHTML = '';
+        preview.classList.add('hidden');
+        summary.classList.add('hidden');
+        importButton.disabled = true;
+        importButton.textContent = 'Import Data';
+        selectedFile.classList.add('hidden');
+      }
+
+      fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (!file) return;
+        resetPreview();
+        if (!/\.xlsx?$/i.test(file.name)) {
+          SIATMA_TOAST.error('Pilih file dengan format .xlsx atau .xls');
+          fileInput.value = '';
+          importButton.disabled = true;
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          SIATMA_TOAST.error('Ukuran file maksimal 5MB');
+          fileInput.value = '';
+          importButton.disabled = true;
+          return;
+        }
+
+        selectedFile.textContent = file.name + ' (' + (file.size / 1024 / 1024).toFixed(2) + ' MB)';
+        selectedFile.classList.remove('hidden');
+        updateSteps();
+        var reader = new FileReader();
+        reader.onload = function(loadEvent) {
+          try {
+            var workbook = XLSX.read(loadEvent.target.result, { type: 'array' });
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            validateRows(XLSX.utils.sheet_to_json(firstSheet, { defval: '' }));
+          } catch (error) {
+            SIATMA_TOAST.error('File Excel tidak dapat dibaca');
+            importButton.disabled = true;
+          }
+        };
+        reader.onerror = function() {
+          SIATMA_TOAST.error('Gagal membaca file Excel');
+          importButton.disabled = true;
+        };
+        reader.readAsArrayBuffer(file);
+      });
+
+      importButton.addEventListener('click', function() {
+        if (importButton.disabled) return;
+        importButton.disabled = true;
+        importButton.textContent = 'Mengimpor...';
+
+        window.setTimeout(function() {
+          try {
+            var extras = JSON.parse(localStorage.getItem('siatma_students_extra') || '[]');
+            var nextId = SIATMA_DATA.students.reduce(function(maxId, student) {
+              return Math.max(maxId, student.id);
+            }, 0);
+            var imported = validRows.map(function(row, index) {
+              return {
+                id: nextId + index + 1,
+                nis: row.nis,
+                nik: row.nik,
+                nama: row.nama,
+                namaPanggilan: '',
+                tempatLahir: '',
+                tanggalLahir: '',
+                jenisKelamin: row.jenisKelamin || '-',
+                alamat: '',
+                kelas: row.kelas,
+                tahunAjaran: row.tahunAjaran,
+                status: 'Aktif',
+                namaAyah: row.namaAyah,
+                namaIbu: row.namaIbu,
+                nomorHP: row.nomorHP,
+                email: row.email
+              };
+            });
+            localStorage.setItem('siatma_students_extra', JSON.stringify(extras.concat(imported)));
+            SIATMA_DATA.students.push.apply(SIATMA_DATA.students, imported);
+          } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+              SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+            } else {
+              SIATMA_TOAST.error('Gagal menyimpan data: ' + error.message);
+            }
+            importButton.disabled = false;
+            importButton.textContent = 'Import Data';
+            return;
+          }
+
+          SIATMA_TOAST.success('Data berhasil diimport (' + counts.valid + ' valid, ' + counts.duplicate + ' duplikat, ' + counts.incomplete + ' tidak lengkap)');
+          window.setTimeout(function() {
+            window.location.href = 'data-siswa.html';
+          }, 500);
+        }, 1000);
+      });
+    })();
+    </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-

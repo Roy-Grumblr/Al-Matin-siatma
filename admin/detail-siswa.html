@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detail Siswa | SIATMA</title>
@@ -10,9 +18,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
               primary: "#2563EB",
               "primary-dark": "#1E40AF",
               secondary: "#10B981",
@@ -27,80 +40,133 @@
         },
       };
     </script>
+      <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  <style>
+html.dark body{background-color:#0f172a!important;color:#e2e8f0!important}
+html.dark .bg-bg{background-color:#0f172a!important}
+html.dark .bg-white,html.dark .bg-card{background-color:#1e293b!important}
+html.dark .bg-slate-50,html.dark .bg-gray-50{background-color:#334155!important}
+html.dark .text-text{color:#f1f5f9!important}
+html.dark .text-text-muted{color:#94a3b8!important}
+html.dark .text-slate-500,html.dark .text-slate-600,html.dark .text-slate-700,html.dark .text-gray-500,html.dark .text-gray-600,html.dark .text-gray-700{color:#cbd5e1!important}
+html.dark .border-slate-100,html.dark .border-slate-200,html.dark .border-slate-300,html.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#334155!important}
+html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dark textarea{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
+html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
+html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
+</style>
   </head>
 
-  <body class="min-h-screen bg-bg font-Inter text-text antialiased">
+   <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <div id="sidebar"></div>
 
     <div class="ml-64">
       <div id="header"></div>
 
-      <main class="min-h-screen bg-bg p-6">
-        <section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white p-6 shadow-sm sm:flex-row sm:items-center">
+      <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center">
           <div class="flex items-center gap-6">
             <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">AP</div>
-            <div><h2 class="text-2xl font-bold">Andi Pratama</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted"><span>NIS 2024001</span><span>Kelas TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div></div>
+            <div><h2 class="text-2xl font-bold">Andi Pratama</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400"><span>NIS 2024001</span><span>Kelas TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div></div>
           </div>
-          <a href="tambah-siswa.html" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary">Edit</a>
+          <a href="tambah-siswa.html" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary">Edit</a>
         </section>
 
-        <div class="mb-6 overflow-x-auto border-b border-slate-200">
+        <div class="mb-6 overflow-x-auto border-b border-slate-200 dark:border-slate-700">
           <nav class="flex min-w-max gap-6" aria-label="Tab detail siswa">
             <button type="button" data-tab="profil" class="tab-button border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary">Profil</button>
-            <button type="button" data-tab="orang-tua" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted transition hover:text-primary">Orang Tua</button>
-            <button type="button" data-tab="absensi" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted transition hover:text-primary">Absensi</button>
-            <button type="button" data-tab="perkembangan" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted transition hover:text-primary">Perkembangan</button>
+            <button type="button" data-tab="orang-tua" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Orang Tua</button>
+            <button type="button" data-tab="absensi" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Absensi</button>
+            <button type="button" data-tab="perkembangan" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Perkembangan</button>
           </nav>
         </div>
 
         <section id="tab-profil" data-panel="profil" class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div class="rounded-2xl bg-white p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted">NIS</dt><dd class="mt-1 font-medium">2024001</dd></div><div><dt class="text-sm text-text-muted">NIK</dt><dd class="mt-1 font-medium">3273011201200001</dd></div><div><dt class="text-sm text-text-muted">Nama Lengkap</dt><dd class="mt-1 font-medium">Andi Pratama</dd></div><div><dt class="text-sm text-text-muted">Nama Panggilan</dt><dd class="mt-1 font-medium">Andi</dd></div><div><dt class="text-sm text-text-muted">Tempat Lahir</dt><dd class="mt-1 font-medium">Bandung</dd></div><div><dt class="text-sm text-text-muted">Tanggal Lahir</dt><dd class="mt-1 font-medium">12 Januari 2021</dd></div></dl></div>
-          <div class="rounded-2xl bg-white p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted">Jenis Kelamin</dt><dd class="mt-1 font-medium">Laki-laki</dd></div><div><dt class="text-sm text-text-muted">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div><div><dt class="text-sm text-text-muted">Kelas</dt><dd class="mt-1 font-medium">TK A</dd></div><div><dt class="text-sm text-text-muted">Tahun Ajaran</dt><dd class="mt-1 font-medium">2026/2027</dd></div><div><dt class="text-sm text-text-muted">Status</dt><dd class="mt-1"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></dd></div></dl></div>
+          <div class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">NIS</dt><dd class="mt-1 font-medium">2024001</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">NIK</dt><dd class="mt-1 font-medium">3273011201200001</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">Andi Pratama</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Panggilan</dt><dd class="mt-1 font-medium">Andi</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tempat Lahir</dt><dd class="mt-1 font-medium">Bandung</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tanggal Lahir</dt><dd class="mt-1 font-medium">12 Januari 2021</dd></div></dl></div>
+          <div class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd class="mt-1 font-medium">Laki-laki</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">TK A</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tahun Ajaran</dt><dd class="mt-1 font-medium">2026/2027</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></dd></div></dl></div>
         </section>
 
         <section id="tab-orang-tua" data-panel="orang-tua" class="hidden grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <article class="rounded-2xl bg-white p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ayah</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted">Nama</dt><dd class="mt-1 font-medium">Budi Pratama</dd></div><div><dt class="text-sm text-text-muted">Pekerjaan</dt><dd class="mt-1 font-medium">Wiraswasta</dd></div><div><dt class="text-sm text-text-muted">No HP</dt><dd class="mt-1 font-medium">0812-3456-7890</dd></div></dl></article>
-          <article class="rounded-2xl bg-white p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ibu</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted">Pekerjaan</dt><dd class="mt-1 font-medium">Ibu Rumah Tangga</dd></div><div><dt class="text-sm text-text-muted">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div></dl></article>
-          <article class="rounded-2xl bg-white p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Kontak Darurat</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div><div><dt class="text-sm text-text-muted">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div></dl></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ayah</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Budi Pratama</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Pekerjaan</dt><dd class="mt-1 font-medium">Wiraswasta</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0812-3456-7890</dd></div></dl></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ibu</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Pekerjaan</dt><dd class="mt-1 font-medium">Ibu Rumah Tangga</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div></dl></article>
+          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Kontak Darurat</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div></dl></article>
         </section>
 
         <section id="tab-absensi" data-panel="absensi" class="hidden">
-          <div class="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-4"><div class="rounded-2xl bg-white p-5 shadow-sm"><p class="text-sm text-text-muted">Hadir</p><p class="mt-2 text-2xl font-bold text-secondary">20</p></div><div class="rounded-2xl bg-white p-5 shadow-sm"><p class="text-sm text-text-muted">Sakit</p><p class="mt-2 text-2xl font-bold text-accent">1</p></div><div class="rounded-2xl bg-white p-5 shadow-sm"><p class="text-sm text-text-muted">Izin</p><p class="mt-2 text-2xl font-bold text-primary">2</p></div><div class="rounded-2xl bg-white p-5 shadow-sm"><p class="text-sm text-text-muted">Alpa</p><p class="mt-2 text-2xl font-bold text-red-500">0</p></div></div>
-          <div class="overflow-hidden rounded-2xl bg-white shadow-sm"><div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-bg text-xs font-medium uppercase tracking-wide text-text-muted"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-6 py-4">24 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">Hadir tepat waktu</td></tr><tr><td class="px-6 py-4">23 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Izin</span></td><td class="px-6 py-4 text-text-muted">Izin keluarga</td></tr><tr><td class="px-6 py-4">22 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted">Hadir tepat waktu</td></tr></tbody></table></div></div>
+          <div class="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-4"><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Hadir</p><p class="mt-2 text-2xl font-bold text-secondary">20</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Sakit</p><p class="mt-2 text-2xl font-bold text-accent">1</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Izin</p><p class="mt-2 text-2xl font-bold text-primary">2</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Alpa</p><p class="mt-2 text-2xl font-bold text-red-500">0</p></div></div>
+          <div class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm"><div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-6 py-4">24 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Hadir tepat waktu</td></tr><tr><td class="px-6 py-4">23 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Izin</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Izin keluarga</td></tr><tr><td class="px-6 py-4">22 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Hadir tepat waktu</td></tr></tbody></table></div></div>
         </section>
 
-        <section id="tab-perkembangan" data-panel="perkembangan" class="hidden rounded-2xl bg-white p-6 shadow-sm">
+        <section id="tab-perkembangan" data-panel="perkembangan" class="hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <h3 class="mb-6 text-lg font-semibold">Catatan Guru</h3>
-          <div class="relative ml-2 border-l border-slate-200"><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-secondary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">24 September 2026</p><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Sosial Emosional</span></div><p class="mt-2 text-sm text-text-muted">Andi mampu bekerja sama dan berbagi dengan teman-temannya saat bermain.</p></div><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-primary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">18 September 2026</p><span class="rounded-full bg-accent/10 px-2 py-1 text-xs text-accent">Bahasa</span></div><p class="mt-2 text-sm text-text-muted">Andi dapat menceritakan pengalaman sederhana dengan percaya diri.</p></div><div class="relative pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-accent"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">10 September 2026</p><span class="rounded-full bg-secondary/10 px-2 py-1 text-xs text-secondary">Motorik</span></div><p class="mt-2 text-sm text-text-muted">Koordinasi gerak dan keseimbangan Andi berkembang dengan baik.</p></div></div>
+          <div class="relative ml-2 border-l border-slate-200 dark:border-slate-700"><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-secondary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">24 September 2026</p><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Sosial Emosional</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Andi mampu bekerja sama dan berbagi dengan teman-temannya saat bermain.</p></div><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-primary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">18 September 2026</p><span class="rounded-full bg-accent/10 px-2 py-1 text-xs text-accent">Bahasa</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Andi dapat menceritakan pengalaman sederhana dengan percaya diri.</p></div><div class="relative pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-accent"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">10 September 2026</p><span class="rounded-full bg-secondary/10 px-2 py-1 text-xs text-secondary">Motorik</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Koordinasi gerak dan keseimbangan Andi berkembang dengan baik.</p></div></div>
         </section>
       </main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/network-status.js"></script>
+    <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
-      const tabButtons = document.querySelectorAll(".tab-button");
-      const tabPanels = document.querySelectorAll("[data-panel]");
+      (function () {
+        const id = new URLSearchParams(window.location.search).get('id') || '1';
+        const student = SIATMA.getStudentById(id);
+        const main = document.querySelector('main');
+        const escapeHtml = (value) => String(value == null || value === '' ? '-' : value)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        const field = (label, value) => '<div><dt class="text-sm text-text-muted dark:text-slate-400">' + label +
+          '</dt><dd class="mt-1 font-medium">' + escapeHtml(value) + '</dd></div>';
 
-      tabButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const selectedTab = button.dataset.tab;
+        if (!student) {
+          main.innerHTML = SIATMA_UI.emptyState({ title: 'Siswa tidak ditemukan', description: 'Data siswa yang diminta tidak tersedia.' });
+          return;
+        }
 
-          tabButtons.forEach((tab) => {
-            const isActive = tab === button;
-            tab.classList.toggle("border-primary", isActive);
-            tab.classList.toggle("text-primary", isActive);
-            tab.classList.toggle("font-medium", isActive);
-            tab.classList.toggle("border-transparent", !isActive);
-            tab.classList.toggle("text-text-muted", !isActive);
+        const attendance = SIATMA.getAttendanceByStudent(student.id).slice().sort((a, b) => b.tanggal.localeCompare(a.tanggal));
+        const attendanceSummary = SIATMA.getAttendanceSummary(student.id);
+        const developments = SIATMA.getDevelopmentsByStudent(student.id).slice().sort((a, b) => b.tanggal.localeCompare(a.tanggal));
+        const initial = student.nama.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join('').toUpperCase();
+        const statusClass = student.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700';
+        const statusCard = '<span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(student.status) + '</span>';
+        const attendanceRows = attendance.length ? attendance.map((record) =>
+          '<tr><td class="px-6 py-4">' + SIATMA_UI.formatDate(record.tanggal, 'short') +
+          '</td><td class="px-6 py-4">' + escapeHtml(record.status) +
+          '</td><td class="px-6 py-4 text-text-muted dark:text-slate-400">' + escapeHtml(record.catatan) + '</td></tr>'
+        ).join('') : '<tr><td colspan="3" class="p-0">' + SIATMA_UI.emptyState({ title: 'Belum ada riwayat absensi' }) + '</td></tr>';
+        const developmentRows = developments.length ? developments.map((record) =>
+          '<article class="border-b border-slate-100 dark:border-slate-700 py-4 last:border-0"><div class="flex flex-wrap gap-3"><span class="font-medium">' +
+          SIATMA_UI.formatDate(record.tanggal, 'short') + '</span><span class="text-sm text-primary">' +
+          escapeHtml(record.kategori) + '</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">' +
+          escapeHtml(record.catatan) + '</p></article>'
+        ).join('') : SIATMA_UI.emptyState({ title: 'Belum ada catatan perkembangan' });
+
+        main.innerHTML = '<section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center"><div class="flex items-center gap-6"><div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(student.nama) + '</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400"><span>NIS ' + escapeHtml(student.nis) + '</span><span>Kelas ' + escapeHtml(student.kelas) + '</span>' + statusCard + '</div></div></div><a href="tambah-siswa.html?id=' + encodeURIComponent(student.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section>' +
+          '<div class="mb-6 overflow-x-auto border-b border-slate-200 dark:border-slate-700"><nav class="flex min-w-max gap-6" aria-label="Tab detail siswa">' +
+          ['profil', 'orang-tua', 'absensi', 'perkembangan'].map((tab, index) => '<button type="button" data-tab="' + tab + '" class="tab-button border-b-2 px-1 pb-3 text-sm ' + (index === 0 ? 'border-primary font-medium text-primary' : 'border-transparent text-text-muted dark:text-slate-400') + '">' + ['Profil', 'Orang Tua', 'Absensi', 'Perkembangan'][index] + '</button>').join('') +
+          '</nav></div><section data-panel="profil" class="grid grid-cols-1 gap-4 md:grid-cols-2"><article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4">' +
+          field('NIS', student.nis) + field('NIK', student.nik) + field('Nama Lengkap', student.nama) + field('Nama Panggilan', student.namaPanggilan) + field('Tempat Lahir', student.tempatLahir) + field('Tanggal Lahir', SIATMA_UI.formatDate(student.tanggalLahir, 'long')) +
+          '</dl></article><article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4">' +
+          field('Jenis Kelamin', student.jenisKelamin) + field('Alamat', student.alamat) + field('Kelas', student.kelas) + field('Tahun Ajaran', student.tahunAjaran) + '<div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1">' + statusCard + '</dd></div>' +
+          '</dl></article></section><section data-panel="orang-tua" class="hidden grid grid-cols-1 gap-4 md:grid-cols-2"><article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ayah</h3><dl class="space-y-4">' + field('Nama', student.namaAyah) + field('Nomor HP', student.nomorHP) + '</dl></article><article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ibu</h3><dl class="space-y-4">' + field('Nama', student.namaIbu) + field('Nomor HP', student.nomorHP) + field('Email', student.email) + '</dl></article></section><section data-panel="absensi" class="hidden"><div class="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-4">' +
+          [['Hadir', 'hadir'], ['Sakit', 'sakit'], ['Izin', 'izin'], ['Alpa', 'alpa']].map((item) => '<div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">' + item[0] + '</p><p class="mt-2 text-2xl font-bold">' + attendanceSummary[item[1]] + '</p></div>').join('') +
+          '</div><div class="overflow-x-auto rounded-2xl bg-white dark:bg-slate-800"><table class="min-w-full text-left text-sm"><thead><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead><tbody class="divide-y divide-slate-100">' + attendanceRows + '</tbody></table></div></section><section data-panel="perkembangan" class="hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-4 text-lg font-semibold">Catatan Guru</h3>' + developmentRows + '</section>';
+
+        const tabs = main.querySelectorAll('.tab-button');
+        tabs.forEach((button) => button.addEventListener('click', () => {
+          tabs.forEach((tab) => {
+            const active = tab === button;
+            tab.classList.toggle('border-primary', active);
+            tab.classList.toggle('text-primary', active);
+            tab.classList.toggle('font-medium', active);
+            tab.classList.toggle('border-transparent', !active);
+            tab.classList.toggle('text-text-muted dark:text-slate-400', !active);
           });
-
-          tabPanels.forEach((panel) => {
-            panel.classList.toggle("hidden", panel.dataset.panel !== selectedTab);
-          });
-        });
-      });
+          main.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('hidden', panel.dataset.panel !== button.dataset.tab));
+        }));
+      })();
     </script>
     <script>
       SIATMA_LAYOUT.initLayout({
@@ -110,6 +176,6 @@
         breadcrumb: 'Home / Data Siswa / Detail'
       });
     </script>
+      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>
-
