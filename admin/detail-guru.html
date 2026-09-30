@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,61 +73,21 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
-        <section class="mb-4 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <div class="flex items-center gap-6">
-            <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">SA</div>
-            <div>
-              <h2 class="text-2xl font-bold">Siti Aminah</h2>
-              <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400">
-                <span>ID: G001</span><span>Kelas: TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>
-              </div>
-            </div>
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
           </div>
-          <button type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Edit</button>
-        </section>
-
-        <div class="grid gap-4 lg:grid-cols-3">
-          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-2">
-            <h2 class="mb-5 text-lg font-semibold">Informasi Pribadi</h2>
-            <dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">ID Guru</dt><dd class="mt-1 font-medium">G001</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">Siti Aminah</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Email</dt><dd class="mt-1 font-medium">siti@almatin.sch.id</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP</dt><dd class="mt-1 font-medium">081234567890</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">TK A</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></dd></div>
-              <div class="md:col-span-2"><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Pendidikan No. 123, Jakarta</dd></div>
-            </dl>
-          </section>
-
-          <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-            <h2 class="mb-5 text-lg font-semibold">Akun Login</h2>
-            <dl class="space-y-5">
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Username</dt><dd class="mt-1 font-medium">siti.aminah</dd></div>
-              <div><dt class="text-sm text-text-muted dark:text-slate-400">Terakhir login</dt><dd class="mt-1 font-medium">24 September 2026, 08:30</dd></div>
-            </dl>
-            <button type="button" class="mt-6 w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Reset Password</button>
-          </section>
-        </div>
-
-        <section class="mt-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-4 text-lg font-semibold">Kelas yang Diampu</h2>
-          <div class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
-            <div>
-              <p class="font-semibold">TK A</p>
-              <p class="mt-1 text-sm text-text-muted dark:text-slate-400">20 siswa</p>
-            </div>
-            <span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span>
-          </div>
-          <button type="button" class="mt-4 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Lihat Kelas</button>
-        </section>
-      </main>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div></main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
@@ -130,22 +100,27 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     </script>
     <script>
       (function () {
+        const main = document.querySelector('main');
+        const content = document.createElement('div');
+        main.appendChild(content);
+        content.innerHTML = SIATMA_UI.loadingState('Memuat data...');
+        window.setTimeout(function () {
         const id = new URLSearchParams(window.location.search).get('id') || '1';
         const teacher = SIATMA.getTeacherById(id);
-        const main = document.querySelector('main');
         const escapeHtml = (value) => String(value == null || value === '' ? '-' : value)
           .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
           .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 
         if (!teacher) {
-          main.innerHTML = SIATMA_UI.emptyState({ title: 'Guru tidak ditemukan', description: 'Data guru yang diminta tidak tersedia.' });
+          content.innerHTML = SIATMA_UI.emptyState({ title: 'Guru tidak ditemukan', description: 'Data guru yang diminta tidak tersedia.' });
           return;
         }
 
         const initial = teacher.nama.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join('').toUpperCase();
         const statusClass = teacher.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700';
         const classData = SIATMA_DATA.classes.find((item) => item.nama === teacher.kelas);
-        main.innerHTML = '<section class="mb-4 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><div class="flex items-center gap-6"><div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(teacher.nama) + '</h2><div class="mt-2 flex flex-wrap gap-3 text-sm text-text-muted dark:text-slate-400"><span>NIP: ' + escapeHtml(teacher.nip) + '</span><span>Kelas: ' + escapeHtml(teacher.kelas) + '</span><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></div></div></div><a href="tambah-guru.html?id=' + encodeURIComponent(teacher.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section><div class="grid gap-4 lg:grid-cols-3"><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-2"><h2 class="mb-5 text-lg font-semibold">Informasi Pribadi</h2><dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2"><div><dt class="text-sm text-text-muted dark:text-slate-400">ID Guru</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nip) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nama) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Email</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.email) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nomorHP) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.kelas) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></dd></div></dl></section><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h2 class="mb-5 text-lg font-semibold">Kelas yang Diampu</h2><p class="font-semibold">' + escapeHtml(teacher.kelas) + '</p><p class="mt-1 text-sm text-text-muted dark:text-slate-400">' + (classData ? classData.jumlahSiswa : SIATMA_DATA.students.filter((student) => student.kelas === teacher.kelas).length) + ' siswa</p><span class="mt-3 inline-flex rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></section></div>';
+        content.innerHTML = '<section class="mb-4 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><div class="flex items-center gap-6"><div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(teacher.nama) + '</h2><div class="mt-2 flex flex-wrap gap-3 text-sm text-text-muted dark:text-slate-400"><span>NIP: ' + escapeHtml(teacher.nip) + '</span><span>Kelas: ' + escapeHtml(teacher.kelas) + '</span><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></div></div></div><a href="tambah-guru.html?id=' + encodeURIComponent(teacher.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section><div class="grid gap-4 lg:grid-cols-3"><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-2"><h2 class="mb-5 text-lg font-semibold">Informasi Pribadi</h2><dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2"><div><dt class="text-sm text-text-muted dark:text-slate-400">ID Guru</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nip) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nama) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Email</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.email) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nomorHP) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.kelas) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></dd></div></dl></section><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h2 class="mb-5 text-lg font-semibold">Kelas yang Diampu</h2><p class="font-semibold">' + escapeHtml(teacher.kelas) + '</p><p class="mt-1 text-sm text-text-muted dark:text-slate-400">' + (classData ? classData.jumlahSiswa : SIATMA_DATA.students.filter((student) => student.kelas === teacher.kelas).length) + ' siswa</p><span class="mt-3 inline-flex rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></section></div>';
+        }, 300);
       })();
     </script>
       <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>

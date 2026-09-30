@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,10 +73,22 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
           <div class="flex flex-wrap items-end gap-3">
-            <div><label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option></select></div>
+            <div>
+              <label for="kelas" class="mb-1 block text-sm font-medium">Kelas</label>
+              <select id="kelas" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"></select>
+            </div>
             <div><label for="tanggal" class="mb-1 block text-sm font-medium">Tanggal</label><input id="tanggal" type="date" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <button id="show-attendance" type="button" class="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
           </div>
         </section>
 
@@ -74,14 +96,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <section class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm">
             <div class="overflow-x-auto">
               <table class="min-w-[900px] w-full text-left">
-                <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400"><tr><th class="px-6 py-4">No</th><th class="px-6 py-4">Nama Siswa</th><th class="px-6 py-4">Status Kehadiran</th><th class="px-6 py-4">Catatan</th></tr></thead>
-                <tbody class="divide-y divide-slate-100 text-sm">
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-5 text-text-muted dark:text-slate-400">1</td><td class="px-6 py-5 font-medium">Andi Pratama</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024001]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024001]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-5 text-text-muted dark:text-slate-400">2</td><td class="px-6 py-5 font-medium">Aisyah Putri</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024002]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024002]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-5 text-text-muted dark:text-slate-400">3</td><td class="px-6 py-5 font-medium">Budi Saputra</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024003]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024003]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-5 text-text-muted dark:text-slate-400">4</td><td class="px-6 py-5 font-medium">Citra Dewi</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024004]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024004]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-700"><td class="px-6 py-5 text-text-muted dark:text-slate-400">5</td><td class="px-6 py-5 font-medium">Dinda Ayu</td><td class="px-6 py-5"><div class="flex flex-wrap gap-2"><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="hadir" checked class="peer sr-only" /><span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 peer-checked:ring-2 peer-checked:ring-green-500 peer-checked:ring-offset-1">Hadir</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="sakit" class="peer sr-only" /><span class="inline-flex rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700 peer-checked:ring-2 peer-checked:ring-yellow-500 peer-checked:ring-offset-1">Sakit</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="izin" class="peer sr-only" /><span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700 peer-checked:ring-2 peer-checked:ring-blue-500 peer-checked:ring-offset-1">Izin</span></label><label class="cursor-pointer"><input type="radio" name="status[2024005]" value="alpa" class="peer sr-only" /><span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 peer-checked:ring-2 peer-checked:ring-red-500 peer-checked:ring-offset-1">Alpa</span></label></div></td><td class="px-6 py-5"><input name="catatan[2024005]" type="text" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20" /></td></tr>
-                </tbody>
+                <thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400">
+                  <tr><th class="px-6 py-4">No</th><th class="px-6 py-4">Nama Siswa</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm"></tbody>
               </table>
             </div>
           </section>
@@ -98,18 +116,9 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
-    <script>
-      document.getElementById("set-all-present").addEventListener("click", () => {
-        document.querySelectorAll('input[type="radio"][value="hadir"]').forEach((radio) => {
-          radio.checked = true;
-        });
-        SIATMA_TOAST.info('Semua siswa ditandai Hadir');
-        var submitBtn = document.querySelector('button[type="submit"]');
-        if (submitBtn) submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    </script>
     <script>
       SIATMA_LAYOUT.initLayout({
         role: 'guru',
@@ -119,49 +128,147 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       });
     </script>
     <script>
-    (function() {
-      var form = document.querySelector('form[action="#"]');
-      if (!form) return;
+      (function () {
+        var classSelect = document.getElementById('kelas');
+        var dateInput = document.getElementById('tanggal');
+        var showButton = document.getElementById('show-attendance');
+        var tbody = document.querySelector('tbody');
+        var form = document.querySelector('form[action="#"]');
+        var statuses = [
+          { value: 'hadir', label: 'Hadir', classes: 'bg-green-100 text-green-700 peer-checked:ring-green-500' },
+          { value: 'sakit', label: 'Sakit', classes: 'bg-yellow-100 text-yellow-700 peer-checked:ring-yellow-500' },
+          { value: 'izin', label: 'Izin', classes: 'bg-blue-100 text-blue-700 peer-checked:ring-blue-500' },
+          { value: 'alpa', label: 'Alpa', classes: 'bg-red-100 text-red-700 peer-checked:ring-red-500' }
+        ];
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        var user = SIATMA_AUTH.getCurrentUser();
+        var teacher = user ? SIATMA_DATA.teachers.find(function (item) { return item.nama === user.nama; }) : null;
+        var defaultClass = teacher ? teacher.kelas : 'TK A';
 
-        var formData = new FormData(form);
-        var records = [];
+        SIATMA_DATA.classes.forEach(function (kelas) {
+          var option = document.createElement('option');
+          option.value = kelas.nama;
+          option.textContent = kelas.nama;
+          classSelect.appendChild(option);
+        });
 
-        formData.forEach(function(value, key) {
-          if (key.startsWith('status[')) {
-            var nis = key.match(/\[(.*?)\]/)[1];
-            records.push({ nis: nis, status: value, catatan: formData.get('catatan[' + nis + ']') || '' });
+        var requestedClass = new URLSearchParams(window.location.search).get('kelas');
+        if (requestedClass && Array.from(classSelect.options).some(function (option) { return option.value === requestedClass; })) {
+          classSelect.value = requestedClass;
+        } else if (Array.from(classSelect.options).some(function (option) { return option.value === defaultClass; })) {
+          classSelect.value = defaultClass;
+        }
+
+        function escapeHtml(value) {
+          return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        function localDate() {
+          var today = new Date();
+          return today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+        }
+
+        function renderStudents(students, tanggal) {
+          if (!students.length) {
+            tbody.innerHTML = '<tr><td colspan="4" class="p-0">' + SIATMA_UI.emptyState({
+              title: 'Data siswa tidak ditemukan',
+              description: 'Tidak ada siswa di kelas yang dipilih.'
+            }) + '</td></tr>';
+            return;
+          }
+          tbody.innerHTML = students.map(function (student, index) {
+            var attendance = SIATMA_DATA.attendance.find(function (record) {
+              return record.studentId === student.id && record.tanggal === tanggal;
+            });
+            var selectedStatus = attendance ? String(attendance.status).toLowerCase() : 'hadir';
+            var note = attendance ? attendance.catatan : '';
+            return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">' +
+              '<td class="px-6 py-5 text-text-muted dark:text-slate-400">' + (index + 1) + '</td>' +
+              '<td class="px-6 py-5 font-medium">' + escapeHtml(student.nama) + '</td>' +
+              '<td class="px-6 py-5"><div class="flex flex-wrap gap-2">' +
+              statuses.map(function (status) {
+                var checked = selectedStatus === status.value;
+                return '<label class="cursor-pointer"><input type="radio" name="status[' + escapeHtml(student.nis) + ']" value="' + status.value + '"' + (checked ? ' checked' : '') + ' class="peer sr-only" /><span class="inline-flex rounded-full px-3 py-1 text-sm ring-0 peer-checked:ring-2 peer-checked:ring-offset-1 ' + status.classes + '">' + status.label + '</span></label>';
+              }).join('') +
+              '</div></td>' +
+              '<td class="px-6 py-5"><input name="catatan[' + escapeHtml(student.nis) + ']" type="text" value="' + escapeHtml(note) + '" placeholder="Tambahkan catatan..." class="w-full min-w-48 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></td>' +
+              '</tr>';
+          }).join('');
+        }
+
+        function refresh() {
+          var tanggal = dateInput.value || localDate();
+          dateInput.value = tanggal;
+          var students = SIATMA_DATA.students.filter(function (student) { return student.kelas === classSelect.value; });
+          renderStudents(students, tanggal);
+        }
+
+        showButton.addEventListener('click', refresh);
+        classSelect.addEventListener('change', refresh);
+        dateInput.addEventListener('change', refresh);
+
+        document.getElementById('set-all-present').addEventListener('click', function () {
+          document.querySelectorAll('input[type="radio"][value="hadir"]').forEach(function (radio) { radio.checked = true; });
+          SIATMA_TOAST.info('Semua siswa ditandai Hadir');
+        });
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var formData = new FormData(form);
+          var records = [];
+          formData.forEach(function (value, key) {
+            if (key.startsWith('status[')) {
+              var nis = key.match(/\[(.*?)\]/)[1];
+              records.push({ nis: nis, status: value, catatan: formData.get('catatan[' + nis + ']') || '' });
+            }
+          });
+          try {
+            var existing = JSON.parse(localStorage.getItem('siatma_attendance') || '[]');
+            var tanggal = dateInput.value || localDate();
+            var kelas = classSelect.value;
+            records.forEach(function (record) {
+              var index = existing.findIndex(function (item) { return String(item.nis) === String(record.nis) && item.tanggal === tanggal; });
+              var attendance = {
+                id: index >= 0 ? existing[index].id : Date.now() + records.indexOf(record),
+                nis: record.nis,
+                status: record.status.charAt(0).toUpperCase() + record.status.slice(1),
+                catatan: record.catatan,
+                tanggal: tanggal,
+                kelas: kelas
+              };
+              if (index >= 0) existing[index] = attendance;
+              else existing.push(attendance);
+            });
+            localStorage.setItem('siatma_attendance', JSON.stringify(existing));
+            records.forEach(function (record) {
+              var student = SIATMA_DATA.students.find(function (item) { return String(item.nis) === String(record.nis); });
+              if (!student) return;
+              var index = SIATMA_DATA.attendance.findIndex(function (item) { return item.studentId === student.id && item.tanggal === tanggal; });
+              var attendance = {
+                id: index >= 0 ? SIATMA_DATA.attendance[index].id : Date.now(),
+                studentId: student.id,
+                tanggal: tanggal,
+                status: record.status.charAt(0).toUpperCase() + record.status.slice(1),
+                catatan: record.catatan
+              };
+              if (index >= 0) SIATMA_DATA.attendance[index] = attendance;
+              else SIATMA_DATA.attendance.push(attendance);
+            });
+            SIATMA_TOAST.success('Absensi kelas ' + kelas + ' berhasil disimpan');
+            refresh();
+          } catch (error) {
+            if (error.name === 'QuotaExceededError') {
+              SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+            } else {
+              SIATMA_TOAST.error('Gagal menyimpan data: ' + error.message);
+            }
           }
         });
 
-        try {
-          var existing = JSON.parse(localStorage.getItem('siatma_attendance') || '[]');
-          var today = new Date().toISOString().split('T')[0];
-          var kelas = document.getElementById('kelas').value;
-          var tanggal = document.getElementById('tanggal').value || today;
-
-          records.forEach(function(r) {
-            var idx = existing.findIndex(function(e) {
-              return e.nis === r.nis && e.tanggal === tanggal;
-            });
-            var record = { nis: r.nis, status: r.status, catatan: r.catatan, tanggal: tanggal, kelas: kelas };
-            if (idx >= 0) existing[idx] = record;
-            else existing.push(record);
-          });
-
-          localStorage.setItem('siatma_attendance', JSON.stringify(existing));
-          SIATMA_TOAST.success('Absensi kelas ' + kelas + ' berhasil disimpan');
-        } catch (err) {
-          if (err.name === 'QuotaExceededError') {
-            SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
-          } else {
-            SIATMA_TOAST.error('Gagal menyimpan data: ' + err.message);
-          }
-        }
-      });
-    })();
+        refresh();
+      })();
     </script>
       <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>

@@ -34,12 +34,30 @@
       html.dark .border-slate-200,html.dark .border-slate-300{border-color:#334155!important}
       html.dark input,html.dark select{background-color:#1e293b;color:#f1f5f9;border-color:#475569}
     </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
   <body class="min-h-screen bg-bg font-Inter text-text antialiased dark:bg-slate-900 dark:text-slate-100">
     <div id="sidebar"></div>
     <div class="ml-64">
       <div id="header"></div>
       <main class="min-h-screen bg-bg p-6 dark:bg-slate-900">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <form id="class-form" class="mx-auto max-w-3xl space-y-4">
           <section class="rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800">
             <h2 class="mb-5 text-lg font-semibold">Data Kelas</h2>
@@ -83,6 +101,7 @@
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>

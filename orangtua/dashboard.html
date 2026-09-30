@@ -55,6 +55,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -64,6 +74,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <section class="mb-6"><h2 class="text-2xl font-bold">Selamat datang, Bapak/Ibu</h2><p class="mt-1 text-text-muted dark:text-slate-400">Pantau perkembangan buah hati Anda.</p></section>
 
         <section class="mb-4 flex flex-col items-start gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center">
@@ -141,6 +159,16 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         var records = SIATMA.getAttendanceByStudent(student.id).slice().sort(function (a, b) { return b.tanggal.localeCompare(a.tanggal); });
         var latest = records[0];
         var statusCard = main.querySelector('.bg-gradient-to-br');
+        if (statusCard) {
+          var statusColors = {
+            'Hadir': 'from-green-500 to-green-600',
+            'Sakit': 'from-yellow-500 to-yellow-600',
+            'Izin': 'from-blue-500 to-blue-600',
+            'Alpa': 'from-red-500 to-red-600'
+          };
+          var colorClass = latest ? statusColors[latest.status] : 'from-slate-500 to-slate-600';
+          statusCard.className = 'mb-4 rounded-2xl p-6 text-white shadow-sm bg-gradient-to-br ' + (colorClass || 'from-slate-500 to-slate-600');
+        }
         statusCard.querySelector('.text-4xl').textContent = latest ? latest.status.toUpperCase() : '-';
         statusCard.querySelectorAll('p')[2].textContent = latest ? SIATMA_UI.formatDate(latest.tanggal, 'long') : 'Belum ada data kehadiran';
 
@@ -154,6 +182,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       })();
     </script>
           <script src="../js/network-status.js"></script>
+          <script src="../js/pwa-install.js"></script>
     <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

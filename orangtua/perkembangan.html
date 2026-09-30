@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,6 +73,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <section class="mb-4 flex items-center gap-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
           <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">AP</div>
           <div><h2 class="text-xl font-bold">Aisyah Putri</h2><p class="mt-1 text-sm text-text-muted dark:text-slate-400">Kelas TK A</p></div>
@@ -123,10 +141,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     </script>
     <script>
       (function () {
+        var main = document.querySelector('main');
+        var initialContent = main.innerHTML;
+        main.innerHTML = SIATMA_UI.loadingState('Memuat data...');
+        window.setTimeout(function () {
+        main.innerHTML = initialContent;
         var user = SIATMA_AUTH.getCurrentUser();
         var studentId = user && user.studentId ? user.studentId : 2;
         var student = SIATMA.getStudentById(studentId);
-        var main = document.querySelector('main');
         if (!student) {
           main.innerHTML = SIATMA_UI.emptyState({ title: 'Data anak tidak ditemukan' });
           return;
@@ -146,9 +168,11 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         timeline.innerHTML = developments.length ? developments.map(function (item, index) {
           return '<article class="relative ' + (index === developments.length - 1 ? 'pl-7' : 'pb-6 pl-7') + '"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white ' + ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-purple-500'][index % 4] + '"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">' + SIATMA_UI.formatDate(item.tanggal, 'short') + '</p><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">' + escapeHtml(item.kategori) + '</span><span class="text-sm text-text-muted dark:text-slate-400">' + escapeHtml(item.guru || '-') + '</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">' + escapeHtml(item.catatan) + '</p></div></article>';
         }).join('') : SIATMA_UI.emptyState({ title: 'Belum ada catatan perkembangan', description: 'Catatan guru akan tampil di sini.' });
+        }, 300);
       })();
     </script>
           <script src="../js/network-status.js"></script>
+          <script src="../js/pwa-install.js"></script>
     <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

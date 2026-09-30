@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,6 +73,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap items-center gap-3">
             <div class="relative">
@@ -116,6 +134,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
@@ -162,6 +181,22 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       } catch (err) {
         SIATMA_TOAST.error('Gagal memuat status guru tersimpan');
       }
+
+      function populateFilter(select, placeholder, values) {
+        select.innerHTML = '';
+        var defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = placeholder;
+        select.appendChild(defaultOption);
+        Array.from(new Set(values.filter(Boolean))).sort().forEach(function(value) {
+          var option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+      }
+      populateFilter(filterStatus, 'Status', teachers.map(function(teacher) { return teacher.status; }));
+      populateFilter(filterKelas, 'Kelas', teachers.map(function(teacher) { return teacher.kelas; }));
 
       function renderPagination(totalData) {
         var totalPages = Math.ceil(totalData / perPage);

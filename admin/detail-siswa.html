@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,57 +73,32 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
-        <section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center">
-          <div class="flex items-center gap-6">
-            <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">AP</div>
-            <div><h2 class="text-2xl font-bold">Andi Pratama</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400"><span>NIS 2024001</span><span>Kelas TK A</span><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></div></div>
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
           </div>
-          <a href="tambah-siswa.html" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary">Edit</a>
-        </section>
-
-        <div class="mb-6 overflow-x-auto border-b border-slate-200 dark:border-slate-700">
-          <nav class="flex min-w-max gap-6" aria-label="Tab detail siswa">
-            <button type="button" data-tab="profil" class="tab-button border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary">Profil</button>
-            <button type="button" data-tab="orang-tua" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Orang Tua</button>
-            <button type="button" data-tab="absensi" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Absensi</button>
-            <button type="button" data-tab="perkembangan" class="tab-button border-b-2 border-transparent px-1 pb-3 text-sm text-text-muted dark:text-slate-400 transition hover:text-primary">Perkembangan</button>
-          </nav>
-        </div>
-
-        <section id="tab-profil" data-panel="profil" class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">NIS</dt><dd class="mt-1 font-medium">2024001</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">NIK</dt><dd class="mt-1 font-medium">3273011201200001</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">Andi Pratama</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Panggilan</dt><dd class="mt-1 font-medium">Andi</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tempat Lahir</dt><dd class="mt-1 font-medium">Bandung</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tanggal Lahir</dt><dd class="mt-1 font-medium">12 Januari 2021</dd></div></dl></div>
-          <div class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Jenis Kelamin</dt><dd class="mt-1 font-medium">Laki-laki</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">TK A</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Tahun Ajaran</dt><dd class="mt-1 font-medium">2026/2027</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Aktif</span></dd></div></dl></div>
-        </section>
-
-        <section id="tab-orang-tua" data-panel="orang-tua" class="hidden grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ayah</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Budi Pratama</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Pekerjaan</dt><dd class="mt-1 font-medium">Wiraswasta</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0812-3456-7890</dd></div></dl></article>
-          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Data Ibu</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Pekerjaan</dt><dd class="mt-1 font-medium">Ibu Rumah Tangga</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div></dl></article>
-          <article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-5 text-lg font-semibold">Kontak Darurat</h3><dl class="space-y-4"><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama</dt><dd class="mt-1 font-medium">Siti Rahma</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">No HP</dt><dd class="mt-1 font-medium">0813-4567-8901</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Alamat</dt><dd class="mt-1 font-medium">Jl. Melati No. 12, Bandung</dd></div></dl></article>
-        </section>
-
-        <section id="tab-absensi" data-panel="absensi" class="hidden">
-          <div class="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-4"><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Hadir</p><p class="mt-2 text-2xl font-bold text-secondary">20</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Sakit</p><p class="mt-2 text-2xl font-bold text-accent">1</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Izin</p><p class="mt-2 text-2xl font-bold text-primary">2</p></div><div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">Alpa</p><p class="mt-2 text-2xl font-bold text-red-500">0</p></div></div>
-          <div class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm"><div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-bg dark:bg-slate-900 text-xs font-medium uppercase tracking-wide text-text-muted dark:text-slate-400"><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-6 py-4">24 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Hadir tepat waktu</td></tr><tr><td class="px-6 py-4">23 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Izin</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Izin keluarga</td></tr><tr><td class="px-6 py-4">22 September 2026</td><td class="px-6 py-4"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Hadir</span></td><td class="px-6 py-4 text-text-muted dark:text-slate-400">Hadir tepat waktu</td></tr></tbody></table></div></div>
-        </section>
-
-        <section id="tab-perkembangan" data-panel="perkembangan" class="hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h3 class="mb-6 text-lg font-semibold">Catatan Guru</h3>
-          <div class="relative ml-2 border-l border-slate-200 dark:border-slate-700"><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-secondary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">24 September 2026</p><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">Sosial Emosional</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Andi mampu bekerja sama dan berbagi dengan teman-temannya saat bermain.</p></div><div class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-primary"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">18 September 2026</p><span class="rounded-full bg-accent/10 px-2 py-1 text-xs text-accent">Bahasa</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Andi dapat menceritakan pengalaman sederhana dengan percaya diri.</p></div><div class="relative pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-accent"></span><div class="flex flex-wrap items-center gap-3"><p class="font-medium">10 September 2026</p><span class="rounded-full bg-secondary/10 px-2 py-1 text-xs text-secondary">Motorik</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Koordinasi gerak dan keseimbangan Andi berkembang dengan baik.</p></div></div>
-        </section>
-      </main>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div></main>
     </div>
 
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       (function () {
+        const main = document.querySelector('main');
+        const content = document.createElement('div');
+        main.appendChild(content);
+        content.innerHTML = SIATMA_UI.loadingState('Memuat data...');
+        window.setTimeout(function () {
         const id = new URLSearchParams(window.location.search).get('id') || '1';
         const student = SIATMA.getStudentById(id);
-        const main = document.querySelector('main');
         const escapeHtml = (value) => String(value == null || value === '' ? '-' : value)
           .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
           .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
@@ -121,7 +106,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           '</dt><dd class="mt-1 font-medium">' + escapeHtml(value) + '</dd></div>';
 
         if (!student) {
-          main.innerHTML = SIATMA_UI.emptyState({ title: 'Siswa tidak ditemukan', description: 'Data siswa yang diminta tidak tersedia.' });
+          content.innerHTML = SIATMA_UI.emptyState({ title: 'Siswa tidak ditemukan', description: 'Data siswa yang diminta tidak tersedia.' });
           return;
         }
 
@@ -143,7 +128,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           escapeHtml(record.catatan) + '</p></article>'
         ).join('') : SIATMA_UI.emptyState({ title: 'Belum ada catatan perkembangan' });
 
-        main.innerHTML = '<section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center"><div class="flex items-center gap-6"><div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(student.nama) + '</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400"><span>NIS ' + escapeHtml(student.nis) + '</span><span>Kelas ' + escapeHtml(student.kelas) + '</span>' + statusCard + '</div></div></div><a href="tambah-siswa.html?id=' + encodeURIComponent(student.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section>' +
+        content.innerHTML = '<section class="mb-4 flex flex-col items-start justify-between gap-5 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center"><div class="flex items-center gap-6"><div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(student.nama) + '</h2><div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted dark:text-slate-400"><span>NIS ' + escapeHtml(student.nis) + '</span><span>Kelas ' + escapeHtml(student.kelas) + '</span>' + statusCard + '</div></div></div><a href="tambah-siswa.html?id=' + encodeURIComponent(student.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section>' +
           '<div class="mb-6 overflow-x-auto border-b border-slate-200 dark:border-slate-700"><nav class="flex min-w-max gap-6" aria-label="Tab detail siswa">' +
           ['profil', 'orang-tua', 'absensi', 'perkembangan'].map((tab, index) => '<button type="button" data-tab="' + tab + '" class="tab-button border-b-2 px-1 pb-3 text-sm ' + (index === 0 ? 'border-primary font-medium text-primary' : 'border-transparent text-text-muted dark:text-slate-400') + '">' + ['Profil', 'Orang Tua', 'Absensi', 'Perkembangan'][index] + '</button>').join('') +
           '</nav></div><section data-panel="profil" class="grid grid-cols-1 gap-4 md:grid-cols-2"><article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><dl class="space-y-4">' +
@@ -154,7 +139,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           [['Hadir', 'hadir'], ['Sakit', 'sakit'], ['Izin', 'izin'], ['Alpa', 'alpa']].map((item) => '<div class="rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm"><p class="text-sm text-text-muted dark:text-slate-400">' + item[0] + '</p><p class="mt-2 text-2xl font-bold">' + attendanceSummary[item[1]] + '</p></div>').join('') +
           '</div><div class="overflow-x-auto rounded-2xl bg-white dark:bg-slate-800"><table class="min-w-full text-left text-sm"><thead><tr><th class="px-6 py-4">Tanggal</th><th class="px-6 py-4">Status</th><th class="px-6 py-4">Catatan</th></tr></thead><tbody class="divide-y divide-slate-100">' + attendanceRows + '</tbody></table></div></section><section data-panel="perkembangan" class="hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h3 class="mb-4 text-lg font-semibold">Catatan Guru</h3>' + developmentRows + '</section>';
 
-        const tabs = main.querySelectorAll('.tab-button');
+        const tabs = content.querySelectorAll('.tab-button');
         tabs.forEach((button) => button.addEventListener('click', () => {
           tabs.forEach((tab) => {
             const active = tab === button;
@@ -164,8 +149,9 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             tab.classList.toggle('border-transparent', !active);
             tab.classList.toggle('text-text-muted dark:text-slate-400', !active);
           });
-          main.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('hidden', panel.dataset.panel !== button.dataset.tab));
+          content.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('hidden', panel.dataset.panel !== button.dataset.tab));
         }));
+          }, 300);
       })();
     </script>
     <script>

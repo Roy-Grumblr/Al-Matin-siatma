@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'siatma-static-v5';
+var CACHE_NAME = 'siatma-static-v6';
 var STATIC_ASSETS = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ var STATIC_ASSETS = [
   './js/ui-helpers.js',
   './js/toast.js',
   './js/network-status.js',
+  './js/pwa-install.js',
   './admin/dashboard.html',
   './admin/data-siswa.html',
   './admin/data-guru.html',

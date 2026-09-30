@@ -55,6 +55,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -64,6 +74,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <section class="mb-6"><h2 class="text-2xl font-bold">Selamat datang, Bu Guru</h2><p class="mt-1 text-text-muted dark:text-slate-400">Semoga hari Anda menyenangkan.</p></section>
 
         <section class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -102,6 +120,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
@@ -111,6 +130,46 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         title: 'Dashboard',
         breadcrumb: 'Home / Dashboard'
       });
+    </script>
+    <script>
+      (function () {
+        var user = SIATMA_AUTH.getCurrentUser();
+        var teacher = user ? SIATMA_DATA.teachers.find(function (item) { return item.nama === user.nama; }) : null;
+        var assignedClass = teacher ? teacher.kelas : 'TK A';
+        var students = SIATMA_DATA.students.filter(function (student) { return student.kelas === assignedClass; });
+
+        var statCards = document.querySelectorAll('main section.mb-6 article');
+        if (statCards[0]) statCards[0].querySelector('.text-3xl').textContent = assignedClass;
+        if (statCards[1]) statCards[1].querySelector('.text-3xl').textContent = students.length;
+
+        var today = new Date();
+        var todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+        var todayRecords = SIATMA_DATA.attendance.filter(function (attendance) {
+          return attendance.tanggal === todayStr && students.some(function (student) { return student.id === attendance.studentId; });
+        });
+        var hadir = todayRecords.filter(function (attendance) { return attendance.status === 'Hadir'; }).length;
+        if (statCards[2]) statCards[2].querySelector('.text-3xl').textContent = hadir;
+
+        var classBadge = document.querySelector('main .lg\\:grid-cols-3 article span.rounded-full');
+        if (classBadge) classBadge.textContent = assignedClass;
+
+        var infoTexts = document.querySelectorAll('main .lg\\:grid-cols-3 article .text-sm span');
+        if (infoTexts[0]) infoTexts[0].textContent = students.length + ' siswa';
+        if (infoTexts[1]) infoTexts[1].textContent = SIATMA_UI.formatDate(today, 'long');
+
+        var attendanceGrid = document.querySelector('main .lg\\:grid-cols-3 article .grid');
+        if (attendanceGrid) {
+          var counts = { Hadir: 0, Izin: 0, Sakit: 0, Alpa: 0 };
+          todayRecords.forEach(function (record) { if (counts[record.status] !== undefined) counts[record.status] += 1; });
+          var items = ['Hadir', 'Izin', 'Sakit', 'Alpa'];
+          attendanceGrid.querySelectorAll(':scope > div').forEach(function (box, index) {
+            box.querySelector('.text-2xl').textContent = counts[items[index]] || 0;
+          });
+        }
+
+        var absensiLink = document.querySelector('main .lg\\:grid-cols-3 article a[href="absensi.html"]');
+        if (absensiLink) absensiLink.href = 'absensi.html?kelas=' + encodeURIComponent(assignedClass);
+      })();
     </script>
       <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>

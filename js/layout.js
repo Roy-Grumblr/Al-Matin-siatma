@@ -129,7 +129,7 @@
     );
   }
 
-  function renderHeader(title, breadcrumb) {
+  function renderHeader(title, breadcrumb, role) {
     var user = window.SIATMA_AUTH && window.SIATMA_AUTH.getCurrentUser
       ? window.SIATMA_AUTH.getCurrentUser()
       : null;
@@ -146,15 +146,17 @@
       escapeHtml(title) +
       '</h1><p class="mt-0.5 truncate text-sm text-text-muted">' +
       escapeHtml(breadcrumb) +
-      '</p></div></div><div class="flex items-center gap-3 md:gap-5"><div class="relative hidden md:block"><label for="header-search" class="sr-only">Cari</label><svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg><input id="header-search" type="search" placeholder="Cari..." class="w-56 rounded-lg border border-slate-200 bg-bg py-2 pl-10 pr-4 text-sm outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20" /></div><button id="themeToggle" type="button" class="rounded-lg p-2 text-text-muted transition hover:bg-bg hover:text-primary" aria-label="Aktifkan mode gelap"><svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364 6.364-1.591-1.591M7.227 7.227 5.636 5.636m12.728 0-1.591 1.591M7.227 16.773l-1.591 1.591M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"/></svg><svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button><button type="button" class="relative text-text-muted transition hover:text-primary" aria-label="Notifikasi">' +
+      '</p></div></div><div class="flex items-center gap-2 md:gap-5"><div class="relative"><label for="header-search" class="sr-only">Cari</label><svg class="pointer-events-none absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted md:left-3 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.2-4.2m0 0A7.5 7.5 0 1 0 6.194 6.194a7.5 7.5 0 0 0 10.606 10.606Z"/></svg><input id="header-search" type="search" placeholder="Cari..." class="w-20 rounded-lg border border-slate-200 bg-bg py-2 pl-7 pr-2 text-xs outline-none placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 sm:w-36 sm:pl-9 sm:text-sm sm:pr-3 md:w-56 md:pl-10 md:pr-4" /></div><button id="themeToggle" type="button" class="rounded-lg p-2 text-text-muted transition hover:bg-bg hover:text-primary" aria-label="Aktifkan mode gelap"><svg class="h-5 w-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m9-9h-2.25M5.25 12H3m15.364 6.364-1.591-1.591M7.227 7.227 5.636 5.636m12.728 0-1.591 1.591M7.227 16.773l-1.591 1.591M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z"/></svg><svg class="hidden h-5 w-5 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button><button id="notificationButton" type="button" class="relative text-text-muted transition hover:text-primary" aria-label="Notifikasi">' +
       MENU_ICONS.notification +
       '<span class="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white' +
       (notificationCount === 0 ? ' hidden' : '') +
-      '">' + notificationCount + '</span></button><button type="button" aria-label="Profil ' +
+      '">' + notificationCount + '</span></button><div class="relative"><button id="profileMenuButton" type="button" aria-label="Profil ' +
       escapeHtml(displayName) +
-      '"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">' +
+      '" aria-expanded="false" aria-controls="profileMenu"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">' +
       escapeHtml(initial) +
-      '</span></button></div></header>'
+      '</span></button><div id="profileMenu" class="absolute right-0 top-full z-40 mt-2 hidden w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800"><a href="' +
+      (role === 'orangtua' ? 'profil-anak.html' : 'pengaturan.html') +
+      '" class="block rounded-lg px-3 py-2 text-sm text-text-muted transition hover:bg-bg hover:text-primary">Profil / Pengaturan</a><button id="profileLogoutButton" type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-text-muted transition hover:bg-bg hover:text-primary">Keluar</button></div></div></div></header>'
     );
   }
 
@@ -183,6 +185,7 @@
       var rawText = textNode.nodeValue.trim();
       if (/^\d{7,}$/.test(rawText)) continue;
       if (new RegExp(monthPattern, 'i').test(textNode.nodeValue)) continue;
+      if (new RegExp(monthPattern + '.*' + monthPattern, 'i').test(textNode.nodeValue)) continue;
       var format = parent.closest('td, th') ? 'short' : 'long';
       var text = textNode.nodeValue;
 
@@ -213,7 +216,7 @@
       sidebar.outerHTML = renderSidebar(role, config.activeMenu, config.basePath);
     }
     if (header) {
-      header.outerHTML = renderHeader(config.title || '', config.breadcrumb || '');
+      header.outerHTML = renderHeader(config.title || '', config.breadcrumb || '', role);
     }
 
     var content = document.querySelector('.ml-64');
@@ -284,14 +287,66 @@
 
     var headerSearch = document.getElementById('header-search');
     if (headerSearch) {
+      if (role === 'guru' || role === 'orangtua') {
+        var main = document.querySelector('main');
+        if (main) {
+          var searchEmptyState = document.createElement('p');
+          searchEmptyState.id = 'header-search-empty';
+          searchEmptyState.className = 'hidden py-6 text-center text-sm text-text-muted';
+          searchEmptyState.textContent = 'Tidak ada hasil yang cocok.';
+          main.appendChild(searchEmptyState);
+          headerSearch.addEventListener('input', function () {
+            var query = headerSearch.value.trim().toLocaleLowerCase();
+            var searchableItems = main.querySelectorAll('article, tbody tr');
+            var visibleCount = 0;
+            searchableItems.forEach(function (item) {
+              var matches = !query || item.textContent.toLocaleLowerCase().includes(query);
+              item.classList.toggle('hidden', !matches);
+              if (matches) visibleCount += 1;
+            });
+            searchEmptyState.classList.toggle('hidden', !query || visibleCount > 0);
+          });
+        }
+      }
       headerSearch.addEventListener('keydown', function (event) {
         if (event.key !== 'Enter') return;
         var query = headerSearch.value.trim();
         if (!query) return;
         event.preventDefault();
-        window.location.href = role === 'admin'
-          ? 'data-siswa.html?q=' + encodeURIComponent(query)
-          : 'dashboard.html';
+        if (role === 'admin') window.location.href = 'data-siswa.html?q=' + encodeURIComponent(query);
+      });
+    }
+
+    var profileMenuButton = document.getElementById('profileMenuButton');
+    var profileMenu = document.getElementById('profileMenu');
+    if (profileMenuButton && profileMenu) {
+      profileMenuButton.addEventListener('click', function () {
+        var open = profileMenu.classList.toggle('hidden') === false;
+        profileMenuButton.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', function (event) {
+        if (profileMenu.contains(event.target) || profileMenuButton.contains(event.target)) return;
+        profileMenu.classList.add('hidden');
+        profileMenuButton.setAttribute('aria-expanded', 'false');
+      });
+    }
+    var profileLogoutButton = document.getElementById('profileLogoutButton');
+    if (profileLogoutButton && window.SIATMA_AUTH && window.SIATMA_AUTH.logout) {
+      profileLogoutButton.addEventListener('click', function () {
+        if (window.SIATMA_UI && window.SIATMA_UI.confirm) {
+          window.SIATMA_UI.confirm('Yakin ingin keluar dari SIATMA?', function () {
+            window.SIATMA_AUTH.logout();
+          });
+        } else {
+          window.SIATMA_AUTH.logout();
+        }
+      });
+    }
+
+    var notifBtn = document.getElementById('notificationButton');
+    if (notifBtn) {
+      notifBtn.addEventListener('click', function () {
+        window.location.href = 'pengumuman.html';
       });
     }
 

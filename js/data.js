@@ -274,6 +274,11 @@
     });
   }
 
+  readStoredArray('siatma_users_override').forEach(function (override) {
+    var user = SIATMA_DATA.users.find(function (item) { return item.role === override.role; });
+    if (user) Object.assign(user, override);
+  });
+
   mergeStoredRecords(SIATMA_DATA.students, readStoredArray('siatma_students_extra'), function (item, record) {
     return item.id === record.id || item.nis === record.nis;
   });

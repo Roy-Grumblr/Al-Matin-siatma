@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,6 +73,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <div class="mb-6 flex justify-end"><button id="open-modal" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Buat Pengumuman</button></div>
 
         <section id="announcement-list" class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -116,16 +134,35 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       </div>
     </div>
 
+    <div id="announcement-detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 px-4 py-6" role="dialog" aria-modal="true" aria-labelledby="announcement-detail-title">
+      <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white dark:bg-slate-800 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+          <h2 id="announcement-detail-title" class="text-lg font-semibold">Detail Pengumuman</h2>
+          <button id="close-detail-modal" type="button" class="text-2xl leading-none text-text-muted dark:text-slate-400 transition hover:text-text dark:text-slate-100" aria-label="Tutup">&times;</button>
+        </div>
+        <div class="space-y-4 p-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <span id="announcement-detail-date" class="text-sm text-text-muted dark:text-slate-400"></span>
+            <span id="announcement-detail-target" class="inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"></span>
+            <span id="announcement-detail-status" class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700"></span>
+          </div>
+          <p id="announcement-detail-content" class="whitespace-pre-wrap text-sm leading-6"></p>
+        </div>
+      </div>
+    </div>
+
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
       const modal = document.getElementById("announcement-modal");
       const announcementForm = modal.querySelector("form");
       const announcementList = document.getElementById("announcement-list");
+      const detailModal = document.getElementById("announcement-detail-modal");
       const openModal = () => {
         modal.classList.remove("hidden");
         modal.classList.add("flex");
@@ -160,18 +197,23 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       };
       const renderAnnouncement = (announcement) => {
         const target = targetLabel(announcement);
-        return '<article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md"><div class="flex items-start justify-between gap-3"><h2 class="font-semibold">' +
-          escapeHtml(announcement.judul) +
-          '</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">' +
-          escapeHtml(announcement.status) +
-          '</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">' +
-          escapeHtml(SIATMA_UI.formatDate(announcement.tanggal, "short")) +
-          '</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">' +
-          escapeHtml(target) +
-          '</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">' +
-          escapeHtml(announcement.isi) +
-          '</p><button type="button" class="mt-5 text-sm font-semibold text-primary transition hover:text-primary-dark">Lihat Detail →</button></article>';
+        return '<article class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm transition hover:shadow-md">' +
+          '<div class="flex items-start justify-between gap-3"><h2 class="font-semibold">' + escapeHtml(announcement.judul) +
+          '</h2><span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">' + escapeHtml(announcement.status) +
+          '</span></div><p class="mt-2 text-sm text-text-muted dark:text-slate-400">' + escapeHtml(SIATMA_UI.formatDate(announcement.tanggal, "short")) +
+          '</p><span class="mt-3 inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">' + escapeHtml(target) +
+          '</span><p class="mt-4 line-clamp-2 text-sm text-text-muted dark:text-slate-400">' + escapeHtml(announcement.isi) +
+          '</p><button type="button" class="share-wa mt-3 inline-flex items-center gap-2 text-sm font-semibold text-green-600 hover:text-green-700" data-judul="' +
+          escapeHtml(announcement.judul) + '" data-isi="' + escapeHtml(announcement.isi) + '">Bagikan ke WhatsApp</button></article>';
       };
+      const closeDetailModal = () => {
+        detailModal.classList.add("hidden");
+        detailModal.classList.remove("flex");
+      };
+      document.getElementById("close-detail-modal").addEventListener("click", closeDetailModal);
+      detailModal.addEventListener("click", (event) => {
+        if (event.target === detailModal) closeDetailModal();
+      });
       const renderAnnouncements = () => {
         if (!SIATMA_DATA.announcements.length) {
           announcementList.innerHTML = '<div class="col-span-full">' + SIATMA_UI.emptyState({
@@ -181,6 +223,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           return;
         }
         announcementList.innerHTML = SIATMA_DATA.announcements.map(renderAnnouncement).join('');
+        Array.from(announcementList.querySelectorAll('article')).forEach((article, index) => {
+          const detailButton = document.createElement('button');
+          detailButton.type = 'button';
+          detailButton.className = 'announcement-detail mt-5 block text-sm font-semibold text-primary transition hover:text-primary-dark';
+          detailButton.textContent = 'Lihat Detail →';
+          detailButton.dataset.announcementIndex = String(index);
+          article.insertBefore(detailButton, article.querySelector('.share-wa'));
+        });
       };
 
       try {
@@ -195,6 +245,25 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         SIATMA_TOAST.error("Gagal memuat pengumuman tersimpan");
       }
       renderAnnouncements();
+      document.addEventListener('click', function (event) {
+        var detailButton = event.target.closest('.announcement-detail');
+        if (detailButton) {
+          var announcement = SIATMA_DATA.announcements[Number(detailButton.dataset.announcementIndex)];
+          if (!announcement) return;
+          document.getElementById('announcement-detail-title').textContent = announcement.judul;
+          document.getElementById('announcement-detail-date').textContent = SIATMA_UI.formatDate(announcement.tanggal, 'short');
+          document.getElementById('announcement-detail-target').textContent = targetLabel(announcement);
+          document.getElementById('announcement-detail-status').textContent = announcement.status;
+          document.getElementById('announcement-detail-content').textContent = announcement.isi;
+          detailModal.classList.remove("hidden");
+          detailModal.classList.add("flex");
+          return;
+        }
+        var btn = event.target.closest('.share-wa');
+        if (!btn) return;
+        var text = '*Pengumuman ' + btn.dataset.judul + '*\n\n' + btn.dataset.isi + '\n\n— SIATMA TK Al-Matin';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+      });
 
       announcementForm.addEventListener("submit", (event) => {
         event.preventDefault();

@@ -21,7 +21,7 @@
     window.location.href = getPagePrefix() + path;
   }
 
-  function login(username, password) {
+  function login(username, password, remember) {
     var users = window.SIATMA_DATA && window.SIATMA_DATA.users;
     var user = users
       ? users.find(function (item) {
@@ -36,7 +36,13 @@
     var storedUser = Object.assign({}, user);
     delete storedUser.password;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+      if (remember) {
+        window.sessionStorage.removeItem(STORAGE_KEY);
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+      } else {
+        window.localStorage.removeItem(STORAGE_KEY);
+        window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+      }
     } catch (error) {
       var message = error.name === 'QuotaExceededError'
         ? 'Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.'
@@ -49,11 +55,12 @@
 
   function logout() {
     window.localStorage.removeItem(STORAGE_KEY);
+    window.sessionStorage.removeItem(STORAGE_KEY);
     window.location.href = getPagePrefix() + 'index.html';
   }
 
   function getCurrentUser() {
-    var storedUser = window.localStorage.getItem(STORAGE_KEY);
+    var storedUser = window.localStorage.getItem(STORAGE_KEY) || window.sessionStorage.getItem(STORAGE_KEY);
     if (!storedUser) {
       return null;
     }
@@ -62,6 +69,7 @@
       return JSON.parse(storedUser);
     } catch (error) {
       window.localStorage.removeItem(STORAGE_KEY);
+      window.sessionStorage.removeItem(STORAGE_KEY);
       return null;
     }
   }
@@ -125,7 +133,8 @@
       showLoginError('Password minimal 6 karakter');
       return;
     }
-    var result = login(username, password);
+    var remember = form.elements.remember && form.elements.remember.checked;
+    var result = login(username, password, remember);
 
     if (!result.success) {
       showLoginError(result.message);

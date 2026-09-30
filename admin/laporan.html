@@ -69,6 +69,18 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -78,9 +90,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
-        <div id="print-header" class="mb-6 hidden items-center gap-4 border-b border-slate-300 pb-4">
-          <img src="../assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-16 w-auto" />
-          <div><h1 class="text-2xl font-bold">TK Al-Matin</h1><p id="print-period" class="mt-1 text-sm">Laporan Absensi</p></div>
+        <div id="print-header" class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1"><h1 class="text-xl font-bold">TK AL-MATIN</h1><p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p><p id="print-period" class="mt-1 text-sm">Laporan Absensi</p></div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
         </div>
         <section class="no-print mb-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
           <div class="flex flex-wrap items-end gap-3">
@@ -102,7 +115,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
                 <option selected>Semua</option><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option>
               </select>
             </div>
-            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
+            <button id="show-report" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
           </div>
         </section>
 
@@ -110,7 +123,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <section class="overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-sm lg:col-span-2">
             <div class="border-b border-slate-100 dark:border-slate-700 p-6">
               <h2 class="text-lg font-semibold">Preview Laporan</h2>
-              <p class="mt-1 text-sm text-text-muted dark:text-slate-400">Rekap Absensi - September 2026</p>
+              <p id="report-preview-subtitle" class="mt-1 text-sm text-text-muted dark:text-slate-400">Rekap Absensi - September 2026</p>
             </div>
             <div class="overflow-x-auto">
               <table class="min-w-full text-left text-sm">
@@ -139,19 +152,19 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         <section class="no-print mt-4">
           <h2 class="mb-3 text-lg font-semibold">Laporan Tersedia</h2>
           <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" data-report-type="Laporan Data Siswa" class="report-type-card flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.125-.95M15 19.128v-.003c0-1.054-.252-2.06-.7-2.94M9 19.128a9.38 9.38 0 0 1-2.625.372 9.337 9.337 0 0 1-4.125-.95M9 19.128v-.003c0-1.054.252-2.06.7-2.94M12 12a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></span>
               <span class="text-sm font-medium">Laporan Data Siswa</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" data-report-type="Rekap Absensi" class="report-type-card flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-secondary/10 text-secondary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A1.75 1.75 0 0 1 19 5.5v13a1.75 1.75 0 0 1-1.75 1.75H6.75A1.75 1.75 0 0 1 5 18.5v-13a1.75 1.75 0 0 1 1.75-1.75ZM8.25 7.5h7.5m-7.5 3.75h7.5m-7.5 3.75h4.5"/></svg></span>
               <span class="text-sm font-medium">Rekap Absensi</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" data-report-type="Data Guru" class="report-type-card flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg></span>
               <span class="text-sm font-medium">Data Guru</span>
             </button>
-            <button type="button" class="flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
+            <button type="button" data-report-type="Data Kelas" class="report-type-card flex cursor-pointer flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm transition hover:shadow-md">
               <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-purple-100 text-purple-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 21V9.75L12 3l7.5 6.75V21M8.25 21v-6.75h7.5V21M8.25 9.75h.008v.008H8.25V9.75Zm3.75 0h.008v.008H12V9.75Zm3.75 0h.008v.008h-.008V9.75Z"/></svg></span>
               <span class="text-sm font-medium">Data Kelas</span>
             </button>
@@ -164,6 +177,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
@@ -177,23 +191,62 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script>
     (function() {
       var classSelect = document.getElementById('report-class');
-      var showButton = document.querySelector('main > section button');
+      var showButton = document.getElementById('show-report');
       var periodSelect = document.getElementById('report-period');
+      var typeSelect = document.getElementById('report-type');
       var tbody = document.querySelector('table tbody');
+      var thead = document.querySelector('table thead');
       var printPeriod = document.getElementById('print-period');
+      var previewSubtitle = document.getElementById('report-preview-subtitle');
 
-      function renderReport(students) {
-        if (!students.length) {
-          tbody.innerHTML = '<tr><td colspan="6" class="p-0">' + SIATMA_UI.emptyState({
-            title: 'Data siswa tidak ditemukan',
-            description: 'Tidak ada data untuk kelas yang dipilih.'
+      function escapeHtml(value) {
+        return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+      }
+
+      classSelect.innerHTML = '<option value="Semua">Semua</option>' +
+        Array.from(new Set(SIATMA_DATA.classes.map(function(kelas) { return kelas.nama; }))).map(function(name) {
+          return '<option value="' + escapeHtml(name) + '">' + escapeHtml(name) + '</option>';
+        }).join('');
+
+      function getPeriodRange() {
+        var period = periodSelect.value;
+        var today = new Date();
+        var end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+        var start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        if (period === 'Bulan Ini') start.setDate(1);
+        else if (period === '3 Bulan Terakhir') start.setMonth(today.getMonth() - 3);
+        else if (period === 'Semester') start.setMonth(today.getMonth() - 6);
+        else if (period === 'Tahun Ajaran') start.setMonth(today.getMonth() - 12);
+        return { start: start, end: end };
+      }
+
+      function renderTable(headers, rows) {
+        thead.innerHTML = '<tr>' + headers.map(function(header) {
+          return '<th class="px-6 py-4">' + escapeHtml(header) + '</th>';
+        }).join('') + '</tr>';
+        if (!rows.length) {
+          tbody.innerHTML = '<tr><td colspan="' + headers.length + '" class="p-0">' + SIATMA_UI.emptyState({
+            title: 'Data tidak ditemukan',
+            description: 'Tidak ada data yang sesuai dengan filter.'
           }) + '</td></tr>';
           return;
         }
+        tbody.innerHTML = rows.map(function(row) {
+          return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">' + row.map(function(value) {
+            return '<td class="px-6 py-4">' + escapeHtml(value) + '</td>';
+          }).join('') + '</tr>';
+        }).join('');
+      }
 
-        tbody.innerHTML = students.map(function(student) {
+      function renderAttendanceReport(students) {
+        var range = getPeriodRange();
+        var rows = students.map(function(student) {
           var studentAttendance = SIATMA_DATA.attendance.filter(function(record) {
-            return record.studentId === student.id;
+            if (record.studentId !== student.id) return false;
+            var parts = record.tanggal.split('-').map(Number);
+            var date = new Date(parts[0], parts[1] - 1, parts[2]);
+            return date >= range.start && date <= range.end;
           });
           var counts = { Hadir: 0, Sakit: 0, Izin: 0, Alpa: 0 };
           studentAttendance.forEach(function(record) {
@@ -204,30 +257,55 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             ? Math.round(counts.Hadir / studentAttendance.length * 100)
             : 0;
 
-          return '<tr class="hover:bg-slate-50 dark:hover:bg-slate-700">' +
-            '<td class="whitespace-nowrap px-6 py-4 font-medium">' + student.nama + '</td>' +
-            '<td class="px-6 py-4 text-center">' + counts.Hadir + '</td>' +
-            '<td class="px-6 py-4 text-center">' + counts.Sakit + '</td>' +
-            '<td class="px-6 py-4 text-center">' + counts.Izin + '</td>' +
-            '<td class="px-6 py-4 text-center">' + counts.Alpa + '</td>' +
-            '<td class="px-6 py-4 text-right font-medium text-secondary">' + attendanceRate + '%</td>' +
-            '</tr>';
-        }).join('');
+          return [student.nama, counts.Hadir, counts.Sakit, counts.Izin, counts.Alpa, attendanceRate + '%'];
+        });
+        renderTable(['Nama', 'Hadir', 'Sakit', 'Izin', 'Alpa', '% Kehadiran'], rows);
       }
-
-      showButton.addEventListener('click', function() {
-        renderCurrentReport();
-      });
 
       function renderCurrentReport() {
         var selectedClass = classSelect.value;
-        var filteredStudents = SIATMA_DATA.students.filter(function(student) {
+        var reportType = typeSelect.value;
+        var selectedStudents = SIATMA_DATA.students.filter(function(student) {
           return selectedClass === 'Semua' || student.kelas === selectedClass;
         });
-        renderReport(filteredStudents);
-        printPeriod.textContent = 'Laporan Absensi - ' + periodSelect.value + ' - Kelas ' + selectedClass;
+        var selectedTeachers = SIATMA_DATA.teachers.filter(function(teacher) {
+          return selectedClass === 'Semua' || teacher.kelas === selectedClass;
+        });
+        var selectedClasses = SIATMA_DATA.classes.filter(function(kelas) {
+          return selectedClass === 'Semua' || kelas.nama === selectedClass;
+        });
+
+        if (reportType === 'Rekap Absensi') {
+          renderAttendanceReport(selectedStudents);
+        } else if (reportType === 'Laporan Data Siswa') {
+          renderTable(['NIS', 'Nama Siswa', 'Kelas', 'Status'], selectedStudents.map(function(student) {
+            return [student.nis, student.nama, student.kelas, student.status];
+          }));
+        } else if (reportType === 'Data Guru') {
+          renderTable(['ID Guru', 'Nama Guru', 'Email', 'Kelas', 'Status'], selectedTeachers.map(function(teacher) {
+            return [teacher.nip, teacher.nama, teacher.email, teacher.kelas, teacher.status];
+          }));
+        } else {
+          renderTable(['Kelas', 'Guru Pengampu', 'Jumlah Siswa', 'Status'], selectedClasses.map(function(kelas) {
+            var studentsInClass = SIATMA_DATA.students.filter(function(student) { return student.kelas === kelas.nama; }).length;
+            return [kelas.nama, kelas.guru || 'Belum ditentukan', studentsInClass, kelas.status];
+          }));
+        }
+        var summary = reportType + ' - ' + periodSelect.value + ' - Kelas ' + selectedClass;
+        printPeriod.textContent = summary;
+        previewSubtitle.textContent = summary;
       }
 
+      document.querySelectorAll('.report-type-card').forEach(function(card) {
+        card.addEventListener('click', function() {
+          typeSelect.value = card.dataset.reportType;
+          renderCurrentReport();
+        });
+      });
+      showButton.addEventListener('click', renderCurrentReport);
+      typeSelect.addEventListener('change', renderCurrentReport);
+      classSelect.addEventListener('change', renderCurrentReport);
+      periodSelect.addEventListener('change', renderCurrentReport);
       window.addEventListener('beforeprint', renderCurrentReport);
       document.getElementById('print-report').addEventListener('click', function () {
         renderCurrentReport();
@@ -241,6 +319,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       var reportTable = document.querySelector('table');
       var exportExcel = document.getElementById('export-excel');
       var exportPdf = document.getElementById('export-pdf');
+      var typeSelect = document.getElementById('report-type');
 
       exportExcel.addEventListener('click', function() {
         function escapeCSV(value) {
@@ -257,7 +336,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         var link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'laporan-absensi-' + new Date().toISOString().split('T')[0] + '.csv';
+        link.download = 'laporan-' + typeSelect.value.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + new Date().toISOString().split('T')[0] + '.csv';
         document.body.appendChild(link);
         link.click();
         link.remove();
@@ -265,18 +344,32 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         SIATMA_TOAST.success('Laporan berhasil diexport');
       });
 
-      exportPdf.addEventListener('click', function() {
-        var printWindow = window.open('', '_blank');
-        if (!printWindow) {
-          SIATMA_TOAST.error('Jendela export PDF diblokir browser');
+      exportPdf.addEventListener('click', function () {
+        if (!window.jspdf) {
+          SIATMA_TOAST.error('Library PDF belum siap. Coba lagi.');
           return;
         }
-        printWindow.document.open();
-        printWindow.document.write('<!DOCTYPE html><html><head><title>Laporan Absensi</title><style>body{font-family:Arial,sans-serif;padding:24px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{text-transform:uppercase;background:#f1f5f9}</style></head><body><h1>Laporan Absensi</h1>' + reportTable.outerHTML + '</body></html>');
-        printWindow.document.close();
-        window.setTimeout(function() {
-          printWindow.print();
-        }, 250);
+        var doc = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        doc.setFontSize(16);
+        doc.text('TK Al-Matin', 14, 15);
+        doc.setFontSize(11);
+        doc.text(typeSelect.value + ' — ' + SIATMA_UI.formatDate(new Date(), 'long'), 14, 22);
+
+        doc.autoTable({
+          startY: 28,
+          head: [Array.from(document.querySelectorAll('table thead th')).map(function(cell) { return cell.textContent.trim(); })],
+          body: Array.from(document.querySelectorAll('table tbody tr')).map(function (row) {
+            return Array.from(row.querySelectorAll('td')).map(function (cell) {
+              return cell.textContent.trim();
+            });
+          }),
+          theme: 'grid',
+          styles: { fontSize: 9 },
+          headStyles: { fillColor: [37, 99, 235] }
+        });
+
+        doc.save('laporan-' + typeSelect.value.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + new Date().toISOString().split('T')[0] + '.pdf');
+        SIATMA_TOAST.success('Laporan PDF berhasil diunduh');
       });
     })();
     </script>

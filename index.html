@@ -244,6 +244,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
                 <span>Ingat saya</span>
               </label>
               <a
+                id="forgot-password-link"
                 href="#"
                 class="text-sm font-semibold text-primary transition hover:text-primary-dark"
               >
@@ -267,7 +268,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 
           <p class="text-center text-sm text-text-muted dark:text-slate-400">
             Belum punya akun?
-            <a href="#" class="font-semibold text-primary transition hover:text-primary-dark">
+            <a id="contact-admin-link" href="#" class="font-semibold text-primary transition hover:text-primary-dark">
               Hubungi admin sekolah
             </a>
           </p>
@@ -292,9 +293,18 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           ? `<path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>`
           : `<path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 2.458 12C3.732 16.057 7.523 19 12 19c1.617 0 3.145-.39 4.49-1.08M6.228 6.228A10.45 10.45 0 0 1 12 5c4.478 0 8.268 2.943 9.542 7a10.477 10.477 0 0 1-4.043 5.093M6.228 6.228 3 3m3.228 3.228 3.06 3.06m7.484 7.484L21 21m-4.228-4.228-3.06-3.06m0 0a3 3 0 1 1-4.243-4.243"/>`;
       });
+      document.getElementById("forgot-password-link").addEventListener("click", (event) => {
+        event.preventDefault();
+        if (window.SIATMA_TOAST) window.SIATMA_TOAST.info("Silakan hubungi admin sekolah untuk mengatur ulang password.");
+      });
+      document.getElementById("contact-admin-link").addEventListener("click", (event) => {
+        event.preventDefault();
+        if (window.SIATMA_TOAST) window.SIATMA_TOAST.info("Hubungi admin sekolah untuk mendapatkan bantuan akun.");
+      });
     </script>
           <script src="js/toast.js"></script>
           <script src="js/network-status.js"></script>
+          <script src="js/pwa-install.js"></script>
     <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

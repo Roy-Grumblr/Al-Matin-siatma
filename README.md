@@ -1,26 +1,21 @@
-# SIATMA
+# SIATMA — Sistem Informasi Akademik TK Al-Matin
 
-### Sistem Informasi Akademik TK Al-Matin
+**SIATMA adalah aplikasi web multi-role untuk membantu sekolah mengelola data siswa dan guru, absensi, perkembangan anak, pengumuman, serta laporan dalam satu antarmuka yang responsif.**
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+> Jelajahi demo: **[siatma.vercel.app](https://siatma.vercel.app/)**
 
-> **Lihat demo:** [🌐 Buka SIATMA Live Demo](https://siatma.vercel.app/)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Vanilla JavaScript](https://img.shields.io/badge/Vanilla_JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)
 
-![Preview SIATMA](screenshots/siatma-preview.png)
+![Dashboard SIATMA](assets/screenshots/dashboard-admin.png)
 
-## Tentang Project
+SIATMA (Sistem Informasi Akademik TK Al-Matin) dikembangkan sebagai proyek Kerja Praktik Program Studi Informatika, Universitas Pamulang. Aplikasi menyajikan alur yang berbeda untuk **Admin**, **Guru**, dan **Orang Tua**, supaya aktivitas akademik dan komunikasi sekolah lebih mudah diakses dari satu tempat.
 
-Administrasi di lingkungan taman kanak-kanak melibatkan banyak data dan kegiatan rutin, mulai dari pencatatan identitas siswa, absensi, hingga penyampaian informasi kepada orang tua. Jika proses tersebut dilakukan secara manual atau tersebar di berbagai media, pencarian data dan penyusunan rekap dapat memerlukan waktu lebih lama serta berisiko menimbulkan pencatatan yang tidak konsisten.
-
-SIATMA (Sistem Informasi Akademik TK Al-Matin) adalah prototipe aplikasi web untuk membantu digitalisasi proses administrasi di TK Al-Matin. Aplikasi menyediakan tampilan dan alur kerja terpisah bagi admin, guru, dan orang tua, termasuk pengelolaan data akademik, absensi, pengumuman, serta informasi perkembangan siswa.
-
-Proyek Kerja Praktik mahasiswa Informatika ini bertujuan merancang antarmuka sistem yang mudah digunakan, merapikan alur informasi sekolah, dan menjadi fondasi untuk pengembangan sistem akademik yang terhubung dengan backend dan basis data pada tahap berikutnya.
-
-> **Status aplikasi:** Versi ini merupakan prototipe front-end dengan data contoh. Autentikasi demo memakai `localStorage`; aplikasi belum menggunakan server autentikasi atau database produksi. Jangan gunakan data pribadi nyata.
+> **Status:** SIATMA merupakan prototipe front-end interaktif dengan data contoh dan penyimpanan browser. Aplikasi belum terhubung ke backend atau database produksi. Jangan gunakan data pribadi nyata.
 
 ## Kolaborasi
 
@@ -38,43 +33,37 @@ Proyek ini merupakan hasil Kerja Praktik mahasiswa Informatika Universitas Pamul
 
 Proyek ini dikembangkan sebagai bagian dari mata kuliah Kerja Praktik (KP) Program Studi Informatika, Universitas Pamulang, tahun akademik 2026/2027.
 
-## Fitur Utama
+## Fitur
 
-### 🛠️ Admin
+### Admin
 
-- 📊 Dashboard ringkasan statistik siswa, guru, kelas, dan absensi.
-- 👧 Manajemen data siswa: alur CRUD, pencarian, filter, detail, dan formulir.
-- 📥 Halaman import Excel dengan preview dan validasi contoh; pemrosesan file nyata masih perlu diintegrasikan.
-- 👩‍🏫 Manajemen data guru dengan alur CRUD, pencarian, dan filter; informasi kelas disajikan dalam tampilan kartu.
-- 🗓️ Input absensi berdasarkan kelas dan tanggal dengan status Hadir, Sakit, Izin, atau Alpa, serta tampilan rekap kehadiran.
-- 📣 Pembuatan dan penayangan pengumuman dengan sasaran penerima.
-- 🌱 Pencatatan perkembangan siswa dalam kategori Bahasa, Motorik, Sosial, Kognitif, dan Kemandirian.
-- 📄 Laporan dengan preview dan pilihan aksi ekspor PDF/Excel atau cetak.
-- ⚙️ Pengaturan profil, akun, password, dan informasi sekolah.
+- Dashboard ringkasan data siswa, guru, kelas, dan kehadiran.
+- Pengelolaan data siswa dan guru dengan pencarian, filter, detail, formulir, serta perubahan status.
+- Pengelolaan kelas dan pemetaan guru/siswa.
+- Pencatatan absensi berdasarkan kelas dan tanggal.
+- Pembuatan pengumuman dengan target penerima, tampilan detail modal, dan berbagi melalui WhatsApp.
+- Catatan perkembangan siswa berdasarkan kategori.
+- Preview laporan siswa, guru, kelas, dan rekap absensi; filter kelas/periode, cetak, ekspor CSV, serta unduh PDF.
+- Pengaturan profil, akun demo, password, informasi sekolah, dan foto profil.
 
-### 👩‍🏫 Guru
+### Guru
 
-- 🏠 Dashboard guru.
-- ✅ Halaman absensi kelas dan pencatatan perkembangan siswa.
-- 📣 Navigasi untuk informasi pengumuman.
+- Dashboard kelas dan ringkasan kehadiran.
+- Pencatatan absensi dan perkembangan siswa.
+- Akses pengumuman sekolah dan kelas.
 
-### 👨‍👩‍👧 Orang Tua
+### Orang Tua
 
-- 🏠 Dashboard portal orang tua.
-- 🧒 Profil anak.
-- 📅 Riwayat absensi.
-- 📣 Informasi pengumuman.
-- 🌱 Informasi perkembangan anak.
+- Portal untuk melihat profil anak, riwayat absensi, pengumuman, dan perkembangan anak.
 
-### ✨ Sorotan
+### Pengalaman aplikasi
 
-- **Absensi digital:** antarmuka pencatatan kehadiran dengan status Hadir, Sakit, Izin, dan Alpa.
-- **Import Excel:** rancangan alur unggah, preview, dan validasi data sebagai dasar integrasi import sesungguhnya.
-- **Portal orang tua:** akses terpusat untuk melihat profil anak, absensi, pengumuman, dan perkembangan.
-- **Multi-role:** navigasi dan tujuan halaman menyesuaikan peran pengguna.
-- **Responsif:** layout dirancang agar nyaman digunakan di desktop, tablet, dan perangkat mobile.
+- Layout navigasi bersama yang menyesuaikan peran pengguna.
+- Antarmuka responsif dan dukungan tema gelap.
+- Toast untuk status jaringan dan aksi aplikasi.
+- Dukungan PWA: instalasi dan cache halaman untuk akses offline; data offline tidak disinkronkan antarperangkat.
 
-> Sebagian halaman saat ini berisi data statis atau mockup. Persistensi CRUD, pembacaan file Excel, serta pembuatan PDF/Excel perlu dihubungkan ke implementasi nyata sebelum digunakan operasional.
+> Import Excel saat ini masih berupa antarmuka/preview prototipe, bukan alur impor produksi. Penyimpanan data juga berjalan di sisi browser dan perlu diintegrasikan dengan backend sebelum penggunaan operasional.
 
 ## Teknologi
 
@@ -82,16 +71,16 @@ Proyek ini dikembangkan sebagai bagian dari mata kuliah Kerja Praktik (KP) Progr
 |---|---|---|
 | Markup | HTML5 | Struktur halaman multi-page dan elemen semantik. |
 | Styling | Tailwind CSS melalui CDN | Mempercepat penyusunan antarmuka dan mendukung desain responsif tanpa proses build CSS. |
-| Interaksi | Vanilla JavaScript | Menangani autentikasi demo, layout injection, dan helper data tanpa framework tambahan. |
-| Penyimpanan sesi demo | `localStorage` | Menyimpan sesi login pada browser untuk simulasi alur multi-role. Bukan mekanisme autentikasi produksi. |
-| Hosting | Vercel | Hosting statis yang sederhana untuk aplikasi front-end. |
+| Interaksi | Vanilla JavaScript | Mengelola navigasi, tampilan data, pencarian/filter, formulir, dan interaksi antarmuka. |
+| Penyimpanan prototipe | `localStorage` dan `sessionStorage` | Menyimpan data demo dan sesi login di browser. Tidak menggantikan database atau autentikasi server. |
+| PWA | Service Worker dan Web App Manifest | Mendukung instalasi aplikasi serta cache halaman untuk akses offline. |
+| Hosting demo | Vercel | Menyajikan aplikasi front-end sebagai situs statis. |
 
 ## Struktur Project
 
 ```bash
 siatma/
 ├── index.html                    # Halaman login
-├── _layout.html                  # Template/layout dasar
 ├── admin/                        # Halaman dan dashboard admin
 │   ├── absensi.html              # Halaman absensi
 │   ├── dashboard.html            # Ringkasan dashboard admin
@@ -116,16 +105,21 @@ siatma/
 │   ├── profil-anak.html          # Profil anak
 │   └── riwayat-absensi.html      # Riwayat kehadiran anak
 ├── js/
-│   ├── auth.js                   # Login, logout, sesi, dan proteksi halaman demo
-│   ├── data.js                   # Mock data dan helper akses data
-│   └── layout.js                 # Injection sidebar/header sesuai role
+│   ├── auth.js                   # Autentikasi dan sesi demo
+│   ├── data.js                   # Data contoh dan helper data
+│   ├── layout.js                 # Navigasi dan header sesuai role
+│   ├── network-status.js         # Notifikasi status koneksi
+│   └── ui-helpers.js             # Helper tampilan bersama
 ├── assets/
 │   ├── logo-tk.png               # Logo RA Al-Matin
 │   ├── logo-unpam.png            # Logo Universitas Pamulang
 │   └── screenshots/              # Screenshot aplikasi
+├── manifest.json                 # Metadata instalasi PWA
+├── service-worker.js             # Cache halaman dan fallback offline
+├── offline.html                  # Halaman saat konten tidak tersedia offline
+├── LICENSE                       # Lisensi MIT
 ├── .vscode/
 │   └── settings.json             # Pengaturan editor workspace
-└── screenshots/                  # Tambahkan screenshot aplikasi di sini
 ```
 
 ## Cara Menjalankan
@@ -209,7 +203,7 @@ Halaman admin, guru, dan orang tua menyediakan elemen placeholder untuk sidebar 
 
 ### Alur autentikasi demo
 
-`js/auth.js` mencocokkan username dan password terhadap daftar pengguna contoh di `js/data.js`. Saat berhasil login, informasi pengguna (tanpa password) disimpan pada `localStorage` dengan key `siatma_user`. Halaman memanggil `requireAuth` untuk memeriksa sesi dan role; pengguna tanpa sesi diarahkan ke login, sedangkan role yang tidak sesuai diarahkan ke dashboard perannya.
+`js/auth.js` mencocokkan username dan password terhadap data pengguna contoh di `js/data.js`. Sesi demo disimpan di `localStorage` jika opsi “Ingat saya” dipilih, atau di `sessionStorage` untuk sesi sementara. Halaman memeriksa role di sisi klien dan mengarahkan pengguna ke halaman yang sesuai. Mekanisme ini hanya untuk demonstrasi: pemeriksaan di browser tidak aman sebagai perlindungan akses produksi.
 
 ```text
 ┌──────────────┐    validasi     ┌────────────────┐
@@ -219,8 +213,8 @@ Halaman admin, guru, dan orang tua menyediakan elemen placeholder untuk sidebar 
         │ berhasil                       │ cocok
         v                                v
 ┌────────────────┐                ┌───────────────────┐
-│ localStorage   │ <───────────── │ Simpan sesi demo  │
-│ siatma_user    │                └───────────────────┘
+│ Browser Storage│ <───────────── │ Simpan sesi demo  │
+│ local/session  │                └───────────────────┘
 └───────┬────────┘
         │ requireAuth(role)
         v
@@ -236,13 +230,13 @@ Data contoh beserta helper berada di `js/data.js` dan dipakai oleh halaman front
 
 ## Roadmap / Future Development
 
-- [ ] Backend API menggunakan Node.js dan Express.
-- [ ] Database MySQL dengan Sequelize ORM.
-- [ ] Notifikasi WhatsApp untuk informasi sekolah dan absensi.
+- [ ] Backend API dan database untuk data sekolah, akun, dan sesi.
+- [ ] Autentikasi server, otorisasi per role, serta pencatatan aktivitas.
+- [ ] Import Excel sungguhan dengan parsing, validasi, dan penyimpanan.
+- [ ] Sinkronisasi data lintas perangkat dan strategi pencadangan.
+- [ ] Pengujian otomatis untuk alur utama setiap role.
+- [ ] Peningkatan aksesibilitas dan performa untuk penggunaan harian.
 - [ ] Aplikasi mobile untuk akses yang lebih praktis.
-- [ ] Import Excel sungguhan dengan validasi dan penyimpanan data.
-- [ ] Export laporan PDF sungguhan.
-- [ ] Penguatan autentikasi dan otorisasi berbasis server.
 
 ## Kontribusi
 

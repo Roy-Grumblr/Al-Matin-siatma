@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,6 +73,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <div class="mb-4 flex flex-wrap gap-2">
           <button type="button" data-filter="all" aria-pressed="true" class="announcement-filter rounded-full bg-primary px-4 py-2 text-sm font-medium text-white">Semua</button>
           <button type="button" data-filter="school" aria-pressed="false" class="announcement-filter rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-text-muted transition hover:border-primary hover:text-primary dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400">Sekolah</button>
@@ -80,6 +98,23 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           </div>
         </footer>
       </main>
+    </div>
+
+    <div id="announcement-detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 px-4 py-6" role="dialog" aria-modal="true" aria-labelledby="announcement-detail-title">
+      <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white dark:bg-slate-800 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-6 py-4">
+          <h2 id="announcement-detail-title" class="text-lg font-semibold">Detail Pengumuman</h2>
+          <button id="close-detail-modal" type="button" class="text-2xl leading-none text-text-muted dark:text-slate-400 transition hover:text-text dark:text-slate-100" aria-label="Tutup">&times;</button>
+        </div>
+        <div class="space-y-4 p-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <span id="announcement-detail-date" class="text-sm text-text-muted dark:text-slate-400"></span>
+            <span id="announcement-detail-target" class="inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"></span>
+            <span id="announcement-detail-status" class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700"></span>
+          </div>
+          <p id="announcement-detail-content" class="whitespace-pre-wrap text-sm leading-6"></p>
+        </div>
+      </div>
     </div>
 
     <script src="../js/data.js"></script>
@@ -102,6 +137,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         var student = SIATMA.getStudentById(studentId);
         var studentClass = student ? student.kelas : '';
         var list = document.getElementById('announcement-list');
+        var detailModal = document.getElementById('announcement-detail-modal');
         var filterButtons = document.querySelectorAll('.announcement-filter');
         var activeFilter = 'all';
 
@@ -159,8 +195,20 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
                 '<span>Target: ' + escapeHtml(announcement.target || 'Semua') + '</span>' +
               '</div>' +
               '<p class="mt-4 text-text dark:text-slate-100">' + escapeHtml(announcement.isi) + '</p>' +
+              '<button type="button" class="share-wa mt-3 inline-flex items-center gap-2 text-sm font-semibold text-green-600 hover:text-green-700" data-judul="' + escapeHtml(announcement.judul) + '" data-isi="' + escapeHtml(announcement.isi) + '">' +
+                '<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>' +
+                'Bagikan ke WhatsApp' +
+              '</button>' +
             '</article>';
           }).join('');
+          Array.from(list.querySelectorAll('article')).forEach(function (article, index) {
+            var detailButton = document.createElement('button');
+            detailButton.type = 'button';
+            detailButton.className = 'announcement-detail mt-5 block text-sm font-semibold text-primary transition hover:text-primary-dark';
+            detailButton.textContent = 'Lihat Detail →';
+            detailButton.dataset.announcementIndex = String(announcements.indexOf(visible[index]));
+            article.appendChild(detailButton);
+          });
         }
 
         filterButtons.forEach(function (button) {
@@ -170,9 +218,37 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           });
         });
         renderAnnouncements();
+        document.addEventListener('click', function (event) {
+          var detailButton = event.target.closest('.announcement-detail');
+          if (detailButton) {
+            var announcement = announcements[Number(detailButton.dataset.announcementIndex)];
+            if (!announcement) return;
+            document.getElementById('announcement-detail-title').textContent = announcement.judul;
+            document.getElementById('announcement-detail-date').textContent = SIATMA_UI.formatDate(announcement.tanggal, 'short');
+            document.getElementById('announcement-detail-target').textContent = announcement.kelas || announcement.target || 'Semua';
+            document.getElementById('announcement-detail-status').textContent = announcement.status;
+            document.getElementById('announcement-detail-content').textContent = announcement.isi;
+            detailModal.classList.remove('hidden');
+            detailModal.classList.add('flex');
+            return;
+          }
+          var btn = event.target.closest('.share-wa');
+          if (!btn) return;
+          var text = '*Pengumuman ' + btn.dataset.judul + '*\n\n' + btn.dataset.isi + '\n\n— SIATMA TK Al-Matin';
+          window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+        });
+        function closeDetailModal() {
+          detailModal.classList.add('hidden');
+          detailModal.classList.remove('flex');
+        }
+        document.getElementById('close-detail-modal').addEventListener('click', closeDetailModal);
+        detailModal.addEventListener('click', function (event) {
+          if (event.target === detailModal) closeDetailModal();
+        });
       })();
     </script>
           <script src="../js/network-status.js"></script>
+          <script src="../js/pwa-install.js"></script>
     <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

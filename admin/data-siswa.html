@@ -54,6 +54,16 @@ html.dark input:not([type=radio]):not([type=checkbox]),html.dark select,html.dar
 html.dark input::placeholder,html.dark textarea::placeholder{color:#94a3b8}
 html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 </style>
+      <style id="global-print-styles">
+      @media print {
+        #sidebar, #header, .no-print, footer { display: none !important; }
+        .ml-64, .ml-0 { margin-left: 0 !important; }
+        body { background: white !important; color: black !important; }
+        main { padding: 0 !important; }
+        .print-header { display: flex !important; }
+      }
+      .print-header { display: none; }
+    </style>
   </head>
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
@@ -63,6 +73,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       <div id="header"></div>
 
       <main class="min-h-screen bg-bg dark:bg-slate-900 p-6">
+        <div class="print-header mb-6 items-center gap-4 border-b border-slate-300 pb-4">
+          <img src="../assets/logo-tk.png" alt="TK Al-Matin" class="h-16 w-auto" />
+          <div class="flex-1">
+            <h1 class="text-xl font-bold">TK AL-MATIN</h1>
+            <p class="text-sm">Jl. Pendidikan No. 123, Jakarta | Telp: 021-1234567</p>
+          </div>
+          <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
+        </div>
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap items-center gap-3">
             <div class="relative">
@@ -75,7 +93,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             <select aria-label="Filter Tahun Ajaran" class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-text-muted dark:text-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Tahun Ajaran</option><option>2026/2027</option><option>2025/2026</option></select>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Siswa</button>
+            <a href="tambah-siswa.html" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">+ Tambah Siswa</a>
             <button id="import-excel-button" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Import Excel</button>
             <button id="export-students-button" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Export</button>
           </div>
@@ -129,6 +147,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/auth.js"></script>
     <script src="../js/toast.js"></script>
     <script src="../js/network-status.js"></script>
+    <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
     <script>
@@ -179,6 +198,23 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       } catch (err) {
         SIATMA_TOAST.error('Gagal memuat status siswa tersimpan');
       }
+
+      function populateFilter(select, placeholder, values) {
+        select.innerHTML = '';
+        var defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = placeholder;
+        select.appendChild(defaultOption);
+        Array.from(new Set(values.filter(Boolean))).sort().forEach(function(value) {
+          var option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+      }
+      populateFilter(filterKelas, 'Kelas', students.map(function(student) { return student.kelas; }));
+      populateFilter(filterStatus, 'Status', students.map(function(student) { return student.status; }));
+      populateFilter(filterTahun, 'Tahun Ajaran', students.map(function(student) { return student.tahunAjaran; }));
 
       if (searchQuery) searchInput.value = searchQuery;
 
