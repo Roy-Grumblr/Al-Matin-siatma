@@ -85,70 +85,62 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <div class="flex flex-wrap items-end gap-3">
             <div class="min-w-44 flex-1">
               <label for="class-filter" class="mb-1.5 block text-sm font-medium">Kelas</label>
-              <select id="class-filter" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option></select>
+              <select id="class-filter" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option></select>
             </div>
             <div class="min-w-52 flex-1">
               <label for="student-filter" class="mb-1.5 block text-sm font-medium">Siswa</label>
               <select id="student-filter" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"></select>
             </div>
             <div class="min-w-44 flex-1">
-              <label for="month-filter" class="mb-1.5 block text-sm font-medium">Bulan</label>
-              <input id="month-filter" type="month" value="2026-09" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
+              <label for="period-filter" class="mb-1.5 block text-sm font-medium">Periode</label>
+              <input id="period-filter" type="month" value="2026-09" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" />
             </div>
-            <button id="show-developments" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
+            <button id="load-data" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Tampilkan</button>
           </div>
+        </section>
+
+        <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <div class="mb-5 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-semibold">Penilaian Perkembangan</h2>
+              <p id="assessment-student-heading" class="mt-1 text-sm text-text-muted dark:text-slate-400"></p>
+            </div>
+            <span id="assessment-status-badge" class="hidden rounded-full px-3 py-1 text-xs font-medium"></span>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div><label for="score-absensi" class="mb-1.5 block text-sm font-medium">Absensi <span class="text-text-muted">(bobot 15%)</span></label><input id="score-absensi" type="number" min="0" max="100" step="0.01" placeholder="0-100" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="score-membaca" class="mb-1.5 block text-sm font-medium">Membaca <span class="text-text-muted">(bobot 25%)</span></label><input id="score-membaca" type="number" min="0" max="100" step="0.01" placeholder="0-100" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="score-menulis" class="mb-1.5 block text-sm font-medium">Menulis <span class="text-text-muted">(bobot 25%)</span></label><input id="score-menulis" type="number" min="0" max="100" step="0.01" placeholder="0-100" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+            <div><label for="score-ujian" class="mb-1.5 block text-sm font-medium">Ujian <span class="text-text-muted">(bobot 35%)</span></label><input id="score-ujian" type="number" min="0" max="100" step="0.01" placeholder="0-100" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+          </div>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <button id="calculate-wsm" type="button" class="rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/5">Hitung Nilai (WSM)</button>
+            <button id="save-assessment" type="button" disabled class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50">Simpan Penilaian</button>
+            <button id="reset-form" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary">Reset</button>
+            <span id="wsm-result-inline" class="hidden rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary"></span>
+          </div>
+          <p id="wsm-formula" class="mt-4 text-xs text-text-muted dark:text-slate-400">Nilai Akhir = (Absensi × 0.15) + (Membaca × 0.25) + (Menulis × 0.25) + (Ujian × 0.35)</p>
         </section>
 
         <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">Catatan Perkembangan</h2>
-          <p id="development-student-heading" class="mt-1 text-sm text-text-muted dark:text-slate-400"></p>
-
-          <div id="development-list" class="relative mt-6 space-y-6 before:absolute before:bottom-4 before:left-2 before:top-4 before:w-px before:bg-slate-200">
-            <article class="relative pl-8">
-              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-primary shadow-sm"></span>
-              <div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">24 September 2026</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Kategori: Sosial</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Guru: Ibu Siti</span></div>
-                <p class="mt-2 text-sm leading-6">Aisyah mampu berinteraksi dengan teman sekelas dengan baik.</p>
-              </div>
-            </article>
-            <article class="relative pl-8">
-              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-secondary shadow-sm"></span>
-              <div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">20 September 2026</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Kategori: Motorik</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Guru: Ibu Siti</span></div>
-                <p class="mt-2 text-sm leading-6">Aisyah sudah bisa menggambar bentuk sederhana.</p>
-              </div>
-            </article>
-            <article class="relative pl-8">
-              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-accent shadow-sm"></span>
-              <div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">15 September 2026</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Kategori: Bahasa</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Guru: Ibu Siti</span></div>
-                <p class="mt-2 text-sm leading-6">Aisyah aktif bertanya dan menjawab pertanyaan.</p>
-              </div>
-            </article>
-            <article class="relative pl-8">
-              <span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white bg-purple-500 shadow-sm"></span>
-              <div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">10 September 2026</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Kategori: Kognitif</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Guru: Ibu Siti</span></div>
-                <p class="mt-2 text-sm leading-6">Aisyah mampu menyusun puzzle dengan baik.</p>
-              </div>
-            </article>
+          <div class="mb-5 flex items-center justify-between">
+            <h2 class="text-lg font-semibold">Riwayat Penilaian</h2>
+            <span id="assessment-count" class="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"></span>
           </div>
+          <div id="assessment-history"></div>
         </section>
 
-        <section class="mt-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-5 text-lg font-semibold">Tambah Catatan</h2>
-          <div class="space-y-4">
-            <div class="max-w-md">
-              <label for="note-category" class="mb-1.5 block text-sm font-medium">Kategori</label>
-              <select id="note-category" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Bahasa</option><option>Motorik</option><option>Sosial</option><option>Kognitif</option><option>Kemandirian</option></select>
-            </div>
-            <div>
-              <label for="teacher-note" class="mb-1.5 block text-sm font-medium">Catatan Guru</label>
-              <textarea id="teacher-note" rows="4" placeholder="Tulis catatan perkembangan siswa..." class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none placeholder:text-text-muted dark:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"></textarea>
-            </div>
-            <button type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Catatan</button>
+        <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
+            <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
+            <span>×</span>
+            <img src="../assets/logo-unpam.png" alt="Universitas Pamulang" class="h-6 w-auto" />
+            <span class="text-text-muted dark:text-slate-500">|</span>
+            <span>© 2026 SIATMA - Kerja Praktik Universitas Pamulang</span>
           </div>
-        </section>
+        </footer>
       </main>
     </div>
 
@@ -159,100 +151,296 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'guru',
-        activeMenu: 'perkembangan-siswa',
-        title: 'Perkembangan Siswa',
-        breadcrumb: 'Home / Perkembangan Siswa'
-      });
-    </script>
-    <script>
-    (function() {
-      var studentFilter = document.getElementById('student-filter');
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function() {
       var classFilter = document.getElementById('class-filter');
-      var timeline = document.getElementById('development-list');
-      var showButton = document.getElementById('show-developments');
+      var studentFilter = document.getElementById('student-filter');
+      var periodFilter = document.getElementById('period-filter');
+      var loadBtn = document.getElementById('load-data');
+      var scoreAbsensi = document.getElementById('score-absensi');
+      var scoreMembaca = document.getElementById('score-membaca');
+      var scoreMenulis = document.getElementById('score-menulis');
+      var scoreUjian = document.getElementById('score-ujian');
+      var calculateBtn = document.getElementById('calculate-wsm');
+      var saveBtn = document.getElementById('save-assessment');
+      var resetBtn = document.getElementById('reset-form');
+      var resultInline = document.getElementById('wsm-result-inline');
+      var historyContainer = document.getElementById('assessment-history');
+      var countBadge = document.getElementById('assessment-count');
+      var heading = document.getElementById('assessment-student-heading');
+      var statusBadge = document.getElementById('assessment-status-badge');
       var currentUser = SIATMA_AUTH.getCurrentUser();
-      var assignedTeacher = currentUser && currentUser.nama;
+
       function escapeHtml(value) {
         return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
           .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
       }
-      studentFilter.innerHTML = SIATMA_DATA.students.map(function(student) {
-        return '<option value="' + student.id + '">' + escapeHtml(student.nama) + '</option>';
-      }).join('');
-      var defaultStudent = SIATMA_DATA.students.find(function(student) {
-        return student.kelas === classFilter.value;
-      });
-      if (defaultStudent) studentFilter.value = String(defaultStudent.id);
 
-      function renderDevelopments() {
-        var studentId = Number(studentFilter.value);
-        var student = SIATMA.getStudentById(studentId);
-        var notes = SIATMA.getDevelopmentsByStudent(studentId).slice().sort(function(a, b) {
-          return b.tanggal.localeCompare(a.tanggal);
-        });
-        document.getElementById('development-student-heading').textContent = student ? student.nama + ' — ' + student.kelas : '';
-        timeline.innerHTML = notes.length ? notes.map(function(note, index) {
-          return '<article class="relative pl-8"><span class="absolute left-0 top-1.5 h-4 w-4 rounded-full border-4 border-white ' + ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-purple-500'][index % 4] + ' shadow-sm"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"><span class="font-semibold">' + SIATMA_UI.formatDate(note.tanggal, 'short') + '</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Kategori: ' + escapeHtml(note.kategori) + '</span><span class="text-text-muted dark:text-slate-400">|</span><span class="text-text-muted dark:text-slate-400">Guru: ' + escapeHtml(note.guru || '-') + '</span></div><p class="mt-2 text-sm leading-6">' + escapeHtml(note.catatan) + '</p></div></article>';
-        }).join('') : SIATMA_UI.emptyState({ title: 'Belum ada catatan perkembangan', description: 'Catatan untuk siswa ini akan tampil di sini.' });
+      function formatScore(value) {
+        var number = Number(value);
+        return Number.isFinite(number) ? number.toFixed(2) : '-';
       }
 
-      classFilter.addEventListener('change', function() {
-        var firstStudent = SIATMA_DATA.students.find(function(student) { return student.kelas === classFilter.value; });
-        studentFilter.innerHTML = SIATMA_DATA.students.filter(function(student) {
-          return student.kelas === classFilter.value;
-        }).map(function(student) {
-          return '<option value="' + student.id + '">' + escapeHtml(student.nama) + '</option>';
-        }).join('');
-        if (firstStudent) studentFilter.value = String(firstStudent.id);
-        renderDevelopments();
-      });
-      studentFilter.addEventListener('change', renderDevelopments);
-      showButton.addEventListener('click', renderDevelopments);
-      renderDevelopments();
+      var currentTeacher = currentUser ? SIATMA_DATA.teachers.find(function (teacher) {
+        return teacher.nama === currentUser.nama;
+      }) : null;
+      if (currentTeacher && Array.prototype.some.call(classFilter.options, function (option) {
+        return option.value === currentTeacher.kelas;
+      })) {
+        classFilter.value = currentTeacher.kelas;
+      }
 
-      document.querySelectorAll('button').forEach(function(button) {
-        if (button.textContent.trim() !== 'Simpan Catatan') return;
-        button.addEventListener('click', function() {
-        var kategori = document.getElementById('note-category').value;
-        var catatan = document.getElementById('teacher-note').value.trim();
+      function populateStudents() {
+        var students = SIATMA_DATA.students.filter(function (student) {
+          return student.kelas === classFilter.value && student.status === 'Aktif';
+        });
+        studentFilter.innerHTML = students.length ? students.map(function (student) {
+          return '<option value="' + Number(student.id) + '">' + escapeHtml(student.nama) + ' — ' + escapeHtml(student.nis) + '</option>';
+        }).join('') : '<option value="">Tidak ada siswa</option>';
+      }
 
-        if (!catatan) {
-          SIATMA_TOAST.error('Catatan tidak boleh kosong');
-          return;
-        }
+      function getCurrentStudent() {
+        var id = Number(studentFilter.value);
+        return id ? SIATMA.getStudentById(id) : null;
+      }
 
-        try {
-          var existing = JSON.parse(localStorage.getItem('siatma_developments_extra') || '[]');
-          var development = {
-            id: Date.now(),
-            studentId: Number(studentFilter.value),
-            tanggal: new Date().toISOString().split('T')[0],
-            kategori: kategori,
-            catatan: catatan,
-            guru: assignedTeacher || 'Admin'
-          };
-          existing.push(development);
-          localStorage.setItem('siatma_developments_extra', JSON.stringify(existing));
-          SIATMA_DATA.developments.push(development);
-        } catch (err) {
-          if (err.name === 'QuotaExceededError') {
-            SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
-          } else {
-            SIATMA_TOAST.error('Gagal menyimpan data: ' + err.message);
+      function validateScores(scores) {
+        var keys = ['absensi', 'membaca', 'menulis', 'ujian'];
+        for (var i = 0; i < keys.length; i++) {
+          var value = scores[keys[i]];
+          if (value === '' || value === null || value === undefined) {
+            return { valid: false, message: 'Semua kriteria wajib diisi.' };
           }
+          var number = Number(value);
+          if (!Number.isFinite(number)) {
+            return { valid: false, message: 'Nilai harus berupa angka.' };
+          }
+          if (number < 0 || number > 100) {
+            return { valid: false, message: 'Nilai harus berada pada rentang 0–100.' };
+          }
+        }
+        return { valid: true };
+      }
+
+      function readScoresFromForm() {
+        return {
+          absensi: scoreAbsensi.value,
+          membaca: scoreMembaca.value,
+          menulis: scoreMenulis.value,
+          ujian: scoreUjian.value
+        };
+      }
+
+      function fillForm(scores) {
+        scoreAbsensi.value = scores && scores.absensi != null ? scores.absensi : '';
+        scoreMembaca.value = scores && scores.membaca != null ? scores.membaca : '';
+        scoreMenulis.value = scores && scores.menulis != null ? scores.menulis : '';
+        scoreUjian.value = scores && scores.ujian != null ? scores.ujian : '';
+      }
+
+      function renderHeading() {
+        var student = getCurrentStudent();
+        if (!student) {
+          heading.textContent = 'Pilih siswa terlebih dahulu.';
+          statusBadge.classList.add('hidden');
           return;
         }
+        heading.textContent = student.nama + ' — ' + student.kelas + ' — Periode ' + periodFilter.value;
+        var latest = SIATMA.getLatestAssessment(student.id);
+        if (latest) {
+          var info = SIATMA.getAssessmentLabel(latest.finalScore);
+          statusBadge.textContent = 'Nilai terakhir: ' + formatScore(latest.finalScore) + ' (' + info.label + ')';
+          statusBadge.className = 'rounded-full px-3 py-1 text-xs font-medium ' + {
+            green: 'bg-green-100 text-green-700',
+            blue: 'bg-blue-100 text-blue-700',
+            yellow: 'bg-yellow-100 text-yellow-700',
+            red: 'bg-red-100 text-red-700'
+          }[info.tone];
+        } else {
+          statusBadge.classList.add('hidden');
+        }
+      }
 
-        SIATMA_TOAST.success('Catatan perkembangan berhasil disimpan');
-        document.getElementById('teacher-note').value = '';
-        renderDevelopments();
+      function renderHistory() {
+        var student = getCurrentStudent();
+        if (!student) {
+          historyContainer.innerHTML = SIATMA_UI.emptyState({ title: 'Pilih siswa terlebih dahulu' });
+          countBadge.textContent = '0 penilaian';
+          return;
+        }
+        var list = SIATMA.getAssessmentsByStudent(student.id).slice().sort(function (a, b) {
+          return String(b.gradedAt).localeCompare(String(a.gradedAt));
+        });
+        countBadge.textContent = list.length + ' penilaian';
+        if (!list.length) {
+          historyContainer.innerHTML = SIATMA_UI.emptyState({
+            title: 'Belum ada penilaian',
+            description: 'Isi form di atas untuk menambahkan penilaian pertama.'
+          });
+          return;
+        }
+        var toneClasses = {
+          green: 'bg-green-100 text-green-700',
+          blue: 'bg-blue-100 text-blue-700',
+          yellow: 'bg-yellow-100 text-yellow-700',
+          red: 'bg-red-100 text-red-700'
+        };
+        historyContainer.innerHTML = list.map(function (assessment) {
+          var info = SIATMA.getAssessmentLabel(assessment.finalScore);
+          var toneClass = toneClasses[info.tone] || toneClasses.red;
+          return '<article class="mb-3 rounded-xl border border-slate-200 dark:border-slate-700 p-4 last:mb-0">' +
+            '<div class="flex items-center justify-between gap-3">' +
+            '<div><p class="font-semibold">Periode ' + escapeHtml(assessment.period) + '</p>' +
+            '<p class="text-xs text-text-muted dark:text-slate-400">Dinilai oleh ' + escapeHtml(assessment.gradedBy) + ' — ' + escapeHtml(SIATMA_UI.formatDate(assessment.gradedAt, 'short')) + '</p></div>' +
+            '<span class="rounded-full px-3 py-1 text-sm font-bold ' + toneClass + '">' + formatScore(assessment.finalScore) + '</span>' +
+            '</div>' +
+            '<dl class="mt-3 grid grid-cols-2 gap-3 text-sm md:grid-cols-4">' +
+            '<div><dt class="text-text-muted">Absensi</dt><dd class="font-medium">' + formatScore(assessment.scores && assessment.scores.absensi) + '</dd></div>' +
+            '<div><dt class="text-text-muted">Membaca</dt><dd class="font-medium">' + formatScore(assessment.scores && assessment.scores.membaca) + '</dd></div>' +
+            '<div><dt class="text-text-muted">Menulis</dt><dd class="font-medium">' + formatScore(assessment.scores && assessment.scores.menulis) + '</dd></div>' +
+            '<div><dt class="text-text-muted">Ujian</dt><dd class="font-medium">' + formatScore(assessment.scores && assessment.scores.ujian) + '</dd></div>' +
+            '</dl>' +
+            '<p class="mt-2 text-xs text-text-muted dark:text-slate-400">' + escapeHtml(info.label) + '</p>' +
+            '</article>';
+        }).join('');
+      }
+
+      function loadStudentData() {
+        var student = getCurrentStudent();
+        if (student) {
+          var periodAssessments = SIATMA.getAssessmentsByStudent(student.id, periodFilter.value).slice().sort(function (a, b) {
+            return String(b.gradedAt).localeCompare(String(a.gradedAt));
+          });
+          fillForm(periodAssessments.length ? periodAssessments[0].scores : null);
+        } else {
+          fillForm(null);
+        }
+        renderHeading();
+        renderHistory();
+        resultInline.classList.add('hidden');
+        saveBtn.disabled = true;
+      }
+
+      classFilter.addEventListener('change', function () {
+        populateStudents();
+        loadStudentData();
+      });
+      studentFilter.addEventListener('change', loadStudentData);
+      periodFilter.addEventListener('change', loadStudentData);
+      loadBtn.addEventListener('click', loadStudentData);
+
+      [scoreAbsensi, scoreMembaca, scoreMenulis, scoreUjian].forEach(function (input) {
+        input.addEventListener('input', function () {
+          resultInline.classList.add('hidden');
+          saveBtn.disabled = true;
         });
       });
+
+      calculateBtn.addEventListener('click', function () {
+        var scores = readScoresFromForm();
+        var validation = validateScores(scores);
+        if (!validation.valid) {
+          SIATMA_TOAST.error(validation.message);
+          return;
+        }
+        var finalScore = SIATMA.calculateWSM({
+          absensi: Number(scores.absensi),
+          membaca: Number(scores.membaca),
+          menulis: Number(scores.menulis),
+          ujian: Number(scores.ujian)
+        });
+        resultInline.textContent = 'Nilai Akhir: ' + formatScore(finalScore);
+        resultInline.classList.remove('hidden');
+        saveBtn.disabled = false;
+      });
+
+      resetBtn.addEventListener('click', function () {
+        fillForm(null);
+        resultInline.classList.add('hidden');
+        saveBtn.disabled = true;
+      });
+
+      saveBtn.addEventListener('click', function () {
+        if (!currentUser || currentUser.role !== 'guru') {
+          SIATMA_TOAST.error('Hanya guru yang dapat menyimpan penilaian.');
+          return;
+        }
+        var student = getCurrentStudent();
+        if (!student) {
+          SIATMA_TOAST.error('Pilih siswa terlebih dahulu.');
+          return;
+        }
+        var scores = readScoresFromForm();
+        var validation = validateScores(scores);
+        if (!validation.valid) {
+          SIATMA_TOAST.error(validation.message);
+          return;
+        }
+        var period = periodFilter.value || new Date().toISOString().slice(0, 7);
+        var numericScores = {
+          absensi: Number(scores.absensi),
+          membaca: Number(scores.membaca),
+          menulis: Number(scores.menulis),
+          ujian: Number(scores.ujian)
+        };
+        var finalScore = SIATMA.calculateWSM(numericScores);
+
+        try {
+          var extra = JSON.parse(localStorage.getItem('siatma_assessments_extra') || '[]');
+          if (!Array.isArray(extra)) throw new TypeError('Format data penilaian tidak valid');
+          var existingIndex = extra.findIndex(function (item) {
+            return item.studentId === student.id && item.period === period;
+          });
+          var existingAssessment = SIATMA_DATA.assessments.find(function (item) {
+            return item.studentId === student.id && item.period === period;
+          });
+          var record = {
+            id: existingIndex >= 0 ? extra[existingIndex].id : (existingAssessment ? existingAssessment.id : Date.now()),
+            studentId: student.id,
+            period: period,
+            scores: numericScores,
+            finalScore: finalScore,
+            gradedBy: currentUser.nama,
+            gradedAt: new Date().toISOString()
+          };
+          if (existingIndex >= 0) {
+            extra[existingIndex] = record;
+          } else {
+            extra.push(record);
+          }
+          localStorage.setItem('siatma_assessments_extra', JSON.stringify(extra));
+
+          var dataIndex = SIATMA_DATA.assessments.findIndex(function (item) {
+            return item.id === record.id;
+          });
+          if (dataIndex >= 0) SIATMA_DATA.assessments[dataIndex] = record;
+          else SIATMA_DATA.assessments.push(record);
+
+          SIATMA_TOAST.success('Penilaian berhasil disimpan. Nilai akhir: ' + formatScore(finalScore));
+          renderHeading();
+          renderHistory();
+          resultInline.textContent = 'Nilai Akhir: ' + formatScore(finalScore);
+          resultInline.classList.remove('hidden');
+          saveBtn.disabled = true;
+        } catch (error) {
+          if (error.name === 'QuotaExceededError') {
+            SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
+          } else {
+            SIATMA_TOAST.error('Gagal menyimpan: ' + error.message);
+          }
+        }
+      });
+
+      populateStudents();
+      loadStudentData();
     })();
+      });
     </script>
-      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+      <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

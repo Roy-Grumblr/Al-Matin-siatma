@@ -89,8 +89,9 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 
         <section id="tab-profil" class="settings-panel rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
           <div class="mb-6 flex flex-wrap items-center gap-4">
-            <div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">AD</div>
-            <button type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Ganti Foto</button>
+            <div id="profile-photo-preview" class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">GU</div>
+            <input id="profile-photo-input" type="file" accept="image/*" class="hidden" />
+            <button id="change-profile-photo" type="button" class="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-text dark:text-slate-100 transition hover:border-primary hover:text-primary">Ganti Foto</button>
           </div>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div><label for="profile-name" class="mb-1.5 block text-sm font-medium">Nama Lengkap</label><input id="profile-name" type="text" value="Admin Sekolah" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
@@ -98,7 +99,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             <div><label for="profile-phone" class="mb-1.5 block text-sm font-medium">Nomor HP</label><input id="profile-phone" type="tel" value="081234567890" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
             <div><label for="profile-role" class="mb-1.5 block text-sm font-medium">Jabatan</label><input id="profile-role" type="text" value="Administrator" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
           </div>
-          <button type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
+          <button id="save-profile-changes" type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
         </section>
 
         <section id="tab-akun" class="settings-panel hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
@@ -127,9 +128,160 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      const tabs = document.querySelectorAll(".settings-tab");
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+const tabs = document.querySelectorAll(".settings-tab");
       const panels = document.querySelectorAll(".settings-panel");
+      const photoInput = document.getElementById("profile-photo-input");
+      const photoPreview = document.getElementById("profile-photo-preview");
+      const profileFields = {
+        nama: document.getElementById("profile-name"),
+        email: document.getElementById("profile-email"),
+        nomorHP: document.getElementById("profile-phone"),
+        jabatan: document.getElementById("profile-role")
+      };
+      const accountFields = {
+        username: document.getElementById("account-username"),
+        email: document.getElementById("account-email")
+      };
+      const oldPasswordInput = document.getElementById("old-password");
+      const newPasswordInput = document.getElementById("new-password");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+      let photoDataUrl = "";
+
+      function loadSettings(key) {
+        try {
+          const settings = JSON.parse(localStorage.getItem(key) || "{}");
+          if (!settings || typeof settings !== "object" || Array.isArray(settings)) {
+            throw new TypeError("Format pengaturan tidak valid");
+          }
+          return settings;
+        } catch (error) {
+          SIATMA_TOAST.error("Gagal memuat pengaturan: " + error.message);
+          return {};
+        }
+      }
+
+      function saveSettings(key, values, successMessage) {
+        try {
+          localStorage.setItem(key, JSON.stringify(values));
+          if (successMessage) SIATMA_TOAST.success(successMessage);
+          return true;
+        } catch (error) {
+          if (error.name === "QuotaExceededError") {
+            SIATMA_TOAST.error("Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.");
+          } else {
+            SIATMA_TOAST.error("Gagal menyimpan data: " + error.message);
+          }
+          return false;
+        }
+      }
+
+      function saveUserOverrides() {
+        return saveSettings("siatma_users_override", SIATMA_DATA.users.map((user) => ({
+          role: user.role,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          nama: user.nama,
+          studentId: user.studentId
+        })));
+      }
+
+      function updateStoredSession(user) {
+        try {
+          const storage = localStorage.getItem("siatma_user") ? localStorage : sessionStorage;
+          storage.setItem("siatma_user", JSON.stringify(user));
+          return true;
+        } catch (error) {
+          SIATMA_TOAST.error("Gagal memperbarui sesi akun: " + error.message);
+          return false;
+        }
+      }
+
+      const savedProfile = loadSettings("siatma_profile");
+      const savedAccount = loadSettings("siatma_account");
+      Object.keys(profileFields).forEach((key) => {
+        if (Object.prototype.hasOwnProperty.call(savedProfile, key)) {
+          profileFields[key].value = savedProfile[key];
+        }
+      });
+      Object.keys(accountFields).forEach((key) => {
+        if (Object.prototype.hasOwnProperty.call(savedAccount, key)) {
+          accountFields[key].value = savedAccount[key];
+        }
+      });
+
+      const currentUser = SIATMA_AUTH.getCurrentUser();
+      const currentAccount = SIATMA_DATA.users.find((user) => currentUser && user.role === currentUser.role);
+      if (!savedAccount.username && currentAccount) accountFields.username.value = currentAccount.username;
+      if (!savedAccount.email && currentAccount) accountFields.email.value = currentAccount.email || "";
+
+      function displayProfilePhoto(dataUrl) {
+        photoDataUrl = dataUrl || "";
+        if (photoDataUrl) {
+          photoPreview.style.backgroundImage = 'url("' + photoDataUrl + '")';
+          photoPreview.style.backgroundSize = "cover";
+          photoPreview.style.backgroundPosition = "center";
+          photoPreview.textContent = "";
+        } else {
+          photoPreview.style.backgroundImage = "";
+          photoPreview.textContent = "GU";
+        }
+      }
+
+      displayProfilePhoto(savedProfile.foto);
+
+      document.getElementById("change-profile-photo").addEventListener("click", () => photoInput.click());
+      photoInput.addEventListener("change", () => {
+        const file = photoInput.files && photoInput.files[0];
+        if (!file) return;
+        if (!/^image\/(png|jpeg|webp|gif)$/i.test(file.type)) {
+          SIATMA_TOAST.error("Pilih file gambar untuk foto profil");
+          photoInput.value = "";
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          SIATMA_TOAST.error("Ukuran foto maksimal 2 MB");
+          photoInput.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result !== "string") {
+            SIATMA_TOAST.error("Gagal membaca file foto");
+            return;
+          }
+          const image = new Image();
+          image.onload = () => {
+            const scale = Math.min(1, 600 / Math.max(image.width, image.height));
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+            const context = canvas.getContext("2d");
+            if (!context) {
+              SIATMA_TOAST.error("Gagal memproses foto profil");
+              return;
+            }
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            const compressedPhoto = canvas.toDataURL("image/jpeg", 0.75);
+            const updatedProfile = Object.assign({}, loadSettings("siatma_profile"), {
+              foto: compressedPhoto
+            });
+            if (!saveSettings("siatma_profile", updatedProfile, "Foto profil berhasil diperbarui")) return;
+            displayProfilePhoto(compressedPhoto);
+          };
+          image.onerror = () => SIATMA_TOAST.error("Gagal memproses foto profil");
+          image.src = reader.result;
+        };
+        reader.onerror = () => SIATMA_TOAST.error("Gagal membaca file foto");
+        reader.readAsDataURL(file);
+      });
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -141,7 +293,8 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             item.classList.toggle("border-primary", isActive);
             item.classList.toggle("font-medium", isActive);
             item.classList.toggle("text-primary", isActive);
-            item.classList.toggle("text-text-muted dark:text-slate-400", !isActive);
+            item.classList.toggle("text-text-muted", !isActive);
+            item.classList.toggle("dark:text-slate-400", !isActive);
             item.setAttribute("aria-selected", String(isActive));
           });
 
@@ -149,60 +302,90 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             panel.classList.toggle("hidden", panel.id !== `tab-${selectedTab}`);
           });
         });
+      });
 
-        function saveTeacherSettings(key, values, message) {
-          try {
-            localStorage.setItem(key, JSON.stringify(values));
-            SIATMA_TOAST.success(message);
-          } catch (error) {
-            if (error.name === 'QuotaExceededError') {
-              SIATMA_TOAST.error('Penyimpanan browser penuh. Hapus data lama atau gunakan mode incognito.');
-            } else {
-              SIATMA_TOAST.error('Gagal menyimpan data: ' + error.message);
-            }
-          }
-        }
-        document.querySelector('#tab-profil button:last-child').addEventListener('click', () => saveTeacherSettings('siatma_profile', {
-          nama: document.getElementById('profile-name').value.trim(),
-          email: document.getElementById('profile-email').value.trim(),
-          nomorHP: document.getElementById('profile-phone').value.trim(),
-          jabatan: document.getElementById('profile-role').value.trim()
-        }, 'Profil berhasil diperbarui'));
-        document.querySelector('#tab-akun button').addEventListener('click', () => saveTeacherSettings('siatma_account', {
-          username: document.getElementById('account-username').value.trim(),
-          email: document.getElementById('account-email').value.trim()
-        }, 'Akun berhasil diperbarui'));
-        document.querySelector('#tab-password button').addEventListener('click', () => {
-          const oldPassword = document.getElementById('old-password').value;
-          const newPassword = document.getElementById('new-password').value;
-          const confirmation = document.getElementById('confirm-password').value;
-          if (!oldPassword || !newPassword || !confirmation) {
-            SIATMA_TOAST.error('Semua kolom password wajib diisi');
-            return;
-          }
-          const currentUser = SIATMA_AUTH.getCurrentUser();
-          const account = SIATMA_DATA.users.find((user) => currentUser && user.username === currentUser.username);
-          if (!account || account.password !== oldPassword) {
-            SIATMA_TOAST.error('Password lama tidak sesuai');
-            return;
-          }
-          if (newPassword !== confirmation) {
-            SIATMA_TOAST.error('Konfirmasi password baru tidak cocok');
-            return;
-          }
-          account.password = newPassword;
-          SIATMA_TOAST.success('Password berhasil diubah');
+      document.getElementById("save-profile-changes").addEventListener("click", () => {
+        const profile = Object.assign({}, loadSettings("siatma_profile"), {
+          nama: profileFields.nama.value.trim(),
+          email: profileFields.email.value.trim(),
+          nomorHP: profileFields.nomorHP.value.trim(),
+          jabatan: profileFields.jabatan.value.trim(),
+          foto: photoDataUrl
         });
+        if (!profile.nama || !profile.email) {
+          SIATMA_TOAST.error("Nama dan email profil wajib diisi");
+          return;
+        }
+        saveSettings("siatma_profile", profile, "Profil berhasil diperbarui");
+      });
+
+      document.querySelector("#tab-akun button").addEventListener("click", () => {
+        const username = accountFields.username.value.trim();
+        const email = accountFields.email.value.trim();
+        const user = SIATMA_DATA.users.find((item) => currentUser && item.role === currentUser.role);
+        if (!user) {
+          SIATMA_TOAST.error("Akun yang sedang digunakan tidak ditemukan");
+          return;
+        }
+        if (username.length < 3 || !email) {
+          SIATMA_TOAST.error("Username minimal 3 karakter dan email wajib diisi");
+          return;
+        }
+        if (SIATMA_DATA.users.some((item) => item !== user && item.username.toLowerCase() === username.toLowerCase())) {
+          SIATMA_TOAST.error("Username sudah digunakan");
+          return;
+        }
+
+        const previousUser = { username: user.username, email: user.email };
+        const previousSession = Object.assign({}, currentUser);
+        user.username = username;
+        user.email = email;
+        currentUser.username = username;
+        currentUser.email = email;
+        if (!saveUserOverrides() || !updateStoredSession(currentUser)) {
+          Object.assign(user, previousUser);
+          Object.assign(currentUser, previousSession);
+          return;
+        }
+        saveSettings("siatma_account", { username: username, email: email }, "Akun berhasil diperbarui");
+      });
+
+      document.querySelector("#tab-password button").addEventListener("click", () => {
+        const oldPassword = oldPasswordInput.value;
+        const newPassword = newPasswordInput.value;
+        const confirmation = confirmPasswordInput.value;
+        if (!oldPassword || !newPassword || !confirmation) {
+          SIATMA_TOAST.error("Semua kolom password wajib diisi");
+          return;
+        }
+        const user = SIATMA_DATA.users.find((item) => currentUser && item.role === currentUser.role);
+        if (!user || user.password !== oldPassword) {
+          SIATMA_TOAST.error("Password lama tidak sesuai");
+          return;
+        }
+        if (newPassword.length < 6) {
+          SIATMA_TOAST.error("Password baru minimal 6 karakter");
+          return;
+        }
+        if (newPassword !== confirmation) {
+          SIATMA_TOAST.error("Konfirmasi password baru tidak cocok");
+          return;
+        }
+
+        const oldPasswordValue = user.password;
+        user.password = newPassword;
+        if (!saveUserOverrides()) {
+          user.password = oldPasswordValue;
+          return;
+        }
+        SIATMA_TOAST.success("Password berhasil diubah");
+        oldPasswordInput.value = "";
+        newPasswordInput.value = "";
+        confirmPasswordInput.value = "";
+      });
       });
     </script>
-    <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'guru',
-        activeMenu: 'pengaturan',
-        title: 'Pengaturan',
-        breadcrumb: 'Home / Pengaturan'
-      });
-    </script>
-      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+
+      <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

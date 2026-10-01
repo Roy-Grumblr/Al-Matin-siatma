@@ -39,6 +39,10 @@
       if (remember) {
         window.sessionStorage.removeItem(STORAGE_KEY);
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+        var verify = window.localStorage.getItem(STORAGE_KEY);
+        if (!verify) {
+          return { success: false, message: 'Gagal menyimpan sesi login.' };
+        }
       } else {
         window.localStorage.removeItem(STORAGE_KEY);
         window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
@@ -80,14 +84,18 @@
 
   function requireAuth(role) {
     var user = getCurrentUser();
+    var currentPath = window.location.pathname;
+    var isLoginPage = /\/index\.html$/.test(currentPath) || /\/$/.test(currentPath);
 
     if (!user) {
-      var currentPath = window.location.pathname;
-      var isLoginPage = /\/index\.html$/.test(currentPath) || /\/$/.test(currentPath);
       if (!isLoginPage) {
-        redirectTo('index.html');
+        window.location.href = getPagePrefix() + 'index.html';
       }
       return null;
+    }
+
+    if (isLoginPage) {
+      return user;
     }
 
     if (role && user.role !== role) {

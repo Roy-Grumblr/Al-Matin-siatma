@@ -104,11 +104,14 @@
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
+
     <script>
-      SIATMA_LAYOUT.initLayout({ role: 'admin', activeMenu: 'data-kelas', title: 'Tambah Data Kelas', breadcrumb: 'Home / Data Kelas / Tambah' });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var form = document.getElementById('class-form');
         var editId = new URLSearchParams(window.location.search).get('id');
         try {
@@ -211,7 +214,8 @@
           window.setTimeout(function () { window.location.href = 'data-kelas.html'; }, 700);
         });
       })();
+      });
     </script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

@@ -66,14 +66,6 @@
       .replace(/'/g, '&#039;');
   }
 
-  function normalizeBasePath(basePath) {
-    var value = basePath || '';
-    if (value && value.charAt(value.length - 1) !== '/') {
-      value += '/';
-    }
-    return value;
-  }
-
   function getRoleMenu(role) {
     return MENUS[role] || [];
   }
@@ -83,7 +75,7 @@
       ? window.SIATMA_AUTH.getCurrentUser()
       : null;
     var menu = getRoleMenu(role);
-    var prefix = normalizeBasePath(basePath);
+    var assetPrefix = /\/(admin|guru|orangtua)\//.test(window.location.pathname) ? '../' : '';
     var displayName = user && user.nama ? user.nama : 'Pengguna';
     var roleLabel = role === 'orangtua' ? 'Orang Tua' : role === 'guru' ? 'Guru' : 'Administrator';
     var initial = displayName.charAt(0).toUpperCase();
@@ -92,7 +84,7 @@
       '<aside id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-screen w-64 -translate-x-full transform flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out md:translate-x-0 dark:bg-slate-800 dark:border-slate-700" aria-label="Navigasi ' +
       escapeHtml(roleLabel) +
       '">' +
-      '<div class="flex items-center gap-3 border-b border-slate-200 px-6 py-5"><img src="' + prefix + '../assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-9 w-9 rounded-lg object-contain" /><div><p class="text-lg font-bold tracking-tight">SIATMA</p><p class="text-[10px] font-medium uppercase tracking-wider text-text-muted">TK Al-Matin</p></div></div>' +
+      '<div class="flex items-center gap-3 border-b border-slate-200 px-6 py-5"><img src="' + assetPrefix + 'assets/logo-tk.png" alt="Logo RA Al-Matin" class="h-9 w-9 rounded-lg object-contain" /><div><p class="text-lg font-bold tracking-tight">SIATMA</p><p class="text-[10px] font-medium uppercase tracking-wider text-text-muted">TK Al-Matin</p></div></div>' +
       '<nav class="flex-1 overflow-y-auto py-4" aria-label="Menu ' +
       escapeHtml(roleLabel) +
       '">' +
@@ -101,7 +93,7 @@
           var active = item.key === activeMenu;
           return (
             '<a href="' +
-            escapeHtml(prefix + item.href) +
+            escapeHtml(item.href) +
             '" data-menu="' +
             escapeHtml(item.key) +
             '"' +
@@ -377,4 +369,64 @@
     renderHeader: renderHeader,
     initLayout: initLayout,
   };
+
+  (function autoInit() {
+    function detectRoleFromPath() {
+      var path = window.location.pathname;
+      if (/\/admin\//.test(path)) return 'admin';
+      if (/\/guru\//.test(path)) return 'guru';
+      if (/\/orangtua\//.test(path)) return 'orangtua';
+      return null;
+    }
+
+    function detectActiveMenu(role) {
+      var path = window.location.pathname;
+      var file = path.split('/').pop().replace('.html', '');
+      var map = {
+        dashboard: 'dashboard',
+        'data-siswa': 'data-siswa',
+        'tambah-siswa': 'data-siswa',
+        'detail-siswa': 'data-siswa',
+        'import-excel': 'data-siswa',
+        'data-guru': 'data-guru',
+        'tambah-guru': 'data-guru',
+        'detail-guru': 'data-guru',
+        'data-kelas': 'data-kelas',
+        'tambah-kelas': 'data-kelas',
+        'detail-kelas': 'data-kelas',
+        absensi: 'absensi',
+        pengumuman: 'pengumuman',
+        perkembangan: role === 'orangtua' ? 'perkembangan-anak' : 'perkembangan-siswa',
+        laporan: 'laporan',
+        pengaturan: 'pengaturan',
+        'profil-anak': 'profil-anak',
+        'riwayat-absensi': 'riwayat-absensi'
+      };
+      return map[file] || 'dashboard';
+    }
+
+    function detectTitle() {
+      var title = document.title.split('|')[0].trim();
+      return title || 'SIATMA';
+    }
+
+    function initialize() {
+      var role = detectRoleFromPath();
+      if (role && window.SIATMA_LAYOUT) {
+        var title = detectTitle();
+        window.SIATMA_LAYOUT.initLayout({
+          role: role,
+          activeMenu: detectActiveMenu(role),
+          title: title,
+          breadcrumb: 'Home / ' + title
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initialize);
+    } else {
+      initialize();
+    }
+  })();
 })(window);

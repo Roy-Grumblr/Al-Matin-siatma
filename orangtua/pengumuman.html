@@ -122,16 +122,13 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/toast.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'orangtua',
-        activeMenu: 'pengumuman',
-        title: 'Pengumuman',
-        breadcrumb: 'Home / Pengumuman'
-      });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var user = SIATMA_AUTH.getCurrentUser();
         var studentId = user && user.studentId ? user.studentId : 2;
         var student = SIATMA.getStudentById(studentId);
@@ -246,9 +243,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           if (event.target === detailModal) closeDetailModal();
         });
       })();
+      });
     </script>
           <script src="../js/network-status.js"></script>
           <script src="../js/pwa-install.js"></script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

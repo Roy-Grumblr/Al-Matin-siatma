@@ -67,11 +67,14 @@
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
+
     <script>
-      SIATMA_LAYOUT.initLayout({ role: 'admin', activeMenu: 'data-kelas', title: 'Detail Kelas', breadcrumb: 'Home / Data Kelas / Detail' });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var main = document.querySelector('main');
         var container = main.querySelector('#class-details');
         container.innerHTML = SIATMA_UI.loadingState('Memuat data...');
@@ -124,7 +127,8 @@
           '</section>';
         }, 300);
       })();
+      });
     </script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

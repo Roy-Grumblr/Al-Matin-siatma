@@ -100,7 +100,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             <div><label for="profile-phone" class="mb-1.5 block text-sm font-medium">Nomor HP</label><input id="profile-phone" type="tel" value="081234567890" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
             <div><label for="profile-role" class="mb-1.5 block text-sm font-medium">Jabatan</label><input id="profile-role" type="text" value="Administrator" class="w-full rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
           </div>
-          <button type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
+          <button id="save-profile-changes" type="button" class="mt-6 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
         </section>
 
         <section id="tab-akun" class="settings-panel hidden rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
@@ -141,10 +141,15 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      const tabs = document.querySelectorAll(".settings-tab");
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+const tabs = document.querySelectorAll(".settings-tab");
       const panels = document.querySelectorAll(".settings-panel");
-      const saveProfileButton = document.querySelector("#tab-profil button:last-child");
+      const saveProfileButton = document.getElementById("save-profile-changes");
       const saveAccountButton = document.querySelector("#tab-akun button");
       const changePasswordButton = document.querySelector("#tab-password button");
       const saveSystemButton = document.querySelector("#tab-sistem button");
@@ -206,6 +211,40 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         photoPreview.textContent = '';
       }
 
+      document.getElementById("change-profile-photo").addEventListener("click", () => photoInput.click());
+      photoInput.addEventListener("change", () => {
+        const file = photoInput.files && photoInput.files[0];
+        if (!file) return;
+        if (!/^image\/(png|jpeg|webp|gif)$/i.test(file.type)) {
+          SIATMA_TOAST.error("Pilih file gambar untuk foto profil");
+          photoInput.value = "";
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          SIATMA_TOAST.error("Ukuran foto maksimal 2 MB");
+          photoInput.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result !== 'string') {
+            SIATMA_TOAST.error('Gagal membaca file foto');
+            return;
+          }
+          const updatedProfile = Object.assign({}, loadSettings('siatma_profile'), {
+            foto: reader.result
+          });
+          if (!saveSettings('siatma_profile', updatedProfile, 'Foto profil berhasil diperbarui')) return;
+          photoDataUrl = reader.result;
+          photoPreview.style.backgroundImage = 'url("' + photoDataUrl + '")';
+          photoPreview.style.backgroundSize = "cover";
+          photoPreview.style.backgroundPosition = "center";
+          photoPreview.textContent = "";
+        };
+        reader.onerror = () => SIATMA_TOAST.error('Gagal membaca file foto');
+        reader.readAsDataURL(file);
+      });
+
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
           const selectedTab = tab.dataset.tab;
@@ -216,7 +255,8 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
             item.classList.toggle("border-primary", isActive);
             item.classList.toggle("font-medium", isActive);
             item.classList.toggle("text-primary", isActive);
-            item.classList.toggle("text-text-muted dark:text-slate-400", !isActive);
+            item.classList.toggle("text-text-muted", !isActive);
+            item.classList.toggle("dark:text-slate-400", !isActive);
             item.setAttribute("aria-selected", String(isActive));
           });
 
@@ -262,40 +302,6 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           return false;
         }
       }
-
-      document.getElementById("change-profile-photo").addEventListener("click", () => photoInput.click());
-      photoInput.addEventListener("change", () => {
-        const file = photoInput.files && photoInput.files[0];
-        if (!file) return;
-        if (!/^image\/(png|jpeg|webp|gif)$/i.test(file.type)) {
-          SIATMA_TOAST.error("Pilih file gambar untuk foto profil");
-          photoInput.value = "";
-          return;
-        }
-        if (file.size > 2 * 1024 * 1024) {
-          SIATMA_TOAST.error("Ukuran foto maksimal 2 MB");
-          photoInput.value = "";
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (typeof reader.result !== 'string') {
-            SIATMA_TOAST.error('Gagal membaca file foto');
-            return;
-          }
-          const updatedProfile = Object.assign({}, loadSettings('siatma_profile'), {
-            foto: reader.result
-          });
-          if (!saveSettings('siatma_profile', updatedProfile, 'Foto profil berhasil diperbarui')) return;
-          photoDataUrl = reader.result;
-          photoPreview.style.backgroundImage = 'url("' + photoDataUrl + '")';
-          photoPreview.style.backgroundSize = "cover";
-          photoPreview.style.backgroundPosition = "center";
-          photoPreview.textContent = "";
-        };
-        reader.onerror = () => SIATMA_TOAST.error('Gagal membaca file foto');
-        reader.readAsDataURL(file);
-      });
 
       saveProfileButton.addEventListener('click', () => {
         const profile = Object.assign({}, loadSettings('siatma_profile'), {
@@ -407,15 +413,9 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         tahunAjaran: document.getElementById('school-year').value,
         alamat: document.getElementById('school-address').value.trim()
       }, 'Informasi sekolah berhasil disimpan'));
-    </script>
-    <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'admin',
-        activeMenu: 'pengaturan',
-        title: 'Pengaturan',
-        breadcrumb: 'Home / Pengaturan'
       });
     </script>
-      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+
+      <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

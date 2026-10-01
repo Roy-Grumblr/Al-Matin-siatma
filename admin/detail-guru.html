@@ -90,16 +90,13 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'admin',
-        activeMenu: 'data-guru',
-        title: 'Detail Guru',
-        breadcrumb: 'Home / Data Guru / Detail'
-      });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         const main = document.querySelector('main');
         const content = document.createElement('div');
         main.appendChild(content);
@@ -122,7 +119,8 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         content.innerHTML = '<section class="mb-4 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><div class="flex items-center gap-6"><div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary">' + initial + '</div><div><h2 class="text-2xl font-bold">' + escapeHtml(teacher.nama) + '</h2><div class="mt-2 flex flex-wrap gap-3 text-sm text-text-muted dark:text-slate-400"><span>NIP: ' + escapeHtml(teacher.nip) + '</span><span>Kelas: ' + escapeHtml(teacher.kelas) + '</span><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></div></div></div><a href="tambah-guru.html?id=' + encodeURIComponent(teacher.id) + '" class="rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm">Edit</a></section><div class="grid gap-4 lg:grid-cols-3"><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-2"><h2 class="mb-5 text-lg font-semibold">Informasi Pribadi</h2><dl class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2"><div><dt class="text-sm text-text-muted dark:text-slate-400">ID Guru</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nip) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nama Lengkap</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nama) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Email</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.email) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Nomor HP</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.nomorHP) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Kelas</dt><dd class="mt-1 font-medium">' + escapeHtml(teacher.kelas) + '</dd></div><div><dt class="text-sm text-text-muted dark:text-slate-400">Status</dt><dd class="mt-1"><span class="rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></dd></div></dl></section><section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm"><h2 class="mb-5 text-lg font-semibold">Kelas yang Diampu</h2><p class="font-semibold">' + escapeHtml(teacher.kelas) + '</p><p class="mt-1 text-sm text-text-muted dark:text-slate-400">' + (classData ? classData.jumlahSiswa : SIATMA_DATA.students.filter((student) => student.kelas === teacher.kelas).length) + ' siswa</p><span class="mt-3 inline-flex rounded-full px-2 py-1 text-xs ' + statusClass + '">' + escapeHtml(teacher.status) + '</span></section></div>';
         }, 300);
       })();
+      });
     </script>
-      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+      <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

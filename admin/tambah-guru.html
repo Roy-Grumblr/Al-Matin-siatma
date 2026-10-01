@@ -82,10 +82,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
             <h2 class="mb-5 text-lg font-semibold">Data Guru</h2>
             <div class="grid gap-4 md:grid-cols-2">
-              <div><label for="nip" class="mb-1 block text-sm font-medium">NIP</label><input id="nip" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-              <div><label for="nama-guru" class="mb-1 block text-sm font-medium">Nama Guru</label><input id="nama-guru" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-              <div><label for="email-guru" class="mb-1 block text-sm font-medium">Email</label><input id="email-guru" type="email" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
-              <div><label for="nomor-hp-guru" class="mb-1 block text-sm font-medium">Nomor HP</label><input id="nomor-hp-guru" type="tel" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="nip" class="mb-1 block text-sm font-medium">NIP <span class="text-red-500">*</span></label><input id="nip" name="nip" type="text" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="nama-guru" class="mb-1 block text-sm font-medium">Nama Guru <span class="text-red-500">*</span></label><input id="nama-guru" name="nama" type="text" required class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="email-guru" class="mb-1 block text-sm font-medium">Email</label><input id="email-guru" name="email" type="email" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
+              <div><label for="nomor-hp-guru" class="mb-1 block text-sm font-medium">Nomor HP</label><input id="nomor-hp-guru" name="nomorHP" type="tel" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" /></div>
               <div><label for="kelas-guru" class="mb-1 block text-sm font-medium">Kelas</label><select id="kelas-guru" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>TK A</option><option>TK B</option><option>Kelompok Bermain</option><option>TK A Sore</option><option>TK B Sore</option></select></div>
               <div><label for="status-guru" class="mb-1 block text-sm font-medium">Status</label><select id="status-guru" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"><option>Aktif</option><option>Tidak Aktif</option></select></div>
             </div>
@@ -104,16 +104,13 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'admin',
-        activeMenu: 'data-guru',
-        title: 'Tambah Data Guru',
-        breadcrumb: 'Home / Data Guru / Tambah'
-      });
-    </script>
-    <script>
-    (function() {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function() {
       var form = document.querySelector('form[action="#"]');
       var editId = new URLSearchParams(window.location.search).get('id');
 
@@ -217,6 +214,9 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           }
           SIATMA_DATA.teachers[teacherIndex] = teacherData;
           SIATMA_TOAST.success('Data guru berhasil diperbarui');
+          window.setTimeout(function() {
+            window.location.href = 'data-guru.html';
+          }, 1000);
           return;
         }
 
@@ -227,7 +227,8 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         }, 1000);
       });
     })();
+      });
     </script>
-      <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+      <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

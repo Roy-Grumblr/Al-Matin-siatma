@@ -85,12 +85,12 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         <section class="mb-6"><h2 class="text-2xl font-bold">Selamat datang, Bapak/Ibu</h2><p class="mt-1 text-text-muted dark:text-slate-400">Pantau perkembangan buah hati Anda.</p></section>
 
         <section class="mb-4 flex flex-col items-start gap-6 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm sm:flex-row sm:items-center">
-          <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xl font-bold text-primary">AP</div>
-          <div><h2 class="text-xl font-bold">Aisyah Putri</h2><div class="mt-2 flex flex-wrap gap-4 text-sm text-text-muted dark:text-slate-400"><span>Kelas TK A</span><span>NIS 2024002</span></div></div>
+          <div id="student-avatar" class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xl font-bold text-primary">AP</div>
+          <div><h2 id="student-name" class="text-xl font-bold">Aisyah Putri</h2><div class="mt-2 flex flex-wrap gap-4 text-sm text-text-muted dark:text-slate-400"><span id="student-class">Kelas TK A</span><span id="student-nis">NIS 2024002</span></div></div>
         </section>
 
-        <section class="mb-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow-sm">
-          <p class="text-sm opacity-90">Kehadiran Hari Ini</p><p class="mt-2 text-4xl font-bold">HADIR</p><p class="mt-2 text-sm opacity-90">Senin, 24 September 2026</p>
+        <section id="attendance-card" class="mb-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow-sm">
+          <p class="text-sm opacity-90">Kehadiran Hari Ini</p><p id="attendance-status" class="mt-2 text-4xl font-bold">HADIR</p><p id="attendance-date" class="mt-2 text-sm opacity-90">Senin, 24 September 2026</p>
         </section>
 
         <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
@@ -130,16 +130,13 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/toast.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'orangtua',
-        activeMenu: 'dashboard',
-        title: 'Dashboard',
-        breadcrumb: 'Home / Dashboard'
-      });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var user = SIATMA_AUTH.getCurrentUser();
         var studentId = user && user.studentId ? user.studentId : 2;
         var student = SIATMA.getStudentById(studentId);
@@ -149,16 +146,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         }
 
         var main = document.querySelector('main');
-        var headerCard = main.querySelector('section.mb-4.flex.flex-col');
-        headerCard.querySelector('.rounded-full').textContent = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0); }).join('').toUpperCase();
-        headerCard.querySelector('h2').textContent = student.nama;
-        var identity = headerCard.querySelectorAll('span');
-        identity[0].textContent = 'Kelas ' + student.kelas;
-        identity[1].textContent = 'NIS ' + student.nis;
+        document.getElementById('student-avatar').textContent = student.nama.trim().slice(0, 2).toUpperCase();
+        document.getElementById('student-name').textContent = student.nama;
+        document.getElementById('student-class').textContent = 'Kelas ' + student.kelas;
+        document.getElementById('student-nis').textContent = 'NIS ' + student.nis;
 
         var records = SIATMA.getAttendanceByStudent(student.id).slice().sort(function (a, b) { return b.tanggal.localeCompare(a.tanggal); });
         var latest = records[0];
-        var statusCard = main.querySelector('.bg-gradient-to-br');
+        var statusCard = document.getElementById('attendance-card');
         if (statusCard) {
           var statusColors = {
             'Hadir': 'from-green-500 to-green-600',
@@ -168,9 +163,12 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           };
           var colorClass = latest ? statusColors[latest.status] : 'from-slate-500 to-slate-600';
           statusCard.className = 'mb-4 rounded-2xl p-6 text-white shadow-sm bg-gradient-to-br ' + (colorClass || 'from-slate-500 to-slate-600');
+          document.getElementById('attendance-status').textContent = latest ? latest.status.toUpperCase() : '-';
         }
-        statusCard.querySelector('.text-4xl').textContent = latest ? latest.status.toUpperCase() : '-';
-        statusCard.querySelectorAll('p')[2].textContent = latest ? SIATMA_UI.formatDate(latest.tanggal, 'long') : 'Belum ada data kehadiran';
+        var attendanceDate = document.getElementById('attendance-date');
+        if (attendanceDate) {
+          attendanceDate.textContent = latest ? SIATMA_UI.formatDate(latest.tanggal, 'long') : 'Belum ada data kehadiran';
+        }
 
         var today = new Date();
         var currentMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
@@ -180,9 +178,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           summaryCards[index].querySelector('.text-2xl').textContent = summary[key];
         });
       })();
+      });
     </script>
           <script src="../js/network-status.js"></script>
           <script src="../js/pwa-install.js"></script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

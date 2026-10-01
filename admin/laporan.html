@@ -180,16 +180,13 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/pwa-install.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'admin',
-        activeMenu: 'laporan',
-        title: 'Laporan',
-        breadcrumb: 'Home / Laporan'
-      });
-    </script>
-    <script>
-    (function() {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function() {
       var classSelect = document.getElementById('report-class');
       var showButton = document.getElementById('show-report');
       var periodSelect = document.getElementById('report-period');
@@ -313,9 +310,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
       });
       renderCurrentReport();
     })();
+      });
     </script>
     <script>
-    (function() {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function() {
       var reportTable = document.querySelector('table');
       var exportExcel = document.getElementById('export-excel');
       var exportPdf = document.getElementById('export-pdf');
@@ -372,7 +374,8 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         SIATMA_TOAST.success('Laporan PDF berhasil diunduh');
       });
     })();
+      });
     </script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

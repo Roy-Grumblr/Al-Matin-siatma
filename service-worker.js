@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE_NAME = 'siatma-static-v6';
+var CACHE_NAME = 'siatma-static-v11';
 var STATIC_ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,8 @@ var STATIC_ASSETS = [
   './offline.html',
   './assets/logo-tk.png',
   './assets/logo-unpam.png',
+  './assets/icon-192.png',
+  './assets/icon-512.png',
   './js/data.js',
   './js/auth.js',
   './js/layout.js',
@@ -46,7 +48,13 @@ var STATIC_ASSETS = [
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function (cache) { return cache.addAll(STATIC_ASSETS); })
+      .then(function (cache) {
+        return Promise.allSettled(STATIC_ASSETS.map(function (url) {
+          return cache.add(url).catch(function (err) {
+            console.warn('Gagal cache:', url, err);
+          });
+        }));
+      })
       .then(function () { return self.skipWaiting(); })
   );
 });

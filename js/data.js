@@ -1,6 +1,13 @@
 (function (window) {
   'use strict';
 
+  var WSM_WEIGHTS = {
+    absensi: 0.15,
+    membaca: 0.25,
+    menulis: 0.25,
+    ujian: 0.35
+  };
+
   var SIATMA_DATA = {
     users: [
       { username: 'admin', password: 'admin123', nama: 'Admin Sekolah', role: 'admin' },
@@ -253,6 +260,18 @@
       { id: 7, studentId: 4, tanggal: '2026-09-21', kategori: 'Sosial', catatan: 'Mulai berani menyampaikan pendapat dan menunggu giliran berbicara.', guru: 'Siti Aminah' },
       { id: 8, studentId: 4, tanggal: '2026-09-24', kategori: 'Kemandirian', catatan: 'Mampu mencuci tangan dan merapikan meja setelah kegiatan tanpa diingatkan.', guru: 'Siti Aminah' },
     ],
+
+    assessments: [
+      {
+        id: 1,
+        studentId: 2,
+        period: '2026-09',
+        scores: { absensi: 90, membaca: 85, menulis: 88, ujian: 92 },
+        finalScore: 88.95,
+        gradedBy: 'Siti Aminah',
+        gradedAt: '2026-09-24T08:00:00.000Z'
+      }
+    ],
   };
 
   function readStoredArray(key) {
@@ -317,6 +336,10 @@
     else SIATMA_DATA.attendance.push(attendance);
   });
 
+  mergeStoredRecords(SIATMA_DATA.assessments, readStoredArray('siatma_assessments_extra'), function (item, record) {
+    return item.id === record.id;
+  });
+
   var SIATMA = {
     getStudentById: function (id) {
       return SIATMA_DATA.students.find(function (student) {
@@ -366,8 +389,42 @@
         return development.studentId === Number(studentId);
       });
     },
+
+    calculateWSM: function (scores) {
+      if (!scores) return 0;
+      var w = WSM_WEIGHTS;
+      var a = Number(scores.absensi) || 0;
+      var m = Number(scores.membaca) || 0;
+      var t = Number(scores.menulis) || 0;
+      var u = Number(scores.ujian) || 0;
+      return Number(((a * w.absensi) + (m * w.membaca) + (t * w.menulis) + (u * w.ujian)).toFixed(2));
+    },
+
+    getAssessmentsByStudent: function (studentId, period) {
+      return SIATMA_DATA.assessments.filter(function (assessment) {
+        if (assessment.studentId !== Number(studentId)) return false;
+        if (period && assessment.period !== period) return false;
+        return true;
+      });
+    },
+
+    getLatestAssessment: function (studentId) {
+      var list = this.getAssessmentsByStudent(studentId);
+      if (!list.length) return null;
+      return list.slice().sort(function (a, b) {
+        return String(b.gradedAt).localeCompare(String(a.gradedAt));
+      })[0];
+    },
+
+    getAssessmentLabel: function (finalScore) {
+      if (finalScore >= 85) return { label: 'Sangat Baik', tone: 'green' };
+      if (finalScore >= 70) return { label: 'Baik', tone: 'blue' };
+      if (finalScore >= 55) return { label: 'Cukup', tone: 'yellow' };
+      return { label: 'Perlu Perhatian', tone: 'red' };
+    },
   };
 
+  window.SIATMA_WSM_WEIGHTS = WSM_WEIGHTS;
   window.SIATMA_DATA = SIATMA_DATA;
   window.SIATMA = SIATMA;
 })(window);

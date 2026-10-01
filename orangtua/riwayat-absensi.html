@@ -142,21 +142,23 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/toast.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'orangtua',
-        activeMenu: 'riwayat-absensi',
-        title: 'Riwayat Absensi',
-        breadcrumb: 'Home / Riwayat Absensi'
-      });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var main = document.querySelector('main');
         var initialContent = main.innerHTML;
         main.innerHTML = SIATMA_UI.loadingState('Memuat data...');
         window.setTimeout(function () {
         main.innerHTML = initialContent;
+        function escapeHtml(value) {
+          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
         var user = SIATMA_AUTH.getCurrentUser();
         var studentId = user && user.studentId ? user.studentId : 2;
         var student = SIATMA.getStudentById(studentId);
@@ -188,10 +190,6 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         var paginationActions = document.getElementById('pagination-actions');
         var currentPage = 1;
         var perPage = 10;
-        function escapeHtml(value) {
-          return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        }
 
         function renderHistory() {
           var filtered = allRecords.filter(function (record) { return !monthSelect.value || record.tanggal.slice(0, 7) === monthSelect.value; });
@@ -247,9 +245,10 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         renderHistory();
         }, 300);
       })();
+      });
     </script>
           <script src="../js/network-status.js"></script>
           <script src="../js/pwa-install.js"></script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>

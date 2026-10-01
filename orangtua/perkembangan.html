@@ -82,37 +82,29 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <img src="../assets/logo-unpam.png" alt="UNPAM" class="h-12 w-auto" />
         </div>
         <section class="mb-4 flex items-center gap-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm">
-          <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">AP</div>
-          <div><h2 class="text-xl font-bold">Aisyah Putri</h2><p class="mt-1 text-sm text-text-muted dark:text-slate-400">Kelas TK A</p></div>
+          <div id="child-avatar" class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">AP</div>
+          <div>
+            <h2 id="child-name" class="text-xl font-bold">Aisyah Putri</h2>
+            <p id="child-class" class="mt-1 text-sm text-text-muted dark:text-slate-400">Kelas TK A</p>
+          </div>
         </section>
 
-        <section class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-5 text-lg font-semibold">Ringkasan Perkembangan</h2>
-          <div class="grid grid-cols-2 gap-3 md:grid-cols-5">
-            <div class="rounded-xl border border-slate-100 dark:border-slate-700 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75h6.75m-6.75 3h4.5m-7.5 7.5 2.84-2.84a9.75 9.75 0 1 0-2.84 2.84Z"/></svg></div><p class="mt-3 text-sm font-medium">Bahasa</p><span class="mt-2 inline-flex rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Baik</span></div>
-            <div class="rounded-xl border border-slate-100 dark:border-slate-700 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5V6.75a2.25 2.25 0 0 1 4.5 0v3.75m0-1.5V5.25a2.25 2.25 0 0 1 4.5 0v6m0-1.5a2.25 2.25 0 0 1 4.5 0v3.75a9 9 0 0 1-9 9h-.75a9 9 0 0 1-8.25-5.4L1.5 12a2.25 2.25 0 0 1 4.2-1.1l1.8 3.1"/></svg></div><p class="mt-3 text-sm font-medium">Motorik</p><span class="mt-2 inline-flex rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Baik</span></div>
-            <div class="rounded-xl border border-slate-100 dark:border-slate-700 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-yellow-100 text-yellow-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a8.966 8.966 0 0 0 3.75-.824 3.75 3.75 0 0 0-5.48-3.322M18 18.72v-.001c0-1.776-.683-3.392-1.8-4.594M6 18.72a8.966 8.966 0 0 1-3.75-.824 3.75 3.75 0 0 1 5.48-3.322M6 18.72v-.001c0-1.776.683-3.392 1.8-4.594M12 12a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></div><p class="mt-3 text-sm font-medium">Sosial</p><span class="mt-2 inline-flex rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Baik</span></div>
-            <div class="rounded-xl border border-slate-100 dark:border-slate-700 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-purple-100 text-purple-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-2.25m0 0a5.25 5.25 0 1 0-5.25-5.25c0 1.5.63 2.85 1.64 3.81.6.57 1.11 1.29 1.36 2.04m2.25-.6h.01m3.74.6c.25-.75.76-1.47 1.36-2.04A5.25 5.25 0 0 0 12 5.25m-2.25 15h4.5"/></svg></div><p class="mt-3 text-sm font-medium">Kognitif</p><span class="mt-2 inline-flex rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">Baik</span></div>
-            <div class="rounded-xl border border-slate-100 dark:border-slate-700 p-4 text-center"><div class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-600"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m11.48 3.499 2.013 4.078a1.5 1.5 0 0 0 1.13.82l4.5.654-3.256 3.174a1.5 1.5 0 0 0-.431 1.328l.768 4.482-4.026-2.117a1.5 1.5 0 0 0-1.396 0l-4.026 2.117.768-4.482a1.5 1.5 0 0 0-.431-1.328l-3.256-3.174 4.5-.654a1.5 1.5 0 0 0 1.13-.82L11.48 3.5Z"/></svg></div><p class="mt-3 text-sm font-medium">Kemandirian</p><span class="mt-2 inline-flex rounded-full bg-orange-100 px-2 py-1 text-xs text-orange-700">Baik</span></div>
-          </div>
+        <section id="wsm-result-card" class="mb-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <h2 class="text-lg font-semibold">Hasil Penilaian Perkembangan</h2>
+          <p id="wsm-period" class="mt-1 text-sm text-text-muted dark:text-slate-400"></p>
+          <div id="wsm-result-content"></div>
+        </section>
+
+        <section class="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div class="rounded-xl bg-green-50 p-4"><p class="text-sm text-green-700">Absensi</p><p id="score-absensi" class="mt-1 text-2xl font-bold text-green-700">-</p><p class="mt-1 text-xs text-green-600">Bobot 15%</p></div>
+          <div class="rounded-xl bg-blue-50 p-4"><p class="text-sm text-blue-700">Membaca</p><p id="score-membaca" class="mt-1 text-2xl font-bold text-blue-700">-</p><p class="mt-1 text-xs text-blue-600">Bobot 25%</p></div>
+          <div class="rounded-xl bg-yellow-50 p-4"><p class="text-sm text-yellow-700">Menulis</p><p id="score-menulis" class="mt-1 text-2xl font-bold text-yellow-700">-</p><p class="mt-1 text-xs text-yellow-600">Bobot 25%</p></div>
+          <div class="rounded-xl bg-purple-50 p-4"><p class="text-sm text-purple-700">Ujian</p><p id="score-ujian" class="mt-1 text-2xl font-bold text-purple-700">-</p><p class="mt-1 text-xs text-purple-600">Bobot 35%</p></div>
         </section>
 
         <section class="rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-6 text-lg font-semibold">Catatan Guru</h2>
-          <div class="relative ml-2 border-l border-slate-200 dark:border-slate-700">
-            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-primary"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">24 September 2026</p><span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Sosial</span><span class="text-sm text-text-muted dark:text-slate-400">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">Aisyah mampu berinteraksi dengan teman sekelas dengan baik.</p></div></article>
-            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-secondary"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">20 September 2026</p><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Motorik</span><span class="text-sm text-text-muted dark:text-slate-400">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">Aisyah sudah bisa menggambar bentuk sederhana.</p></div></article>
-            <article class="relative pb-6 pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-accent"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">15 September 2026</p><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Bahasa</span><span class="text-sm text-text-muted dark:text-slate-400">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">Aisyah aktif bertanya dan menjawab pertanyaan.</p></div></article>
-            <article class="relative pl-7"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white bg-purple-500"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">10 September 2026</p><span class="rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">Kognitif</span><span class="text-sm text-text-muted dark:text-slate-400">Ibu Siti</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">Aisyah mampu menyusun puzzle dengan baik.</p></div></article>
-          </div>
-        </section>
-
-        <section class="mt-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
-          <h2 class="mb-4 text-lg font-semibold">Pengumuman Terkait</h2>
-          <div class="divide-y divide-slate-100">
-            <article class="py-3 first:pt-0"><h3 class="text-sm font-semibold">Kegiatan pengembangan kreativitas siswa</h3><p class="mt-1 text-xs text-text-muted dark:text-slate-400">24 September 2026</p><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Orang tua dapat mendukung anak membawa perlengkapan menggambar untuk kegiatan kelas.</p></article>
-            <article class="py-3 last:pb-0"><h3 class="text-sm font-semibold">Pertemuan orang tua dan guru</h3><p class="mt-1 text-xs text-text-muted dark:text-slate-400">20 September 2026</p><p class="mt-2 text-sm text-text-muted dark:text-slate-400">Pertemuan evaluasi perkembangan anak akan dilaksanakan sesuai jadwal sekolah.</p></article>
-          </div>
+          <h2 class="mb-4 text-lg font-semibold">Catatan Perkembangan</h2>
+          <div id="development-timeline" class="relative ml-2 border-l border-slate-200 dark:border-slate-700"></div>
         </section>
               <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
           <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
@@ -131,21 +123,14 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/toast.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+
     <script>
-      SIATMA_LAYOUT.initLayout({
-        role: 'orangtua',
-        activeMenu: 'perkembangan-anak',
-        title: 'Perkembangan Anak',
-        breadcrumb: 'Home / Perkembangan Anak'
-      });
-    </script>
-    <script>
-      (function () {
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+(function () {
         var main = document.querySelector('main');
-        var initialContent = main.innerHTML;
-        main.innerHTML = SIATMA_UI.loadingState('Memuat data...');
-        window.setTimeout(function () {
-        main.innerHTML = initialContent;
         var user = SIATMA_AUTH.getCurrentUser();
         var studentId = user && user.studentId ? user.studentId : 2;
         var student = SIATMA.getStudentById(studentId);
@@ -154,25 +139,80 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           return;
         }
 
-        var header = main.querySelector('section.mb-4.flex.items-center');
-        header.querySelector('.rounded-full').textContent = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) { return part.charAt(0); }).join('').toUpperCase();
-        header.querySelector('h2').textContent = student.nama;
-        header.querySelector('p').textContent = 'Kelas ' + student.kelas;
-
-        var developments = SIATMA.getDevelopmentsByStudent(student.id).slice().sort(function (a, b) { return b.tanggal.localeCompare(a.tanggal); });
-        var timeline = main.querySelector('.relative.ml-2.border-l');
         function escapeHtml(value) {
           return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
             .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         }
+
+        function formatScore(value) {
+          var number = Number(value);
+          return Number.isFinite(number) ? number.toFixed(2) : '-';
+        }
+
+        document.getElementById('child-avatar').textContent = student.nama.trim().split(/\s+/).slice(0, 2).map(function (part) {
+          return part.charAt(0);
+        }).join('').toUpperCase();
+        document.getElementById('child-name').textContent = student.nama;
+        document.getElementById('child-class').textContent = 'Kelas ' + student.kelas;
+
+        var latest = SIATMA.getLatestAssessment(student.id);
+        var contentEl = document.getElementById('wsm-result-content');
+        var periodEl = document.getElementById('wsm-period');
+        var scoreIds = {
+          absensi: 'score-absensi',
+          membaca: 'score-membaca',
+          menulis: 'score-menulis',
+          ujian: 'score-ujian'
+        };
+
+        if (!latest) {
+          periodEl.textContent = '';
+          contentEl.innerHTML = SIATMA_UI.emptyState({
+            title: 'Belum ada penilaian',
+            description: 'Guru belum melakukan penilaian untuk anak Anda.'
+          });
+          Object.keys(scoreIds).forEach(function (key) {
+            document.getElementById(scoreIds[key]).textContent = '-';
+          });
+        } else {
+          var info = SIATMA.getAssessmentLabel(latest.finalScore);
+          periodEl.textContent = 'Periode ' + latest.period + ' — Dinilai oleh ' + latest.gradedBy + ' pada ' + SIATMA_UI.formatDate(latest.gradedAt, 'short');
+          contentEl.innerHTML =
+            '<div class="mt-4 rounded-2xl bg-gradient-to-br from-primary to-primary-dark p-6 text-white">' +
+            '<p class="text-sm opacity-90">Nilai Akhir (WSM)</p>' +
+            '<p class="mt-2 text-5xl font-bold">' + formatScore(latest.finalScore) + '</p>' +
+            '<p class="mt-2 inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-medium">' + escapeHtml(info.label) + '</p>' +
+            '</div>' +
+            '<p class="mt-3 text-xs text-text-muted dark:text-slate-400">Nilai Akhir = (Absensi × 0.15) + (Membaca × 0.25) + (Menulis × 0.25) + (Ujian × 0.35)</p>';
+
+          Object.keys(scoreIds).forEach(function (key) {
+            var scores = latest.scores || {};
+            document.getElementById(scoreIds[key]).textContent = formatScore(scores[key]);
+          });
+        }
+
+        var developments = SIATMA.getDevelopmentsByStudent(student.id).slice().sort(function (a, b) {
+          return String(b.tanggal).localeCompare(String(a.tanggal));
+        });
+        var timeline = document.getElementById('development-timeline');
         timeline.innerHTML = developments.length ? developments.map(function (item, index) {
-          return '<article class="relative ' + (index === developments.length - 1 ? 'pl-7' : 'pb-6 pl-7') + '"><span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white ' + ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-purple-500'][index % 4] + '"></span><div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4"><div class="flex flex-wrap items-center gap-3"><p class="font-medium">' + SIATMA_UI.formatDate(item.tanggal, 'short') + '</p><span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">' + escapeHtml(item.kategori) + '</span><span class="text-sm text-text-muted dark:text-slate-400">' + escapeHtml(item.guru || '-') + '</span></div><p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">' + escapeHtml(item.catatan) + '</p></div></article>';
+          return '<article class="relative ' + (index === developments.length - 1 ? 'pl-7' : 'pb-6 pl-7') + '">' +
+            '<span class="absolute -left-2 top-1 h-4 w-4 rounded-full border-4 border-white ' + ['bg-primary', 'bg-secondary', 'bg-accent', 'bg-purple-500'][index % 4] + '"></span>' +
+            '<div class="rounded-lg border-l-4 border-primary bg-bg dark:bg-slate-900 p-4">' +
+            '<div class="flex flex-wrap items-center gap-3">' +
+            '<p class="font-medium">' + escapeHtml(SIATMA_UI.formatDate(item.tanggal, 'short')) + '</p>' +
+            '<span class="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">' + escapeHtml(item.kategori) + '</span>' +
+            '<span class="text-sm text-text-muted dark:text-slate-400">' + escapeHtml(item.guru || '-') + '</span>' +
+            '</div>' +
+            '<p class="mt-2 text-sm leading-6 text-text-muted dark:text-slate-400">' + escapeHtml(item.catatan) + '</p>' +
+            '</div>' +
+            '</article>';
         }).join('') : SIATMA_UI.emptyState({ title: 'Belum ada catatan perkembangan', description: 'Catatan guru akan tampil di sini.' });
-        }, 300);
       })();
+      });
     </script>
           <script src="../js/network-status.js"></script>
           <script src="../js/pwa-install.js"></script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
+    <script>if('serviceWorker' in navigator){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})}</script>
   </body>
 </html>
