@@ -9,12 +9,14 @@
   };
 
   var SIATMA_DATA = {
+    // Akun contoh untuk login; role menentukan jenis akses dan studentId mengaitkan akun orang tua ke siswa.
     users: [
       { username: 'admin', password: 'admin123', nama: 'Admin Sekolah', role: 'admin' },
       { username: 'guru', password: 'guru123', nama: 'Siti Aminah', role: 'guru' },
       { username: 'orangtua', password: 'ortu123', nama: 'Siti Rahma', role: 'orangtua', studentId: 2 },
     ],
 
+    // Data siswa contoh yang dipakai sebagai data dasar aplikasi.
     students: [
       {
         id: 1,
@@ -198,6 +200,7 @@
       },
     ],
 
+    // Data guru, termasuk kelas yang diampu dan status keaktifannya.
     teachers: [
       { id: 1, nip: 'G001', nama: 'Siti Aminah', email: 'siti.aminah@almatin.sch.id', nomorHP: '081234568001', kelas: 'TK A', status: 'Aktif' },
       { id: 2, nip: 'G002', nama: 'Rina Wulandari', email: 'rina.wulandari@almatin.sch.id', nomorHP: '081234568002', kelas: 'TK B', status: 'Aktif' },
@@ -206,6 +209,7 @@
       { id: 5, nip: 'G005', nama: 'Fitri Handayani', email: 'fitri.handayani@almatin.sch.id', nomorHP: '081234568005', kelas: 'TK B Sore', status: 'Aktif' },
     ],
 
+    // Daftar kelas beserta guru, jumlah siswa, dan tahun ajarannya.
     classes: [
       { id: 1, nama: 'TK A', guru: 'Siti Aminah', jumlahSiswa: 5, tahunAjaran: '2026/2027', status: 'Aktif' },
       { id: 2, nama: 'TK B', guru: 'Rina Wulandari', jumlahSiswa: 5, tahunAjaran: '2026/2027', status: 'Aktif' },
@@ -214,6 +218,7 @@
       { id: 5, nama: 'TK B Sore', guru: 'Fitri Handayani', jumlahSiswa: 0, tahunAjaran: '2026/2027', status: 'Aktif' },
     ],
 
+    // Catatan kehadiran siswa per tanggal, termasuk status dan keterangan.
     attendance: [
       { id: 1, studentId: 1, tanggal: '2026-09-20', status: 'Hadir', catatan: '' },
       { id: 2, studentId: 1, tanggal: '2026-09-21', status: 'Hadir', catatan: '' },
@@ -242,6 +247,7 @@
       { id: 25, studentId: 5, tanggal: '2026-09-24', status: 'Hadir', catatan: '' },
     ],
 
+    // Pengumuman sekolah, lengkap dengan sasaran penerima dan status publikasinya.
     announcements: [
       { id: 1, judul: 'Kegiatan Maulid Nabi', isi: 'Kegiatan Maulid Nabi akan dilaksanakan di aula sekolah dengan melibatkan seluruh siswa dan guru.', tanggal: '2026-09-22', target: 'Semua Orang Tua', status: 'Aktif', author: 'Admin Sekolah' },
       { id: 2, judul: 'Outing Class TK A', isi: 'Siswa TK A akan mengikuti kegiatan belajar di luar kelas. Informasi perlengkapan akan dibagikan melalui wali kelas.', tanggal: '2026-09-21', target: 'TK A', status: 'Aktif', author: 'Siti Aminah' },
@@ -250,6 +256,7 @@
       { id: 5, judul: 'Pembagian Rapor', isi: 'Jadwal pembagian rapor semester ganjil sedang disiapkan oleh pihak sekolah.', tanggal: '2026-09-18', target: 'Semua', status: 'Draft', author: 'Admin Sekolah' },
     ],
 
+    // Catatan perkembangan siswa per kategori yang diisi oleh guru.
     developments: [
       { id: 1, studentId: 1, tanggal: '2026-09-20', kategori: 'Bahasa', catatan: 'Mampu menceritakan pengalaman sederhana dengan kalimat yang semakin runtut.', guru: 'Siti Aminah' },
       { id: 2, studentId: 1, tanggal: '2026-09-21', kategori: 'Kemandirian', catatan: 'Mulai terbiasa menyimpan tas dan perlengkapan belajar di tempatnya.', guru: 'Siti Aminah' },
@@ -261,6 +268,7 @@
       { id: 8, studentId: 4, tanggal: '2026-09-24', kategori: 'Kemandirian', catatan: 'Mampu mencuci tangan dan merapikan meja setelah kegiatan tanpa diingatkan.', guru: 'Siti Aminah' },
     ],
 
+    // Hasil penilaian siswa per periode, termasuk rincian nilai dan nilai akhir.
     assessments: [
       {
         id: 1,
@@ -276,6 +284,7 @@
 
   function readStoredArray(key) {
     try {
+      // Data lokal harus berupa array JSON; try/catch menjaga data rusak atau storage yang gagal dibaca tidak menghentikan aplikasi.
       var value = JSON.parse(window.localStorage.getItem(key) || '[]');
       if (!Array.isArray(value)) throw new TypeError('Expected an array in ' + key);
       return value;
@@ -286,6 +295,7 @@
   }
 
   function mergeStoredRecords(target, records, match) {
+    // Cari data yang cocok agar record tersimpan memperbarui data dasar, bukan membuat duplikat; Object.assign mempertahankan field yang tidak dioverride.
     records.forEach(function (record) {
       var index = target.findIndex(function (item) { return match(item, record); });
       if (index >= 0) target[index] = Object.assign({}, target[index], record);
@@ -301,6 +311,7 @@
   mergeStoredRecords(SIATMA_DATA.students, readStoredArray('siatma_students_extra'), function (item, record) {
     return item.id === record.id || item.nis === record.nis;
   });
+  // Override status siswa dan guru dari localStorage diterapkan setelah data dasar supaya perubahan terakhir tidak tertimpa data contoh.
   readStoredArray('siatma_students_override').forEach(function (override) {
     var student = SIATMA_DATA.students.find(function (item) { return item.id === Number(override.id); });
     if (student) student.status = override.status;
@@ -397,6 +408,7 @@
       var m = Number(scores.membaca) || 0;
       var t = Number(scores.menulis) || 0;
       var u = Number(scores.ujian) || 0;
+      // WSM = absensi*0.15 + membaca*0.25 + menulis*0.25 + ujian*0.35; toFixed(2) membatasi hasil ke dua desimal.
       return Number(((a * w.absensi) + (m * w.membaca) + (t * w.menulis) + (u * w.ujian)).toFixed(2));
     },
 
@@ -417,6 +429,7 @@
     },
 
     getAssessmentLabel: function (finalScore) {
+      // Ambang nilai: 85 ke atas Sangat Baik, 70-84 Baik, 55-69 Cukup, dan di bawah 55 Perlu Perhatian.
       if (finalScore >= 85) return { label: 'Sangat Baik', tone: 'green' };
       if (finalScore >= 70) return { label: 'Baik', tone: 'blue' };
       if (finalScore >= 55) return { label: 'Cukup', tone: 'yellow' };
