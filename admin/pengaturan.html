@@ -380,12 +380,6 @@ const tabs = document.querySelectorAll(".settings-tab");
           SIATMA_TOAST.error('Semua kolom password wajib diisi');
           return;
         }
-        const currentUser = SIATMA_AUTH.getCurrentUser();
-        const account = SIATMA_DATA.users.find((user) => currentUser && user.username === currentUser.username);
-        if (!account || account.password !== oldPassword) {
-          SIATMA_TOAST.error('Password lama tidak sesuai');
-          return;
-        }
         if (newPassword.length < 6) {
           SIATMA_TOAST.error('Password baru minimal 6 karakter');
           return;
@@ -394,10 +388,14 @@ const tabs = document.querySelectorAll(".settings-tab");
           SIATMA_TOAST.error('Konfirmasi password baru tidak cocok');
           return;
         }
-        const oldAccountPassword = account.password;
-        account.password = newPassword;
-        if (!saveUserOverrides()) {
-          account.password = oldAccountPassword;
+        const currentUser = SIATMA_AUTH.getCurrentUser();
+        if (!currentUser) {
+          SIATMA_TOAST.error('Akun yang sedang digunakan tidak ditemukan');
+          return;
+        }
+        const result = SIATMA.changeOwnPassword(currentUser.username, oldPassword, newPassword);
+        if (!result.success) {
+          SIATMA_TOAST.error(result.message);
           return;
         }
         SIATMA_TOAST.success('Password berhasil diubah');

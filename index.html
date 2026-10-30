@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <!-- Head menyiapkan metadata, aset, dan tema; mode gelap dipasang awal supaya halaman nggak flash putih sebelum styling siap. -->
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#2563EB" />
+    <!-- Terapkan tema yang tersimpan sebelum halaman tampil; akses storage bisa gagal di browser tertentu. -->
     <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
     <style>
       html.dark { background-color: #0f172a; color: #e2e8f0; }
@@ -28,6 +30,7 @@
     />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Atur Tailwind pakai class untuk mode gelap dan tambahkan warna serta font khas SIATMA. -->
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -91,6 +94,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
 
    <body class="min-h-screen bg-bg dark:bg-slate-900 font-Inter text-text dark:text-slate-100 antialiased">
     <main class="flex min-h-screen">
+      <!-- Layout utama membagi halaman jadi panel informasi sekolah dan area form login. -->
       <section
         class="relative hidden w-1/2 overflow-hidden bg-primary px-12 py-12 text-white md:flex md:flex-col md:justify-between lg:px-20"
         aria-label="Informasi TK Al-Matin"
@@ -280,6 +284,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     </main>
 
     <script>
+      // Script halaman menangani toggle password dan notifikasi tautan bantuan; submit login diproses oleh js/auth.js.
       const passwordInput = document.getElementById("password");
       const togglePassword = document.getElementById("togglePassword");
       const eyeIcon = document.getElementById("eyeIcon");
@@ -305,6 +310,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
         if (window.SIATMA_TOAST) window.SIATMA_TOAST.info("Hubungi admin sekolah untuk mendapatkan bantuan akun.");
       });
     </script>
+    <!-- Lokasi service worker menyesuaikan halaman agar file yang sama bisa dipakai dari folder role maupun root. -->
     <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){var workerPath=/\/(?:admin|guru|orangtua)\//.test(location.pathname)?'../service-worker.js':'service-worker.js';navigator.serviceWorker.register(workerPath).catch(function(error){console.error('Service worker registration failed:',error)})})}</script>
   </body>
 </html>

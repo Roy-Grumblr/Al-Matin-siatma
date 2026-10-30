@@ -1,6 +1,7 @@
 (function (window) {
   'use strict';
 
+  // Kunci sesi di storage browser dan tujuan dashboard tiap role.
   var STORAGE_KEY = 'siatma_user';
   var REDIRECT_PATHS = {
     admin: 'admin/dashboard.html',
@@ -14,6 +15,7 @@
 
   function getPagePrefix() {
     var path = window.location.pathname.replace(/\\/g, '/');
+    // Halaman role berada satu folder di bawah root, jadi butuh ../ saat mengarah balik ke login atau dashboard.
     return /\/(admin|guru|orangtua)\//.test(path) ? '../' : '';
   }
 
@@ -33,12 +35,14 @@
       return { success: false, message: 'Username atau password salah' };
     }
 
+    // Jangan simpan password di storage sesi; halaman lain hanya perlu identitas dan role user.
     var storedUser = Object.assign({}, user);
     delete storedUser.password;
     try {
       if (remember) {
         window.sessionStorage.removeItem(STORAGE_KEY);
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedUser));
+        // Pastikan sesi benar-benar tersimpan, karena localStorage bisa gagal tanpa hasil yang bisa dipakai.
         var verify = window.localStorage.getItem(STORAGE_KEY);
         if (!verify) {
           return { success: false, message: 'Gagal menyimpan sesi login.' };
@@ -83,11 +87,13 @@
   }
 
   function requireAuth(role) {
+    // Alurnya: ambil user, cek halaman login dan role, lalu izinkan akses atau arahkan ke halaman yang sesuai.
     var user = getCurrentUser();
     var currentPath = window.location.pathname;
     var isLoginPage = /\/index\.html$/.test(currentPath) || /\/$/.test(currentPath);
 
     if (!user) {
+      // Di halaman login jangan redirect lagi agar pemeriksaan ini tidak membuat redirect loop.
       if (!isLoginPage) {
         window.location.href = getPagePrefix() + 'index.html';
       }
@@ -133,6 +139,7 @@
     }
     var username = form.elements.username.value.trim();
     var password = form.elements.password.value;
+    // Cek panjang minimum di sisi form sebelum mencocokkan akun agar input kosong atau terlalu pendek ditolak.
     if (!username || username.length < 3) {
       showLoginError('Username minimal 3 karakter');
       return;

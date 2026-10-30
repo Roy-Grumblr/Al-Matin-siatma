@@ -350,6 +350,12 @@
   mergeStoredRecords(SIATMA_DATA.assessments, readStoredArray('siatma_assessments_extra'), function (item, record) {
     return item.id === record.id;
   });
+  mergeStoredRecords(SIATMA_DATA.users, readStoredArray('siatma_users_extra'), function (item, record) {
+    return item.username === record.username;
+  });
+  mergeStoredRecords(SIATMA_DATA.users, readStoredArray('siatma_users_override'), function (item, record) {
+    return item.username === record.username;
+  });
 
   var SIATMA = {
     getStudentById: function (id) {
@@ -426,6 +432,101 @@
       return list.slice().sort(function (a, b) {
         return String(b.gradedAt).localeCompare(String(a.gradedAt));
       })[0];
+    },
+
+    generateUserId: function () {
+      var users = SIATMA_DATA.users;
+      var maxId = users.reduce(function (max, user) {
+        return Math.max(max, user.id || 0);
+      }, 0);
+      return maxId + 1;
+    },
+
+    createUser: function (data) {
+      var existing = SIATMA_DATA.users.find(function (user) {
+        return user.username === data.username;
+      });
+      if (existing) return { success: false, message: 'Username sudah digunakan.' };
+      if (!data.password || data.password.length < 6) {
+        return { success: false, message: 'Password minimal 6 karakter.' };
+      }
+      if (['admin', 'guru', 'orangtua'].indexOf(data.role) === -1) {
+        return { success: false, message: 'Role tidak valid.' };
+      }
+
+      var newUser = {
+        id: this.generateUserId(),
+        username: data.username,
+        password: data.password,
+        nama: data.nama,
+        role: data.role,
+        studentId: data.studentId || undefined
+      };
+      SIATMA_DATA.users.push(newUser);
+
+      try {
+        var extra = JSON.parse(window.localStorage.getItem('siatma_users_extra') || '[]');
+        extra.push(newUser);
+        window.localStorage.setItem('siatma_users_extra', JSON.stringify(extra));
+      } catch (e) {}
+
+      return { success: true, user: newUser };
+    },
+
+    resetUserPassword: function (username, newPassword) {
+      var user = SIATMA_DATA.users.find(function (item) {
+        return item.username === username;
+      });
+      if (!user) return { success: false, message: 'Pengguna tidak ditemukan.' };
+      if (!newPassword || newPassword.length < 6) {
+        return { success: false, message: 'Password minimal 6 karakter.' };
+      }
+
+      user.password = newPassword;
+      try {
+        var overrides = JSON.parse(window.localStorage.getItem('siatma_users_override') || '[]');
+        var index = overrides.findIndex(function (item) {
+          return item.username === username;
+        });
+        var override = { username: username, password: newPassword };
+        if (index >= 0) overrides[index] = Object.assign({}, overrides[index], override);
+        else overrides.push(override);
+        window.localStorage.setItem('siatma_users_override', JSON.stringify(overrides));
+      } catch (e) {}
+
+      return { success: true };
+    },
+
+    changeOwnPassword: function (username, oldPassword, newPassword) {
+      var user = SIATMA_DATA.users.find(function (item) {
+        return item.username === username;
+      });
+      if (!user || user.password !== oldPassword) {
+        return { success: false, message: 'Password lama tidak sesuai.' };
+      }
+      if (!newPassword || newPassword.length < 6) {
+        return { success: false, message: 'Password minimal 6 karakter.' };
+      }
+
+      user.password = newPassword;
+      try {
+        var overrides = JSON.parse(window.localStorage.getItem('siatma_users_override') || '[]');
+        var index = overrides.findIndex(function (item) {
+          return item.username === username;
+        });
+        var override = { username: username, password: newPassword };
+        if (index >= 0) overrides[index] = Object.assign({}, overrides[index], override);
+        else overrides.push(override);
+        window.localStorage.setItem('siatma_users_override', JSON.stringify(overrides));
+      } catch (e) {}
+
+      return { success: true };
+    },
+
+    getUsersByRole: function (role) {
+      return SIATMA_DATA.users.filter(function (user) {
+        return user.role === role;
+      });
     },
 
     getAssessmentLabel: function (finalScore) {

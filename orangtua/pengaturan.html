@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <script>try{if(localStorage.getItem('siatma_theme')==='dark')document.documentElement.classList.add('dark')}catch(error){console.error('Gagal memuat preferensi tema',error)}</script>
+    <style>
+      html.dark { background-color: #0f172a; color: #e2e8f0; }
+      html.dark body { background-color: #0f172a; }
+      html.dark input:not([type=radio]):not([type=checkbox]) { background-color: #1e293b; color: #f1f5f9; border-color: #475569; }
+    </style>
+    <link rel="icon" type="image/png" href="../assets/logo-tk.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan | SIATMA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "dark-surface": "#1E293B",
+              "dark-bg": "#0F172A",
+              "dark-border": "#334155",
+              "dark-text": "#F1F5F9",
+              primary: "#2563EB",
+              "primary-dark": "#1E40AF",
+              secondary: "#10B981",
+              accent: "#F59E0B",
+              bg: "#F8FAFC",
+              card: "#FFFFFF",
+              text: "#1E293B",
+              "text-muted": "#64748B",
+            },
+            fontFamily: { Inter: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    <style>main{animation:fadeIn .3s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+  </head>
+  <body class="min-h-screen bg-bg font-Inter text-text antialiased dark:bg-slate-900 dark:text-slate-100">
+    <div id="sidebar"></div>
+    <div class="ml-64">
+      <div id="header"></div>
+      <main class="min-h-screen bg-bg p-6 dark:bg-slate-900">
+        <div class="mb-6">
+          <h1 class="text-2xl font-bold">Pengaturan</h1>
+          <p class="mt-1 text-sm text-text-muted dark:text-slate-400">Home / Pengaturan</p>
+        </div>
+        <nav class="mb-6 flex gap-6 border-b border-slate-200 dark:border-slate-700" aria-label="Tab pengaturan">
+          <button type="button" data-tab="profil" class="settings-tab border-b-2 border-primary px-1 pb-3 text-sm font-medium text-primary" aria-selected="true">Profil</button>
+          <button type="button" data-tab="password" class="settings-tab px-1 pb-3 text-sm text-text-muted transition hover:text-primary dark:text-slate-400" aria-selected="false">Password</button>
+        </nav>
+
+        <section id="tab-profil" class="settings-panel rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800">
+          <h2 class="mb-5 text-lg font-semibold">Profil Orang Tua</h2>
+          <div class="max-w-xl space-y-4">
+            <div>
+              <label for="profile-name" class="mb-1.5 block text-sm font-medium">Nama Lengkap</label>
+              <input id="profile-name" type="text" required class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <div>
+              <label for="profile-email" class="mb-1.5 block text-sm font-medium">Email</label>
+              <input id="profile-email" type="email" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <div>
+              <label for="profile-phone" class="mb-1.5 block text-sm font-medium">Nomor HP</label>
+              <input id="profile-phone" type="tel" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <button id="save-profile" type="button" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Simpan Perubahan</button>
+          </div>
+        </section>
+
+        <section id="tab-password" class="settings-panel hidden rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800">
+          <h2 class="mb-5 text-lg font-semibold">Ubah Password</h2>
+          <form id="password-form" class="max-w-xl space-y-4">
+            <div>
+              <label for="old-password" class="mb-1.5 block text-sm font-medium">Password Lama</label>
+              <input id="old-password" type="password" required class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <div>
+              <label for="new-password" class="mb-1.5 block text-sm font-medium">Password Baru</label>
+              <input id="new-password" type="password" required minlength="6" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <div>
+              <label for="confirm-password" class="mb-1.5 block text-sm font-medium">Konfirmasi Password Baru</label>
+              <input id="confirm-password" type="password" required minlength="6" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700" />
+            </div>
+            <button type="submit" class="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">Ubah Password</button>
+          </form>
+        </section>
+
+        <footer class="mt-8 border-t border-slate-200 pt-4 pb-2 dark:border-slate-700">
+          <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
+            <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
+            <span>×</span>
+            <img src="../assets/logo-unpam.png" alt="Universitas Pamulang" class="h-6 w-auto" />
+            <span class="text-text-muted dark:text-slate-500">|</span>
+            <span>© 2026 SIATMA - Kerja Praktik Universitas Pamulang</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/ui-helpers.js"></script>
+    <script src="../js/layout.js"></script>
+    <script>
+      (function (callback) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback);
+        else callback();
+      })(function () {
+        var tabs = document.querySelectorAll('.settings-tab');
+        var panels = document.querySelectorAll('.settings-panel');
+        var currentUser = SIATMA_AUTH.getCurrentUser();
+        if (!currentUser || currentUser.role !== 'orangtua') {
+          window.location.href = '../index.html';
+          return;
+        }
+
+        var account = SIATMA_DATA.users.find(function (user) {
+          return user.username === currentUser.username;
+        });
+        if (!account) {
+          SIATMA_TOAST.error('Akun yang sedang digunakan tidak ditemukan');
+          return;
+        }
+
+        var profileName = document.getElementById('profile-name');
+        var profileEmail = document.getElementById('profile-email');
+        var profilePhone = document.getElementById('profile-phone');
+        profileName.value = account.nama || '';
+        profileEmail.value = account.email || '';
+        profilePhone.value = account.nomorHP || '';
+
+        tabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            var selectedTab = tab.dataset.tab;
+            tabs.forEach(function (item) {
+              var isActive = item === tab;
+              item.classList.toggle('border-b-2', isActive);
+              item.classList.toggle('border-primary', isActive);
+              item.classList.toggle('font-medium', isActive);
+              item.classList.toggle('text-primary', isActive);
+              item.classList.toggle('text-text-muted', !isActive);
+              item.classList.toggle('dark:text-slate-400', !isActive);
+              item.setAttribute('aria-selected', String(isActive));
+            });
+            panels.forEach(function (panel) {
+              panel.classList.toggle('hidden', panel.id !== 'tab-' + selectedTab);
+            });
+          });
+        });
+
+        document.getElementById('save-profile').addEventListener('click', function () {
+          var nama = profileName.value.trim();
+          var email = profileEmail.value.trim();
+          var nomorHP = profilePhone.value.trim();
+          if (!nama) {
+            SIATMA_TOAST.error('Nama lengkap wajib diisi');
+            return;
+          }
+
+          var overrides;
+          try {
+            overrides = JSON.parse(window.localStorage.getItem('siatma_users_override') || '[]');
+            if (!Array.isArray(overrides)) throw new TypeError('Format data akun tidak valid');
+            var index = overrides.findIndex(function (item) { return item.username === account.username; });
+            var override = { username: account.username, role: account.role, nama: nama, email: email, nomorHP: nomorHP };
+            if (index >= 0) overrides[index] = Object.assign({}, overrides[index], override);
+            else overrides.push(override);
+            window.localStorage.setItem('siatma_users_override', JSON.stringify(overrides));
+          } catch (error) {
+            SIATMA_TOAST.error('Gagal menyimpan profil: ' + error.message);
+            return;
+          }
+
+          account.nama = nama;
+          account.email = email;
+          account.nomorHP = nomorHP;
+          currentUser.nama = nama;
+          currentUser.email = email;
+          try {
+            var storage = window.localStorage.getItem('siatma_user') ? window.localStorage : window.sessionStorage;
+            storage.setItem('siatma_user', JSON.stringify(currentUser));
+          } catch (error) {
+            SIATMA_TOAST.error('Profil tersimpan, tetapi sesi tidak dapat diperbarui: ' + error.message);
+            return;
+          }
+          SIATMA_TOAST.success('Profil berhasil diperbarui');
+        });
+
+        document.getElementById('password-form').addEventListener('submit', function (event) {
+          event.preventDefault();
+          var oldPassword = document.getElementById('old-password').value;
+          var newPassword = document.getElementById('new-password').value;
+          var confirmation = document.getElementById('confirm-password').value;
+          if (!oldPassword || !newPassword || !confirmation) {
+            SIATMA_TOAST.error('Semua kolom password wajib diisi');
+            return;
+          }
+          if (newPassword.length < 6) {
+            SIATMA_TOAST.error('Password baru minimal 6 karakter');
+            return;
+          }
+          if (newPassword !== confirmation) {
+            SIATMA_TOAST.error('Konfirmasi password baru tidak cocok');
+            return;
+          }
+          var result = SIATMA.changeOwnPassword(currentUser.username, oldPassword, newPassword);
+          if (!result.success) {
+            SIATMA_TOAST.error(result.message);
+            return;
+          }
+          SIATMA_TOAST.success('Password berhasil diubah');
+          event.currentTarget.reset();
+        });
+      });
+    </script>
+    <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('../service-worker.js').catch(function(error){console.error('Service worker registration failed:',error)})}</script>
+  </body>
+</html>

@@ -2,6 +2,7 @@
   'use strict';
 
   // === EMPTY STATE ===
+  // Dipakai saat daftar kosong supaya pengguna tahu belum ada data, bukan melihat area kosong.
   function renderEmptyState(options) {
     var opts = options || {};
     var title = opts.title || 'Belum ada data';
@@ -16,6 +17,7 @@
   }
 
   // === LOADING STATE ===
+  // Spinner SVG memberi tanda proses sedang berjalan tanpa bergantung pada gambar eksternal.
   function renderLoadingState(message) {
     var msg = message || 'Memuat data...';
     return '<div class="flex flex-col items-center justify-center px-6 py-12 text-center">' +
@@ -24,6 +26,7 @@
       '</div>';
   }
 
+  // Efek pulse bikin bentuk tabel sementara terlihat aktif selama data tabel belum siap.
   function renderSkeletonTable(rows, cols) {
     rows = rows || 5;
     cols = cols || 5;
@@ -40,6 +43,7 @@
   }
 
   // === CONFIRM DIALOG ===
+  // Pakai dialog bawaan browser agar konfirmasi tetap sederhana dan berfungsi tanpa komponen modal tambahan.
   function confirmAction(message, onConfirm, onCancel) {
     var msg = message || 'Yakin ingin melanjutkan?';
     if (window.confirm(msg)) {
@@ -50,6 +54,7 @@
   }
 
   // === FORMAT DATE ===
+  // Format 'short' memakai nama bulan singkat, 'day' hanya nama hari, dan default menampilkan tanggal lengkap.
   function formatDate(dateStr, format) {
     if (!dateStr) return '-';
     var d = new Date(dateStr);

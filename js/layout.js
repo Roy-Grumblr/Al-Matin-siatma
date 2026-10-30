@@ -4,6 +4,7 @@
   var LOGOUT_ICON =
     '<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>';
 
+  // Kumpulan ikon berdasarkan nama kunci; menu tinggal memilih ikon yang cocok.
   var MENU_ICONS = {
     dashboard:
       '<svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75h6.5v6.5h-6.5v-6.5Zm10 0h6.5v6.5h-6.5v-6.5Zm-10 10h6.5v6.5h-6.5v-6.5Zm10 0h6.5v6.5h-6.5v-6.5Z"/></svg>',
@@ -29,6 +30,7 @@
       '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9a6 6 0 0 0-12 0v.75a8.967 8.967 0 0 1-2.312 6.022 23.848 23.848 0 0 0 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/></svg>',
   };
 
+  // Susunan link dipisah per role supaya tiap sidebar hanya menampilkan fitur yang sesuai aksesnya.
   var MENUS = {
     admin: [
       { key: 'dashboard', label: 'Dashboard', href: 'dashboard.html', icon: 'dashboard' },
@@ -40,6 +42,7 @@
       { key: 'perkembangan-siswa', label: 'Perkembangan Siswa', href: 'perkembangan.html', icon: 'development' },
       { key: 'laporan', label: 'Laporan', href: 'laporan.html', icon: 'report' },
       { key: 'pengaturan', label: 'Pengaturan', href: 'pengaturan.html', icon: 'settings' },
+      { key: 'manajemen-akun', label: 'Manajemen Akun', href: 'manajemen-akun.html', icon: 'settings' },
     ],
     guru: [
       { key: 'dashboard', label: 'Dashboard', href: 'dashboard.html', icon: 'dashboard' },
@@ -54,6 +57,7 @@
       { key: 'riwayat-absensi', label: 'Riwayat Absensi', href: 'riwayat-absensi.html', icon: 'attendance' },
       { key: 'pengumuman', label: 'Pengumuman', href: 'pengumuman.html', icon: 'announcements' },
       { key: 'perkembangan-anak', label: 'Perkembangan Anak', href: 'perkembangan.html', icon: 'development' },
+      { key: 'pengaturan', label: 'Pengaturan', href: 'pengaturan.html', icon: 'settings' },
     ],
   };
 
@@ -75,6 +79,7 @@
       ? window.SIATMA_AUTH.getCurrentUser()
       : null;
     var menu = getRoleMenu(role);
+    // Aset ada di root sehingga halaman dalam folder role perlu ../; link menu sengaja relatif ke folder role yang sama.
     var assetPrefix = /\/(admin|guru|orangtua)\//.test(window.location.pathname) ? '../' : '';
     var displayName = user && user.nama ? user.nama : 'Pengguna';
     var roleLabel = role === 'orangtua' ? 'Orang Tua' : role === 'guru' ? 'Guru' : 'Administrator';
@@ -128,6 +133,7 @@
     var displayName = user && user.nama ? user.nama : 'Pengguna';
     var initial = displayName.charAt(0).toUpperCase();
     var announcements = window.SIATMA_DATA && window.SIATMA_DATA.announcements;
+    // Badge menghitung pengumuman aktif saja; kalau datanya belum tersedia, jumlahnya dibuat 0.
     var notificationCount = Array.isArray(announcements)
       ? announcements.filter(function (announcement) { return announcement.status === 'Aktif'; }).length
       : 0;
@@ -155,6 +161,7 @@
   function formatDisplayedDates() {
     if (!window.SIATMA_UI || !window.SIATMA_UI.formatDate) return;
 
+    // Walker mengubah teks tanggal di seluruh halaman tanpa menyentuh markup; regex mengenali format Indonesia dan ISO.
     var monthNumbers = {
       januari: 1, jan: 1, februari: 2, feb: 2, maret: 3, mar: 3,
       april: 4, apr: 4, mei: 5, juni: 6, jun: 6, juli: 7, jul: 7,
@@ -199,6 +206,7 @@
   }
 
   function initLayout(options) {
+    // Render sidebar dan header dulu, rapikan margin setelahnya, pasang event, lalu cek autentikasi sebelum halaman dipakai.
     var config = options || {};
     var role = config.role;
     var sidebar = document.getElementById('sidebar') || document.querySelector('aside');
@@ -227,6 +235,7 @@
     var sidebarElement = document.getElementById('sidebar');
     var sidebarToggle = document.getElementById('sidebarToggle');
     var sidebarOverlay = document.getElementById('sidebarOverlay');
+    // Satu fungsi penutup dipakai tombol dan overlay agar posisi sidebar serta status aksesibilitas selalu sinkron.
     function closeSidebar() {
       if (sidebarElement) {
         sidebarElement.classList.remove('translate-x-0');
@@ -373,6 +382,7 @@
   (function autoInit() {
     function detectRoleFromPath() {
       var path = window.location.pathname;
+      // Role diambil dari folder halaman agar konfigurasi manual per halaman tidak perlu dipelihara.
       if (/\/admin\//.test(path)) return 'admin';
       if (/\/guru\//.test(path)) return 'guru';
       if (/\/orangtua\//.test(path)) return 'orangtua';
@@ -399,6 +409,7 @@
         perkembangan: role === 'orangtua' ? 'perkembangan-anak' : 'perkembangan-siswa',
         laporan: 'laporan',
         pengaturan: 'pengaturan',
+        'manajemen-akun': 'manajemen-akun',
         'profil-anak': 'profil-anak',
         'riwayat-absensi': 'riwayat-absensi'
       };
@@ -423,6 +434,7 @@
       }
     }
 
+    // Tunggu DOM selesai kalau script jalan terlalu awal; kalau sudah siap, inisialisasi langsung.
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initialize);
     } else {

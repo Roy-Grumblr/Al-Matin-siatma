@@ -2,7 +2,7 @@
 
 **SIATMA adalah aplikasi web multi-role untuk membantu sekolah mengelola data siswa dan guru, absensi, perkembangan anak, pengumuman, serta laporan dalam satu antarmuka yang responsif.**
 
-> Jelajahi demo: **[siatma.vercel.app](https://siatma.vercel.app/)**
+> Jelajahi demo: **[https://siatma-final.vercel.app/](https://siatma.vercel.app/)**
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)

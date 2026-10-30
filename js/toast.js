@@ -2,6 +2,7 @@
   'use strict';
 
   function createToastContainer() {
+    // Pakai container yang sudah ada supaya pemanggilan toast berulang tidak menumpuk wadah baru.
     var container = document.getElementById('toast-container');
     if (!container) {
       container = document.createElement('div');
@@ -18,6 +19,7 @@
 
     var container = createToastContainer();
 
+    // Tiap tipe punya warna dan ikon sendiri: success, error, info, atau warning.
     var toneClasses = {
       success: 'bg-green-50 border-green-200 text-green-800',
       error: 'bg-red-50 border-red-200 text-red-800',
@@ -39,10 +41,12 @@
 
     container.appendChild(toast);
 
+    // Tunggu satu frame setelah elemen masuk DOM agar browser sempat menerapkan kondisi awal sebelum animasi berjalan.
     requestAnimationFrame(function () {
       toast.classList.remove('opacity-0', 'translate-x-full');
     });
 
+    // Setelah tampil selama duration, toast dianimasikan keluar lalu dihapus 300ms kemudian.
     setTimeout(function () {
       toast.classList.add('opacity-0', 'translate-x-full');
       setTimeout(function () {
@@ -51,6 +55,7 @@
     }, duration);
   }
 
+  // API publik: show menerima tipe dan durasi kustom; shortcut success/error/info/warning memakai tipe masing-masing.
   window.SIATMA_TOAST = {
     show: show,
     success: function (msg) { show(msg, 'success'); },
