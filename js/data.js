@@ -357,6 +357,147 @@
     return item.username === record.username;
   });
 
+  function getParentStudent(userId) {
+    if (userId == null || userId === '') return null;
+    var parent = SIATMA_DATA.users.find(function (user) {
+      return user.role === 'orangtua' &&
+        ((user.id != null && String(user.id) === String(userId)) ||
+          (user.username && String(user.username) === String(userId)));
+    });
+    if (!parent && Array.isArray(SIATMA_DATA.parents)) {
+      parent = SIATMA_DATA.parents.find(function (item) {
+        return (item.id != null && String(item.id) === String(userId)) ||
+          (item.userId != null && String(item.userId) === String(userId)) ||
+          (item.username && String(item.username) === String(userId));
+      });
+    }
+    if (!parent) return null;
+    return SIATMA_DATA.students.find(function (student) {
+      return String(student.id) === String(parent.studentId || parent.anakId);
+    }) || null;
+  }
+
+  function getClassName(classId) {
+    var kelas = SIATMA_DATA.classes.find(function (item) {
+      return String(item.id) === String(classId) || item.nama === classId;
+    });
+    return kelas ? kelas.nama : String(classId == null ? '' : classId);
+  }
+
+  function validateParentAccess(userId, requestedClassId) {
+    var student = getParentStudent(userId);
+    if (!student) return false;
+    return requestedClassId == null || requestedClassId === '' ||
+      student.kelas === getClassName(requestedClassId);
+  }
+
+  function getAcademicYear(value) {
+    var match = String(value == null ? '' : value).match(/^(20\d{2})\/(\d{2,4})$|^(20\d{2})-(20\d{2})$/);
+    if (match) {
+      var startYear = Number(match[1] || match[3]);
+      var end = match[2] || match[4];
+      var endYear = Number(end.length === 2 ? '20' + end : end);
+      return startYear + '/' + endYear;
+    }
+    var yearMatch = String(value == null ? '' : value).match(/20\d{2}/);
+    if (!yearMatch) return '';
+    var year = Number(yearMatch[0]);
+    var monthMatch = String(value).match(/20\d{2}[-/](\d{1,2})/);
+    if (monthMatch && Number(monthMatch[1]) < 7) year -= 1;
+    return year + '/' + (year + 1);
+  }
+
+  function getSemester(value) {
+    var text = String(value == null ? '' : value).toLowerCase();
+    if (text.indexOf('ganjil') !== -1) return 'ganjil';
+    if (text.indexOf('genap') !== -1) return 'genap';
+    var semesterNumber = text.match(/^(?:semester\s*)?([12])$/);
+    if (semesterNumber) return semesterNumber[1] === '1' ? 'ganjil' : 'genap';
+    var monthMatch = text.match(/20\d{2}[-/](\d{1,2})/);
+    if (monthMatch) return Number(monthMatch[1]) >= 7 ? 'ganjil' : 'genap';
+    return '';
+  }
+
+  function recordMatchesPeriod(record, student, period, targetYear, targetSemester) {
+    var academicYear = record.tahunAjaran || getAcademicYear(record.period || record.tanggal) || student.tahunAjaran;
+    if (academicYear && academicYear !== targetYear) return false;
+    if (period === 'semester') {
+      var semester = getSemester(record.semester || record.period || record.tanggal);
+      if (!semester) semester = targetSemester;
+      if (semester !== targetSemester) return false;
+    }
+    return true;
+  }
+
+  // Hitung skor kategori hanya dari rekaman tahun ajaran aktif dan, untuk semester, semester yang sedang berjalan.
+  function getRankingData(role, userId, classId, period, category) {
+    if (['admin', 'guru', 'orangtua'].indexOf(role) === -1 ||
+        ['semester', 'tahunan'].indexOf(period) === -1 ||
+        ['kehadiran', 'membaca', 'menulis', 'ujian'].indexOf(category) === -1) return [];
+
+    var parentStudent = null;
+    if (role === 'orangtua') {
+      if (!validateParentAccess(userId, classId)) return [];
+      parentStudent = getParentStudent(userId);
+      classId = null;
+    }
+
+    var now = new Date();
+    var currentAcademicYear = getAcademicYear(now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0'));
+    var currentSemester = now.getMonth() >= 6 ? 'ganjil' : 'genap';
+    var className = classId == null || classId === '' ? '' : getClassName(classId);
+    var students = SIATMA_DATA.students.filter(function (student) {
+      if (parentStudent && String(student.id) !== String(parentStudent.id)) return false;
+      if (className && student.kelas !== className) return false;
+      if (student.tahunAjaran && student.tahunAjaran !== currentAcademicYear) return false;
+      return true;
+    });
+    var rankings = students.map(function (student) {
+      var value;
+      if (category === 'kehadiran') {
+        var attendance = SIATMA_DATA.attendance.filter(function (record) {
+          var status = String(record.status || '').toLowerCase();
+          return String(record.studentId) === String(student.id) &&
+            ['hadir', 'sakit', 'izin', 'alpa'].indexOf(status) !== -1 &&
+            recordMatchesPeriod(record, student, period, currentAcademicYear, currentSemester);
+        });
+        if (!attendance.length) return null;
+        var hadir = attendance.filter(function (record) {
+          return String(record.status || '').toLowerCase() === 'hadir';
+        }).length;
+        // Siswa tanpa satu pun catatan absensi tidak diberi nilai agar tidak terjadi pembagian dengan nol.
+        value = (hadir / attendance.length) * 100;
+      } else {
+        var scoreValues = [];
+        SIATMA_DATA.assessments.forEach(function (assessment) {
+          if (String(assessment.studentId) !== String(student.id) ||
+              !recordMatchesPeriod(assessment, student, period, currentAcademicYear, currentSemester)) return;
+          var rawScore = assessment.scores && assessment.scores[category];
+          var score = Number(rawScore);
+          if (rawScore !== '' && rawScore != null && Number.isFinite(score)) {
+            scoreValues.push(score);
+          }
+        });
+        if (!scoreValues.length) return null;
+        value = scoreValues.reduce(function (total, score) { return total + score; }, 0) / scoreValues.length;
+      }
+      return {
+        nama: student.nama || '',
+        kelas: student.kelas || '',
+        nilai: Number(value.toFixed(2)),
+        periode: period === 'semester' ? 'Semester ' + (currentSemester === 'ganjil' ? 'Ganjil' : 'Genap') + ' ' + currentAcademicYear : 'Tahunan ' + currentAcademicYear
+      };
+    }).filter(Boolean);
+
+    // Jika skor setara, nama A-Z menjadi pemecah seri yang stabil dan mudah dipahami.
+    rankings.sort(function (a, b) {
+      return b.nilai - a.nilai || a.nama.localeCompare(b.nama, 'id');
+    });
+    return rankings.slice(0, 5).map(function (item, index) {
+      return { rank: index + 1, nama: item.nama, kelas: item.kelas, nilai: item.nilai, periode: item.periode };
+    });
+  }
+
   var SIATMA = {
     getStudentById: function (id) {
       return SIATMA_DATA.students.find(function (student) {
@@ -541,4 +682,6 @@
   window.SIATMA_WSM_WEIGHTS = WSM_WEIGHTS;
   window.SIATMA_DATA = SIATMA_DATA;
   window.SIATMA = SIATMA;
+  window.getRankingData = getRankingData;
+  window.SIATMA.validateParentAccess = validateParentAccess;
 })(window);
