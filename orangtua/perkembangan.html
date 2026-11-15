@@ -106,6 +106,29 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
           <h2 class="mb-4 text-lg font-semibold">Catatan Perkembangan</h2>
           <div id="development-timeline" class="relative ml-2 border-l border-slate-200 dark:border-slate-700"></div>
         </section>
+
+        <section id="apresiasi-section" class="mt-4 rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <div class="mb-5 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-semibold">Apresiasi Siswa</h2>
+              <p id="apresiasi-child-class" class="mt-1 text-sm text-text-muted dark:text-slate-400"></p>
+            </div>
+            <div>
+              <label for="apresiasi-period-filter" class="mb-1.5 block text-sm font-medium">Periode</label>
+              <select id="apresiasi-period-filter" class="min-w-40 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm">
+                <option value="semester">Semester</option>
+                <option value="tahunan">Tahunan</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div><h3 class="mb-3 font-semibold">Siswa Terajin</h3><div id="table-terajin"></div></div>
+            <div><h3 class="mb-3 font-semibold">Terlancar Membaca</h3><div id="table-membaca"></div></div>
+            <div><h3 class="mb-3 font-semibold">Tulisan Terbaik</h3><div id="table-menulis"></div></div>
+            <div><h3 class="mb-3 font-semibold">Nilai Ujian Tertinggi</h3><div id="table-ujian"></div></div>
+          </div>
+        </section>
+
               <footer class="mt-8 border-t border-slate-200 dark:border-slate-700 pt-4 pb-2">
           <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-text-muted dark:text-slate-400">
             <img src="../assets/logo-tk.png" alt="RA Al-Matin" class="h-6 w-auto" />
@@ -123,6 +146,7 @@ html.dark .hover\:bg-slate-50:hover{background-color:#334155!important}
     <script src="../js/toast.js"></script>
     <script src="../js/ui-helpers.js"></script>
     <script src="../js/layout.js"></script>
+    <script src="../js/apresiasi.js"></script>
 
     <script>
       (function (callback) {

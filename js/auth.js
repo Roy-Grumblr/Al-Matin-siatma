@@ -112,6 +112,11 @@
     return user;
   }
 
+  function validateParentAccess(userId, requestedClassId) {
+    return !!(window.SIATMA && window.SIATMA.validateParentAccess &&
+      window.SIATMA.validateParentAccess(userId, requestedClassId));
+  }
+
   function showLoginError(message) {
     var errorElement = document.getElementById('loginError');
 
@@ -169,6 +174,7 @@
     getCurrentUser: getCurrentUser,
     isLoggedIn: isLoggedIn,
     requireAuth: requireAuth,
+    validateParentAccess: validateParentAccess,
     getRedirectPath: getRedirectPath,
     handleLoginForm: handleLoginForm,
   };

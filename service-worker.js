@@ -1,7 +1,7 @@
 'use strict';
 
 // Naikkan versi setiap ada perubahan aset agar browser membangun cache baru.
-var CACHE_NAME = 'siatma-static-v13';
+var CACHE_NAME = 'siatma-static-v14';
 // Daftarkan file penting supaya halaman dan fitur utama tetap bisa dibuka saat offline.
 var STATIC_ASSETS = [
   './',

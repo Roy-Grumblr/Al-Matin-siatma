@@ -53,6 +53,49 @@
     }
   }
 
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+
+  function renderApresiasiTable(containerId, data, categoryTitle, period) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = '<p class="rounded-lg border border-slate-200 dark:border-slate-700 px-4 py-8 text-center text-sm text-text-muted">Belum ada data penilaian untuk periode ini.</p>';
+      return;
+    }
+
+    var isAttendance = String(categoryTitle || '').toLowerCase() === 'kehadiran';
+    var heading = isAttendance ? 'Nilai/Indikator (Kehadiran)' :
+      'Nilai/Indikator' + (categoryTitle ? ' (' + escapeHtml(categoryTitle) + ')' : '');
+    var rows = data.map(function (item) {
+      var rankClass = item.rank === 1 ? 'text-yellow-500 font-bold' :
+        item.rank === 2 ? 'text-slate-500 font-bold' :
+          item.rank === 3 ? 'text-amber-700 font-bold' : 'text-text';
+      var score = Number(item.nilai);
+      var formattedScore = Number.isFinite(score) ? score + (isAttendance ? '%' : '') : '-';
+      return '<tr class="border-t border-slate-100 dark:border-slate-700 transition hover:bg-slate-50 dark:hover:bg-slate-700/50">' +
+        '<td class="whitespace-nowrap px-4 py-3 ' + rankClass + '">' + escapeHtml(item.rank) + '</td>' +
+        '<td class="px-4 py-3 font-medium">' + escapeHtml(item.nama) + '</td>' +
+        '<td class="px-4 py-3">' + escapeHtml(item.kelas) + '</td>' +
+        '<td class="whitespace-nowrap px-4 py-3">' + escapeHtml(formattedScore) + '</td>' +
+        '<td class="whitespace-nowrap px-4 py-3">' + escapeHtml(item.periode || period) + '</td>' +
+        '</tr>';
+    }).join('');
+
+    container.innerHTML = '<div class="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">' +
+      '<table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700 text-left text-sm">' +
+      '<thead class="bg-slate-50 dark:bg-slate-700/60"><tr>' +
+      '<th scope="col" class="px-4 py-3 font-semibold">Peringkat</th>' +
+      '<th scope="col" class="px-4 py-3 font-semibold">Nama Siswa</th>' +
+      '<th scope="col" class="px-4 py-3 font-semibold">Kelas</th>' +
+      '<th scope="col" class="px-4 py-3 font-semibold">' + heading + '</th>' +
+      '<th scope="col" class="px-4 py-3 font-semibold">Periode</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
   // === FORMAT DATE ===
   // Format 'short' memakai nama bulan singkat, 'day' hanya nama hari, dan default menampilkan tanggal lengkap.
   function formatDate(dateStr, format) {
@@ -80,6 +123,8 @@
     loadingState: renderLoadingState,
     skeletonTable: renderSkeletonTable,
     confirm: confirmAction,
-    formatDate: formatDate
+    formatDate: formatDate,
+    renderApresiasiTable: renderApresiasiTable
   };
+  window.renderApresiasiTable = renderApresiasiTable;
 })(window);
